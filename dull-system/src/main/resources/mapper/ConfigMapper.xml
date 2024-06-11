@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dullfan.system.mappers.ConfigMapper">
+	<!--实体映射-->
+	<resultMap id="base_result_map" type="com.dullfan.system.domain.po.Config">
+		<!--参数主键-->
+		<id column="config_id" property="configId"/>
+		<!--参数名称-->
+		<result column="config_name" property="configName"/>
+		<!--参数键名-->
+		<result column="config_key" property="configKey"/>
+		<!--参数键值-->
+		<result column="config_value" property="configValue"/>
+		<!--系统内置（Y是 N否）-->
+		<result column="config_type" property="configType"/>
+		<!--创建者-->
+		<result column="create_by" property="createBy"/>
+		<!--创建时间-->
+		<result column="create_time" property="createTime"/>
+		<!--更新者-->
+		<result column="update_by" property="updateBy"/>
+		<!--更新时间-->
+		<result column="update_time" property="updateTime"/>
+		<!--备注-->
+		<result column="remark" property="remark"/>
+	</resultMap>
+	<!--通用查询列-->
+	<sql id="base_column_list">
+		config_id,config_name,config_key,config_value,config_type,create_by,create_time,update_by,update_time,remark
+	</sql>
+	<!--基础查询条件-->
+	<sql id="base_query_condition">
+		<if test="query.configId != null">
+			and config_id = #{query.configId}
+		</if>
+		<if test="query.configName != null and query.configName != ''">
+			and config_name = #{query.configName}
+		</if>
+		<if test="query.configKey != null and query.configKey != ''">
+			and config_key = #{query.configKey}
+		</if>
+		<if test="query.configValue != null and query.configValue != ''">
+			and config_value = #{query.configValue}
+		</if>
+		<if test="query.configType != null and query.configType != ''">
+			and config_type = #{query.configType}
+		</if>
+		<if test="query.createBy != null and query.createBy != ''">
+			and create_by = #{query.createBy}
+		</if>
+		<if test="query.createTime != null">
+			and create_time = #{query.createTime}
+		</if>
+		<if test="query.updateBy != null and query.updateBy != ''">
+			and update_by = #{query.updateBy}
+		</if>
+		<if test="query.updateTime != null">
+			and update_time = #{query.updateTime}
+		</if>
+		<if test="query.remark != null and query.remark != ''">
+			and remark = #{query.remark}
+		</if>
+	</sql>
+	<!--扩展查询条件-->
+	<sql id="base_query_condition_extend">
+		<if test="query.configNameFuzzy != null and query.configNameFuzzy != ''">
+			and config_name like concat('%', #{query.configNameFuzzy},'%') != ''
+		</if>
+		<if test="query.configKeyFuzzy != null and query.configKeyFuzzy != ''">
+			and config_key like concat('%', #{query.configKeyFuzzy},'%') != ''
+		</if>
+		<if test="query.configValueFuzzy != null and query.configValueFuzzy != ''">
+			and config_value like concat('%', #{query.configValueFuzzy},'%') != ''
+		</if>
+		<if test="query.configTypeFuzzy != null and query.configTypeFuzzy != ''">
+			and config_type like concat('%', #{query.configTypeFuzzy},'%') != ''
+		</if>
+		<if test="query.createByFuzzy != null and query.createByFuzzy != ''">
+			and create_by like concat('%', #{query.createByFuzzy},'%') != ''
+		</if>
+		<if test="query.createTimeStart != null and query.createTimeStart != ''">
+			<![CDATA[ and create_time >= str_to_date(#{query.createTimeStart}, '%Y-%m-%d') ]]>
+		</if>
+		<if test="query.createTimeEnd != null and query.createTimeEnd != ''">
+			<![CDATA[ and create_time < date_sub(str_to_date(#{query.createTimeEnd}, '%Y-%m-%d'), interval -1 day) ]]>
+		</if>
+		<if test="query.updateByFuzzy != null and query.updateByFuzzy != ''">
+			and update_by like concat('%', #{query.updateByFuzzy},'%') != ''
+		</if>
+		<if test="query.updateTimeStart != null and query.updateTimeStart != ''">
+			<![CDATA[ and update_time >= str_to_date(#{query.updateTimeStart}, '%Y-%m-%d') ]]>
+		</if>
+		<if test="query.updateTimeEnd != null and query.updateTimeEnd != ''">
+			<![CDATA[ and update_time < date_sub(str_to_date(#{query.updateTimeEnd}, '%Y-%m-%d'), interval -1 day) ]]>
+		</if>
+		<if test="query.remarkFuzzy != null and query.remarkFuzzy != ''">
+			and remark like concat('%', #{query.remarkFuzzy},'%') != ''
+		</if>
+	</sql>
+	<!--通用查询条件列-->
+	<sql id="query_condition">
+		<where>
+			<include refid="base_query_condition"/>
+			<include refid="base_query_condition_extend"/>
+		</where>
+	</sql>
+	<!--查询列表-->
+	<select id="selectList" resultMap="base_result_map">
+		SELECT <include refid="base_column_list"/> FROM sys_config <include refid="query_condition"/>
+		<if test="query.orderBy!=null"> order by ${query.orderBy} </if>
+		<if test="query.simplePage!=null"> limit ${query.simplePage.start},${query.simplePage.end} </if>
+	</select>
+	<!--查询数量-->
+	<select id="selectCount" resultType="java.lang.Integer">
+		select count(1) FROM sys_config
+		<include refid="query_condition"/>
+	</select>
+	<!--插入，匹配有值的字段-->
+	<insert id="insert" parameterType="com.dullfan.system.domain.po.Config">
+		<selectKey keyProperty="bean.configId" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO sys_config
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="bean.configId != null">
+				config_id,
+			</if>
+			<if test="bean.configName != null">
+				config_name,
+			</if>
+			<if test="bean.configKey != null">
+				config_key,
+			</if>
+			<if test="bean.configValue != null">
+				config_value,
+			</if>
+			<if test="bean.configType != null">
+				config_type,
+			</if>
+			<if test="bean.createBy != null">
+				create_by,
+			</if>
+			<if test="bean.createTime != null">
+				create_time,
+			</if>
+			<if test="bean.updateBy != null">
+				update_by,
+			</if>
+			<if test="bean.updateTime != null">
+				update_time,
+			</if>
+			<if test="bean.remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="bean.configId != null">
+				#{bean.configId},
+			</if>
+			<if test="bean.configName != null">
+				#{bean.configName},
+			</if>
+			<if test="bean.configKey != null">
+				#{bean.configKey},
+			</if>
+			<if test="bean.configValue != null">
+				#{bean.configValue},
+			</if>
+			<if test="bean.configType != null">
+				#{bean.configType},
+			</if>
+			<if test="bean.createBy != null">
+				#{bean.createBy},
+			</if>
+			<if test="bean.createTime != null">
+				#{bean.createTime},
+			</if>
+			<if test="bean.updateBy != null">
+				#{bean.updateBy},
+			</if>
+			<if test="bean.updateTime != null">
+				#{bean.updateTime},
+			</if>
+			<if test="bean.remark != null">
+				#{bean.remark},
+			</if>
+		</trim>
+	</insert>
+	<!--插入或者更新-->
+	<insert id="insertOrUpdate" parameterType="com.dullfan.system.domain.po.Config">
+		INSERT INTO sys_config
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="bean.configId != null">
+				config_id,
+			</if>
+			<if test="bean.configName != null">
+				config_name,
+			</if>
+			<if test="bean.configKey != null">
+				config_key,
+			</if>
+			<if test="bean.configValue != null">
+				config_value,
+			</if>
+			<if test="bean.configType != null">
+				config_type,
+			</if>
+			<if test="bean.createBy != null">
+				create_by,
+			</if>
+			<if test="bean.createTime != null">
+				create_time,
+			</if>
+			<if test="bean.updateBy != null">
+				update_by,
+			</if>
+			<if test="bean.updateTime != null">
+				update_time,
+			</if>
+			<if test="bean.remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="bean.configId != null">
+				#{bean.configId},
+			</if>
+			<if test="bean.configName != null">
+				#{bean.configName},
+			</if>
+			<if test="bean.configKey != null">
+				#{bean.configKey},
+			</if>
+			<if test="bean.configValue != null">
+				#{bean.configValue},
+			</if>
+			<if test="bean.configType != null">
+				#{bean.configType},
+			</if>
+			<if test="bean.createBy != null">
+				#{bean.createBy},
+			</if>
+			<if test="bean.createTime != null">
+				#{bean.createTime},
+			</if>
+			<if test="bean.updateBy != null">
+				#{bean.updateBy},
+			</if>
+			<if test="bean.updateTime != null">
+				#{bean.updateTime},
+			</if>
+			<if test="bean.remark != null">
+				#{bean.remark},
+			</if>
+		</trim>
+		on DUPLICATE key update
+		<trim prefix="" suffix="" suffixOverrides=",">
+			<if test="bean.configName != null">
+				config_name = VALUES(config_name),
+			</if>
+			<if test="bean.configValue != null">
+				config_value = VALUES(config_value),
+			</if>
+			<if test="bean.configType != null">
+				config_type = VALUES(config_type),
+			</if>
+			<if test="bean.createBy != null">
+				create_by = VALUES(create_by),
+			</if>
+			<if test="bean.createTime != null">
+				create_time = VALUES(create_time),
+			</if>
+			<if test="bean.updateBy != null">
+				update_by = VALUES(update_by),
+			</if>
+			<if test="bean.updateTime != null">
+				update_time = VALUES(update_time),
+			</if>
+			<if test="bean.remark != null">
+				remark = VALUES(remark),
+			</if>
+		</trim>
+	</insert>
+	<!--批量插入-->
+	<insert id="insertBatch" parameterType="com.dullfan.system.domain.po.Config">
+		INSERT INTO sys_config(config_name,config_key,config_value,config_type,create_by,create_time,update_by,update_time,remark)Values
+		<foreach collection="list" item="item" separator=",">
+			(#{item.configName},#{item.configKey},#{item.configValue},#{item.configType},#{item.createBy},#{item.createTime},#{item.updateBy},#{item.updateTime},#{item.remark})
+		</foreach>
+	</insert>
+	<!--批量插入或更新-->
+	<insert id="insertOrUpdateBatch" parameterType="com.dullfan.system.domain.po.Config">
+		INSERT INTO sys_config(config_name,config_key,config_value,config_type,create_by,create_time,update_by,update_time,remark)Values
+		<foreach collection="list" item="item" separator=",">
+			(#{item.configName},#{item.configKey},#{item.configValue},#{item.configType},#{item.createBy},#{item.createTime},#{item.updateBy},#{item.updateTime},#{item.remark})
+		</foreach>
+		on DUPLICATE key update
+		config_name = VALUES(config_name),config_key = VALUES(config_key),config_value = VALUES(config_value),config_type = VALUES(config_type),create_by = VALUES(create_by),create_time = VALUES(create_time),update_by = VALUES(update_by),update_time = VALUES(update_time),remark = VALUES(remark)
+	</insert>
+	<!--多条件修改-->
+	<update id="updateByParam" parameterType="com.dullfan.system.domain.po.Config">
+		 UPDATE sys_config
+ 		 <set> 
+			<if test="bean.configName != null">
+				 config_name = #{bean.configName},
+			</if>
+			<if test="bean.configKey != null">
+				 config_key = #{bean.configKey},
+			</if>
+			<if test="bean.configValue != null">
+				 config_value = #{bean.configValue},
+			</if>
+			<if test="bean.configType != null">
+				 config_type = #{bean.configType},
+			</if>
+			<if test="bean.createBy != null">
+				 create_by = #{bean.createBy},
+			</if>
+			<if test="bean.createTime != null">
+				 create_time = #{bean.createTime},
+			</if>
+			<if test="bean.updateBy != null">
+				 update_by = #{bean.updateBy},
+			</if>
+			<if test="bean.updateTime != null">
+				 update_time = #{bean.updateTime},
+			</if>
+			<if test="bean.remark != null">
+				 remark = #{bean.remark},
+			</if>
+ 		 </set>
+ 		 <include refid="query_condition" />
+	</update>
+	<!--多条件删除-->
+	<delete id="deleteByParam">
+		 delete from sys_config
+ 		 <include refid="query_condition" />
+	</delete>
+	<!--根据主键更新-->
+	<!--根据ConfigId查询-->
+	<select id="selectByConfigId" resultMap="base_result_map">
+		SELECT <include refid="base_column_list"/> FROM sys_config where config_id = #{configId}
+	</select>
+	<!--根据ConfigId删除-->
+	<delete id="deleteByConfigId">
+		DELETE FROM sys_config where config_id = #{configId}
+	</delete>
+	<!--根据ConfigId批量删除-->
+	<delete id="deleteByConfigIdBatch">
+	    delete from sys_config where config_id
+	    in
+	    <foreach collection="list" item="id" separator="," open="(" close=")">
+	        #{id}
+	    </foreach>
+	</delete>
+	<!--根据ConfigKey查询-->
+	<select id="selectByConfigKey" resultMap="base_result_map">
+		SELECT <include refid="base_column_list"/> FROM sys_config where config_key = #{configKey}
+	</select>
+	<!--根据ConfigKey删除-->
+	<delete id="deleteByConfigKey">
+		DELETE FROM sys_config where config_key = #{configKey}
+	</delete>
+</mapper>
