@@ -43,6 +43,7 @@ public class UserController extends ABaseController {
      */
     @PostMapping("/addBatch")
     public AjaxResult addBatch(@RequestBody List<User> listBean) {
+        isAdmin();
         Integer result = userService.addBatch(listBean);
         return determineOperationOutcome(result);
     }
@@ -59,8 +60,8 @@ public class UserController extends ABaseController {
      * 根据UserId修改对象
      */
     @PutMapping("/updateUserByUserId")
-    public AjaxResult updateUserByUserId(User bean, Long userId) {
-
+    public AjaxResult updateUserByUserId(@RequestBody User bean, @RequestParam Long userId) {
+        isAdminOrLoginUser(userId);
         Integer result = userService.updateUserByUserId(bean, userId);
         return determineOperationOutcome(result);
     }
@@ -70,6 +71,7 @@ public class UserController extends ABaseController {
      */
     @DeleteMapping("/deleteUserByUserId")
     public AjaxResult deleteUserByUserId(Long userId) {
+        isAdminOrLoginUser(userId);
         Integer result = userService.deleteUserByUserId(userId);
         return determineOperationOutcome(result);
     }
@@ -79,6 +81,7 @@ public class UserController extends ABaseController {
      */
     @DeleteMapping("/deleteUserByUserIdBatch")
     public AjaxResult deleteUserByUserIdBatch(@RequestParam List<Integer> list) {
+        isAdmin();
         Integer result = userService.deleteUserByUserIdBatch(list);
         return determineOperationOutcome(result);
     }
@@ -96,6 +99,8 @@ public class UserController extends ABaseController {
      */
     @PutMapping("/updateUserByUserName")
     public AjaxResult updateUserByUserName(User bean, String userName) {
+        User user = userService.selectUserByUserName(userName);
+        isAdminOrLoginUser(user.getUserId());
         Integer result = userService.updateUserByUserName(bean, userName);
         return determineOperationOutcome(result);
     }
@@ -105,6 +110,8 @@ public class UserController extends ABaseController {
      */
     @DeleteMapping("/deleteUserByUserName")
     public AjaxResult deleteUserByUserName(String userName) {
+        User user = userService.selectUserByUserName(userName);
+        isAdminOrLoginUser(user.getUserId());
         Integer result = userService.deleteUserByUserName(userName);
         return determineOperationOutcome(result);
     }
@@ -122,6 +129,8 @@ public class UserController extends ABaseController {
      */
     @PutMapping("/updateUserByPhoneNumber")
     public AjaxResult updateUserByPhoneNumber(User bean, String phoneNumber) {
+        User user = userService.selectUserByPhoneNumber(phoneNumber);
+        isAdminOrLoginUser(user.getUserId());
         Integer result = userService.updateUserByPhoneNumber(bean, phoneNumber);
         return determineOperationOutcome(result);
     }
@@ -131,6 +140,8 @@ public class UserController extends ABaseController {
      */
     @DeleteMapping("/deleteUserByPhoneNumber")
     public AjaxResult deleteUserByPhoneNumber(String phoneNumber) {
+        User user = userService.selectUserByPhoneNumber(phoneNumber);
+        isAdminOrLoginUser(user.getUserId());
         Integer result = userService.deleteUserByPhoneNumber(phoneNumber);
         return determineOperationOutcome(result);
     }
@@ -148,6 +159,8 @@ public class UserController extends ABaseController {
      */
     @PutMapping("/updateUserByEmail")
     public AjaxResult updateUserByEmail(User bean, String email) {
+        User user = userService.selectUserByEmail(email);
+        isAdminOrLoginUser(user.getUserId());
         Integer result = userService.updateUserByEmail(bean, email);
         return determineOperationOutcome(result);
     }
@@ -157,6 +170,8 @@ public class UserController extends ABaseController {
      */
     @DeleteMapping("/deleteUserByEmail")
     public AjaxResult deleteUserByEmail(String email) {
+        User user = userService.selectUserByEmail(email);
+        isAdminOrLoginUser(user.getUserId());
         Integer result = userService.deleteUserByEmail(email);
         return determineOperationOutcome(result);
     }

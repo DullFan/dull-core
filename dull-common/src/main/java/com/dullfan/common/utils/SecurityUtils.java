@@ -89,7 +89,6 @@ public class SecurityUtils {
      * @return 结果
      */
     public static boolean isAdmin(Long userId) {
-        System.out.println(DullConfig.getAvatarPath());
         return userId != null && 1L == userId;
     }
 

@@ -2,8 +2,10 @@ package com.dullfan.common.controller;
 
 
 import com.dullfan.common.domain.vo.AjaxResult;
+import com.dullfan.common.exception.ServiceException;
 import com.dullfan.common.utils.SecurityUtils;
-import nonapi.io.github.classgraph.utils.LogNode;
+
+import java.util.Objects;
 
 public class ABaseController {
     protected <T> AjaxResult success(T t) {
@@ -36,5 +38,15 @@ public class ABaseController {
 
     protected Long getUserId() {
         return SecurityUtils.getLoginUser().getUserId();
+    }
+
+    protected void isAdmin() {
+        if (!SecurityUtils.isAdmin(getUserId())) throw new ServiceException("该用户无法操作");
+    }
+
+    protected void isAdminOrLoginUser(Long userId) {
+        if(SecurityUtils.isAdmin(getUserId())) return;
+        if (!Objects.equals(getUserId(), userId))
+            throw new ServiceException("该用户无法操作");
     }
 }

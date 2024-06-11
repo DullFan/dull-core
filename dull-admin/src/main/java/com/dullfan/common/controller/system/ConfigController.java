@@ -2,6 +2,8 @@ package com.dullfan.common.controller.system;
 
 import com.dullfan.common.controller.ABaseController;
 import com.dullfan.common.domain.vo.AjaxResult;
+import com.dullfan.common.exception.ServiceException;
+import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.system.domain.po.Config;
 import com.dullfan.system.domain.query.ConfigQuery;
 import com.dullfan.system.service.ConfigService;
@@ -28,6 +30,7 @@ public class ConfigController extends ABaseController {
      */
     @PostMapping("/add")
     public AjaxResult add(@RequestBody Config bean) {
+        isAdmin();
         Integer result = configService.add(bean);
         return determineOperationOutcome(result);
     }
@@ -36,6 +39,7 @@ public class ConfigController extends ABaseController {
      */
     @PostMapping("/addBatch")
     public AjaxResult addBatch(@RequestBody List<Config> listBean) {
+        isAdmin();
         Integer result = configService.addBatch(listBean);
         return determineOperationOutcome(result);
     }
@@ -51,6 +55,7 @@ public class ConfigController extends ABaseController {
      */
     @PutMapping("/updateConfigByConfigId")
     public AjaxResult updateConfigByConfigId(@RequestBody Config bean,@RequestParam Integer configId) {
+        isAdmin();
         Integer result = configService.updateConfigByConfigId(bean,configId);
         return determineOperationOutcome(result);
     }
@@ -59,6 +64,7 @@ public class ConfigController extends ABaseController {
      */
     @DeleteMapping("/deleteConfigByConfigId")
     public AjaxResult deleteConfigByConfigId(@RequestParam Integer configId) {
+        isAdmin();
         Integer result = configService.deleteConfigByConfigId(configId);
         return determineOperationOutcome(result);
     }
@@ -67,6 +73,7 @@ public class ConfigController extends ABaseController {
      */
     @DeleteMapping("/deleteConfigByConfigIdBatch")
     public AjaxResult deleteConfigByConfigIdBatch(@RequestParam List<Integer> list) {
+        isAdmin();
         Integer result = configService.deleteConfigByConfigIdBatch(list);
         return determineOperationOutcome(result);
     }
@@ -82,6 +89,7 @@ public class ConfigController extends ABaseController {
      */
     @PutMapping("/updateConfigByConfigKey")
     public AjaxResult updateConfigByConfigKey(@RequestBody Config bean,@RequestParam String configKey) {
+        isAdmin();
         Integer result = configService.updateConfigByConfigKey(bean,configKey);
         return determineOperationOutcome(result);
     }
@@ -90,6 +98,7 @@ public class ConfigController extends ABaseController {
      */
     @DeleteMapping("/deleteConfigByConfigKey")
     public AjaxResult deleteConfigByConfigKey(@RequestParam String configKey) {
+        isAdmin();
         Integer result = configService.deleteConfigByConfigKey(configKey);
         return determineOperationOutcome(result);
     }
