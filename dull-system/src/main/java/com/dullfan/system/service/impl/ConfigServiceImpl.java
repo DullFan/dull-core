@@ -9,6 +9,8 @@ import com.dullfan.common.core.text.Convert;
 import com.dullfan.common.domain.query.SimplePage;
 import com.dullfan.common.domain.vo.PaginationResultVo;
 import com.dullfan.common.enums.PageSizeEnum;
+import com.dullfan.common.utils.DateUtils;
+import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.common.utils.StringTools;
 import com.dullfan.system.domain.po.Config;
 import com.dullfan.system.domain.query.ConfigQuery;
@@ -147,6 +149,8 @@ public class ConfigServiceImpl implements ConfigService {
         if (!StringTools.equals(config.getConfigKey(), bean.getConfigKey())) {
             redisCache.deleteObject(getCacheKey(config.getConfigKey()));
         }
+        bean.setUpdateBy(SecurityUtils.getUserId().toString());
+        bean.setUpdateTime(DateUtils.getNowDate());
         Integer row = this.configMapper.updateByParam(bean, configQuery);
         if (row > 0) {
             redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigKey());
@@ -214,6 +218,8 @@ public class ConfigServiceImpl implements ConfigService {
     public Integer updateConfigByConfigKey(Config bean, String configKey) {
         ConfigQuery configQuery = new ConfigQuery();
         configQuery.setConfigKey(configKey);
+        bean.setUpdateBy(SecurityUtils.getUserId().toString());
+        bean.setUpdateTime(DateUtils.getNowDate());
         Integer row = this.configMapper.updateByParam(bean, configQuery);
         if (row > 0) {
             redisCache.setCacheObject(getCacheKey(configKey), bean.getConfigValue());

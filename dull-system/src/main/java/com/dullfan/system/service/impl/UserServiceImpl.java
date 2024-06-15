@@ -8,6 +8,8 @@ import com.dullfan.common.domain.vo.PaginationResultVo;
 import com.dullfan.common.enums.PageSizeEnum;
 import com.dullfan.common.domain.po.User;
 import com.dullfan.common.domain.query.UserQuery;
+import com.dullfan.common.utils.DateUtils;
+import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.common.utils.StringTools;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -88,6 +90,15 @@ public class UserServiceImpl implements UserService {
     public Integer updateUserByUserId(User bean, Long userId) {
         UserQuery userQuery = new UserQuery();
         userQuery.setUserId(userId);
+        bean.setUpdateBy(SecurityUtils.getUserId().toString());
+        bean.setUpdateTime(DateUtils.getNowDate());
+        return this.userMapper.updateByParam(bean, userQuery);
+    }
+
+    @Override
+    public Integer updateUser(User bean) {
+        UserQuery userQuery = new UserQuery();
+        userQuery.setUserId(bean.getUserId());
         return this.userMapper.updateByParam(bean, userQuery);
     }
 
@@ -125,7 +136,8 @@ public class UserServiceImpl implements UserService {
     public Integer updateUserByUserName(User bean, String userName) {
         UserQuery userQuery = new UserQuery();
         userQuery.setUserName(userName);
-
+        bean.setUpdateBy(SecurityUtils.getUserId().toString());
+        bean.setUpdateTime(DateUtils.getNowDate());
         return this.userMapper.updateByParam(bean, userQuery);
     }
 
@@ -152,7 +164,8 @@ public class UserServiceImpl implements UserService {
     public Integer updateUserByPhoneNumber(User bean, String phoneNumber) {
         UserQuery userQuery = new UserQuery();
         userQuery.setPhoneNumber(phoneNumber);
-
+        bean.setUpdateBy(SecurityUtils.getUserId().toString());
+        bean.setUpdateTime(DateUtils.getNowDate());
         return this.userMapper.updateByParam(bean, userQuery);
     }
 
@@ -179,7 +192,8 @@ public class UserServiceImpl implements UserService {
     public Integer updateUserByEmail(User bean, String email) {
         UserQuery userQuery = new UserQuery();
         userQuery.setEmail(email);
-
+        bean.setUpdateBy(SecurityUtils.getUserId().toString());
+        bean.setUpdateTime(DateUtils.getNowDate());
         return this.userMapper.updateByParam(bean, userQuery);
     }
 

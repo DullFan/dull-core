@@ -34,6 +34,11 @@ public interface UserService{
 	 * 根据UserId修改
 	 */
 	Integer updateUserByUserId(User bean,Long userId);
+
+	/**
+	 * 根据User修改
+	 */
+	Integer updateUser(User bean);
 	/**
 	 * 根据UserId删除
 	 */

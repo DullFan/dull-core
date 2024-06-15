@@ -70,8 +70,10 @@ public class LoginService {
             AuthenticationContextHolder.clearContext();
         }
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        String token = tokenService.createToken(loginUser);
+
         recordLoginInfo(loginUser.getUserId());
-        return tokenService.createToken(loginUser);
+        return token;
     }
 
     /**
@@ -127,6 +129,6 @@ public class LoginService {
         user.setUserId(userId);
         user.setLoginIp(IpUtils.getIpAddr());
         user.setLoginDate(DateUtils.getNowDate());
-        userService.updateUserByUserId(user,userId);
+        userService.updateUser(user);
     }
 }
