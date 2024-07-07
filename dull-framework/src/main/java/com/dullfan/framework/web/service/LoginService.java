@@ -46,7 +46,6 @@ public class LoginService {
     @Resource
     private ConfigService configService;
 
-
     /**
      * 登录验证
      *

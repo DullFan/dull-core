@@ -1,7 +1,5 @@
 package com.dullfan.common.domain.query;
 
-import com.dullfan.common.domain.query.SimplePage;
-
 public class BaseParam {
 	private SimplePage simplePage;
 	private Integer pageNum;

@@ -4,7 +4,7 @@ import com.dullfan.common.config.DullConfig;
 import com.dullfan.common.constant.CacheConstants;
 import com.dullfan.common.constant.Constants;
 import com.dullfan.common.core.redis.RedisCache;
-import com.dullfan.common.domain.vo.AjaxResult;
+import com.dullfan.common.domain.vo.Result;
 import com.dullfan.common.utils.sign.Base64;
 import com.dullfan.common.utils.uuid.IdUtils;
 import com.dullfan.system.service.ConfigService;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -44,8 +43,8 @@ public class CaptchaController {
      * 生成验证码
      */
     @GetMapping("/captchaImage")
-    public AjaxResult getCode() throws IOException {
-        AjaxResult ajax = AjaxResult.success();
+    public Result getCode() throws IOException {
+        Result ajax = Result.success();
         boolean captchaEnabled = configService.selectCaptchaEnabled();
         ajax.put("captchaEnabled", captchaEnabled);
         if (!captchaEnabled) {
@@ -76,7 +75,7 @@ public class CaptchaController {
         try {
             ImageIO.write(image, "jpg", os);
         } catch (IOException e) {
-            return AjaxResult.error(e.getMessage());
+            return Result.error(e.getMessage());
         }
         ajax.put("uuid", uuid);
         ajax.put("img", Base64.encode(os.toByteArray()));

@@ -2,7 +2,7 @@ package com.dullfan.common.controller.common;
 
 import com.dullfan.common.config.DullConfig;
 import com.dullfan.common.constant.Constants;
-import com.dullfan.common.domain.vo.AjaxResult;
+import com.dullfan.common.domain.vo.Result;
 import com.dullfan.common.utils.StringTools;
 import com.dullfan.common.utils.file.FileUploadUtils;
 import com.dullfan.common.utils.file.FileUtils;
@@ -63,21 +63,21 @@ public class CommonController {
      * 通用上传请求（单个）
      */
     @PostMapping("/upload")
-    public AjaxResult uploadFile(MultipartFile file) {
+    public Result uploadFile(MultipartFile file) {
         try {
             // 上传文件路径
             String filePath = DullConfig.getUploadPath();
             // 上传并返回新文件名称
             String fileName = FileUploadUtils.upload(filePath, file);
             String url = serverConfig.getUrl() + fileName;
-            AjaxResult ajax = AjaxResult.success();
+            Result ajax = Result.success();
             ajax.put("url", url);
             ajax.put("fileName", fileName);
             ajax.put("newFileName", FileUtils.getName(fileName));
             ajax.put("originalFilename", file.getOriginalFilename());
             return ajax;
         } catch (Exception e) {
-            return AjaxResult.error(e.getMessage());
+            return Result.error(e.getMessage());
         }
     }
 
@@ -85,7 +85,7 @@ public class CommonController {
      * 通用上传请求（多个）
      */
     @PostMapping("/uploads")
-    public AjaxResult uploadFiles(List<MultipartFile> files) {
+    public Result uploadFiles(List<MultipartFile> files) {
         try {
             // 上传文件路径
             String filePath = DullConfig.getUploadPath();
@@ -102,14 +102,14 @@ public class CommonController {
                 newFileNames.add(FileUtils.getName(fileName));
                 originalFilenames.add(file.getOriginalFilename());
             }
-            AjaxResult ajax = AjaxResult.success();
+            Result ajax = Result.success();
             ajax.put("urls", StringUtils.join(urls, FILE_DELIMETER));
             ajax.put("fileNames", StringUtils.join(fileNames, FILE_DELIMETER));
             ajax.put("newFileNames", StringUtils.join(newFileNames, FILE_DELIMETER));
             ajax.put("originalFilenames", StringUtils.join(originalFilenames, FILE_DELIMETER));
             return ajax;
         } catch (Exception e) {
-            return AjaxResult.error(e.getMessage());
+            return Result.error(e.getMessage());
         }
     }
 
@@ -139,7 +139,7 @@ public class CommonController {
 
     @Operation(summary = "删除单个文件")
     @DeleteMapping("/deleteFile")
-    public AjaxResult deleteFile(@RequestParam("fileUrl") String fileUrl) {
+    public Result deleteFile(@RequestParam("fileUrl") String fileUrl) {
         String replace = DullConfig.getProfile().replace("/", "\\");
         String url = fileUrl.replace("/profile", "");
         String filePath = (replace + url).replace("/", "\\");
@@ -147,18 +147,18 @@ public class CommonController {
         try {
             if (file.exists()) {
                 file.delete();
-                return AjaxResult.success("删除成功");
+                return Result.success("删除成功");
             } else {
-                return AjaxResult.error("文件不存在");
+                return Result.error("文件不存在");
             }
         } catch (Exception e) {
-            return AjaxResult.error(e.getMessage());
+            return Result.error(e.getMessage());
         }
     }
 
     @Operation(summary = "删除多个文件")
     @DeleteMapping("/deleteFiles")
-    public AjaxResult deleteFiles(@RequestParam("fileUrls") List<String> fileUrls) {
+    public Result deleteFiles(@RequestParam("fileUrls") List<String> fileUrls) {
         String replace = DullConfig.getProfile().replace("/", "\\");
         for (String fileUrl : fileUrls) {
             String url = fileUrl.replace("/profile", "");
@@ -168,12 +168,12 @@ public class CommonController {
                 if (file.exists()) {
                     file.delete();
                 } else {
-                    return AjaxResult.error("文件不存在");
+                    return Result.error("文件不存在");
                 }
             } catch (Exception e) {
-                return AjaxResult.error(e.getMessage());
+                return Result.error(e.getMessage());
             }
         }
-        return AjaxResult.success("删除成功");
+        return Result.success("删除成功");
     }
 }

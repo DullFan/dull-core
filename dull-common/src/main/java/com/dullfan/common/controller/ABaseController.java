@@ -1,34 +1,34 @@
 package com.dullfan.common.controller;
 
 
-import com.dullfan.common.domain.vo.AjaxResult;
+import com.dullfan.common.domain.vo.Result;
 import com.dullfan.common.exception.ServiceException;
 import com.dullfan.common.utils.SecurityUtils;
 
 import java.util.Objects;
 
 public class ABaseController {
-    protected <T> AjaxResult success(T t) {
-        return AjaxResult.success(t);
+    protected <T> Result success(T t) {
+        return Result.success(t);
     }
 
-    protected AjaxResult success() {
-        return AjaxResult.success();
+    protected Result success() {
+        return Result.success();
     }
 
-    protected AjaxResult error(RuntimeException e) {
-        return AjaxResult.error(e.getMessage());
+    protected Result error(RuntimeException e) {
+        return Result.error(e.getMessage());
     }
 
-    protected AjaxResult error(String t) {
-        return AjaxResult.error(t);
+    protected Result error(String t) {
+        return Result.error(t);
     }
 
-    protected AjaxResult error() {
-        return AjaxResult.error();
+    protected Result error() {
+        return Result.error();
     }
 
-    protected AjaxResult determineOperationOutcome(Integer result) {
+    protected Result determineOperationOutcome(Integer result) {
         if (result > 0) {
             return success(null);
         } else {

@@ -2,7 +2,7 @@ package com.dullfan.common.controller.system;
 
 import com.dullfan.common.controller.ABaseController;
 import com.dullfan.common.domain.RegisterBody;
-import com.dullfan.common.domain.vo.AjaxResult;
+import com.dullfan.common.domain.vo.Result;
 import com.dullfan.common.utils.StringTools;
 import com.dullfan.framework.web.service.RegisterService;
 import com.dullfan.system.service.ConfigService;
@@ -24,7 +24,7 @@ public class RegisterController extends ABaseController {
     private ConfigService configService;
 
     @PostMapping("/register")
-    public AjaxResult register(@RequestBody RegisterBody user) {
+    public Result register(@RequestBody RegisterBody user) {
         if (!("true".equals(configService.selectConfigByConfigKey("sys.account.registerUser")))) {
             return error("当前系统没有开启注册功能！");
         }

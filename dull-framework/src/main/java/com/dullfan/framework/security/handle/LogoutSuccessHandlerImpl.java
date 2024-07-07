@@ -1,9 +1,8 @@
 package com.dullfan.framework.security.handle;
 
 import com.alibaba.fastjson2.JSON;
-import com.dullfan.common.constant.Constants;
 import com.dullfan.common.domain.po.LoginUser;
-import com.dullfan.common.domain.vo.AjaxResult;
+import com.dullfan.common.domain.vo.Result;
 import com.dullfan.common.utils.ServletUtils;
 import com.dullfan.common.utils.StringTools;
 import com.dullfan.framework.web.service.TokenService;
@@ -36,6 +35,6 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
             // 删除用户缓存记录
             tokenService.delLoginUser(loginUser.getToken());
         }
-        ServletUtils.renderString(response, JSON.toJSONString(AjaxResult.success("退出成功")));
+        ServletUtils.renderString(response, JSON.toJSONString(Result.success("退出成功")));
     }
 }

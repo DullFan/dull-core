@@ -3,7 +3,7 @@ package com.dullfan.framework.security.handle;
 
 import com.alibaba.fastjson2.JSON;
 import com.dullfan.common.constant.HttpStatus;
-import com.dullfan.common.domain.vo.AjaxResult;
+import com.dullfan.common.domain.vo.Result;
 import com.dullfan.common.utils.ServletUtils;
 import com.dullfan.common.utils.StringTools;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +27,6 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
         int code = HttpStatus.UNAUTHORIZED;
         String msg = StringTools.format("请求访问：{}，认证失败，无法访问系统资源", request.getRequestURI());
-        ServletUtils.renderString(response, JSON.toJSONString(AjaxResult.error(code, msg)));
+        ServletUtils.renderString(response, JSON.toJSONString(Result.error(code, msg)));
     }
 }

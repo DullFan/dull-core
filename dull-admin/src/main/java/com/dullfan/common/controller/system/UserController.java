@@ -3,8 +3,7 @@ package com.dullfan.common.controller.system;
 import com.dullfan.common.controller.ABaseController;
 import com.dullfan.common.domain.po.User;
 import com.dullfan.common.domain.query.UserQuery;
-import com.dullfan.common.domain.vo.AjaxResult;
-import com.dullfan.common.utils.SecurityUtils;
+import com.dullfan.common.domain.vo.Result;
 import com.dullfan.system.service.UserService;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public class UserController extends ABaseController {
      * 根据条件分页查询
      */
     @GetMapping("/loadDataList")
-    public AjaxResult loadDataList(UserQuery param) {
+    public Result loadDataList(UserQuery param) {
         return success(userService.selectListByPage(param));
     }
 
@@ -33,7 +32,7 @@ public class UserController extends ABaseController {
      * 新增
      */
     @PostMapping("/add")
-    public AjaxResult add(@RequestBody User bean) {
+    public Result add(@RequestBody User bean) {
         Integer result = userService.add(bean);
         return determineOperationOutcome(result);
     }
@@ -42,7 +41,7 @@ public class UserController extends ABaseController {
      * 批量新增
      */
     @PostMapping("/addBatch")
-    public AjaxResult addBatch(@RequestBody List<User> listBean) {
+    public Result addBatch(@RequestBody List<User> listBean) {
         isAdmin();
         Integer result = userService.addBatch(listBean);
         return determineOperationOutcome(result);
@@ -52,7 +51,7 @@ public class UserController extends ABaseController {
      * 根据UserId查询对象
      */
     @GetMapping("/selectUserByUserId")
-    public AjaxResult selectUserByUserId(Long userId) {
+    public Result selectUserByUserId(Long userId) {
         return success(userService.selectUserByUserId(userId));
     }
 
@@ -60,7 +59,7 @@ public class UserController extends ABaseController {
      * 根据UserId修改对象
      */
     @PutMapping("/updateUserByUserId")
-    public AjaxResult updateUserByUserId(@RequestBody User bean, @RequestParam Long userId) {
+    public Result updateUserByUserId(@RequestBody User bean, @RequestParam Long userId) {
         isAdminOrLoginUser(userId);
         Integer result = userService.updateUserByUserId(bean, userId);
         return determineOperationOutcome(result);
@@ -70,7 +69,7 @@ public class UserController extends ABaseController {
      * 根据UserId删除
      */
     @DeleteMapping("/deleteUserByUserId")
-    public AjaxResult deleteUserByUserId(Long userId) {
+    public Result deleteUserByUserId(Long userId) {
         isAdminOrLoginUser(userId);
         Integer result = userService.deleteUserByUserId(userId);
         return determineOperationOutcome(result);
@@ -80,7 +79,7 @@ public class UserController extends ABaseController {
      * 根据UserId批量删除
      */
     @DeleteMapping("/deleteUserByUserIdBatch")
-    public AjaxResult deleteUserByUserIdBatch(@RequestParam List<Integer> list) {
+    public Result deleteUserByUserIdBatch(@RequestParam List<Integer> list) {
         isAdmin();
         Integer result = userService.deleteUserByUserIdBatch(list);
         return determineOperationOutcome(result);
@@ -90,7 +89,7 @@ public class UserController extends ABaseController {
      * 根据UserName查询对象
      */
     @GetMapping("/selectUserByUserName")
-    public AjaxResult selectUserByUserName(String userName) {
+    public Result selectUserByUserName(String userName) {
         return success(userService.selectUserByUserName(userName));
     }
 
@@ -98,7 +97,7 @@ public class UserController extends ABaseController {
      * 根据UserName修改对象
      */
     @PutMapping("/updateUserByUserName")
-    public AjaxResult updateUserByUserName(User bean, String userName) {
+    public Result updateUserByUserName(User bean, String userName) {
         User user = userService.selectUserByUserName(userName);
         isAdminOrLoginUser(user.getUserId());
         Integer result = userService.updateUserByUserName(bean, userName);
@@ -109,7 +108,7 @@ public class UserController extends ABaseController {
      * 根据UserName删除
      */
     @DeleteMapping("/deleteUserByUserName")
-    public AjaxResult deleteUserByUserName(String userName) {
+    public Result deleteUserByUserName(String userName) {
         User user = userService.selectUserByUserName(userName);
         isAdminOrLoginUser(user.getUserId());
         Integer result = userService.deleteUserByUserName(userName);
@@ -120,7 +119,7 @@ public class UserController extends ABaseController {
      * 根据PhoneNumber查询对象
      */
     @GetMapping("/selectUserByPhoneNumber")
-    public AjaxResult selectUserByPhoneNumber(String phoneNumber) {
+    public Result selectUserByPhoneNumber(String phoneNumber) {
         return success(userService.selectUserByPhoneNumber(phoneNumber));
     }
 
@@ -128,7 +127,7 @@ public class UserController extends ABaseController {
      * 根据PhoneNumber修改对象
      */
     @PutMapping("/updateUserByPhoneNumber")
-    public AjaxResult updateUserByPhoneNumber(User bean, String phoneNumber) {
+    public Result updateUserByPhoneNumber(User bean, String phoneNumber) {
         User user = userService.selectUserByPhoneNumber(phoneNumber);
         isAdminOrLoginUser(user.getUserId());
         Integer result = userService.updateUserByPhoneNumber(bean, phoneNumber);
@@ -139,7 +138,7 @@ public class UserController extends ABaseController {
      * 根据PhoneNumber删除
      */
     @DeleteMapping("/deleteUserByPhoneNumber")
-    public AjaxResult deleteUserByPhoneNumber(String phoneNumber) {
+    public Result deleteUserByPhoneNumber(String phoneNumber) {
         User user = userService.selectUserByPhoneNumber(phoneNumber);
         isAdminOrLoginUser(user.getUserId());
         Integer result = userService.deleteUserByPhoneNumber(phoneNumber);
@@ -150,7 +149,7 @@ public class UserController extends ABaseController {
      * 根据Email查询对象
      */
     @GetMapping("/selectUserByEmail")
-    public AjaxResult selectUserByEmail(String email) {
+    public Result selectUserByEmail(String email) {
         return success(userService.selectUserByEmail(email));
     }
 
@@ -158,7 +157,7 @@ public class UserController extends ABaseController {
      * 根据Email修改对象
      */
     @PutMapping("/updateUserByEmail")
-    public AjaxResult updateUserByEmail(User bean, String email) {
+    public Result updateUserByEmail(User bean, String email) {
         User user = userService.selectUserByEmail(email);
         isAdminOrLoginUser(user.getUserId());
         Integer result = userService.updateUserByEmail(bean, email);
@@ -169,7 +168,7 @@ public class UserController extends ABaseController {
      * 根据Email删除
      */
     @DeleteMapping("/deleteUserByEmail")
-    public AjaxResult deleteUserByEmail(String email) {
+    public Result deleteUserByEmail(String email) {
         User user = userService.selectUserByEmail(email);
         isAdminOrLoginUser(user.getUserId());
         Integer result = userService.deleteUserByEmail(email);
