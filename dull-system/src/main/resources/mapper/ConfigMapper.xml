@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dullfan.system.mappers.ConfigMapper">
 	<!--实体映射-->
-	<resultMap id="base_result_map" type="com.dullfan.system.domain.po.Config">
+	<resultMap id="base_result_map" type="com.dullfan.system.entity.po.Config">
 		<!--参数主键-->
 		<id column="config_id" property="configId"/>
 		<!--参数名称-->
@@ -117,7 +117,7 @@
 		<include refid="query_condition"/>
 	</select>
 	<!--插入，匹配有值的字段-->
-	<insert id="insert" parameterType="com.dullfan.system.domain.po.Config">
+	<insert id="insert" parameterType="com.dullfan.system.entity.po.Config">
 		<selectKey keyProperty="bean.configId" resultType="Integer" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -188,7 +188,7 @@
 		</trim>
 	</insert>
 	<!--插入或者更新-->
-	<insert id="insertOrUpdate" parameterType="com.dullfan.system.domain.po.Config">
+	<insert id="insertOrUpdate" parameterType="com.dullfan.system.entity.po.Config">
 		INSERT INTO sys_config
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="bean.configId != null">
@@ -283,14 +283,14 @@
 		</trim>
 	</insert>
 	<!--批量插入-->
-	<insert id="insertBatch" parameterType="com.dullfan.system.domain.po.Config">
+	<insert id="insertBatch" parameterType="com.dullfan.system.entity.po.Config">
 		INSERT INTO sys_config(config_name,config_key,config_value,config_type,create_by,create_time,update_by,update_time,remark)Values
 		<foreach collection="list" item="item" separator=",">
 			(#{item.configName},#{item.configKey},#{item.configValue},#{item.configType},#{item.createBy},#{item.createTime},#{item.updateBy},#{item.updateTime},#{item.remark})
 		</foreach>
 	</insert>
 	<!--批量插入或更新-->
-	<insert id="insertOrUpdateBatch" parameterType="com.dullfan.system.domain.po.Config">
+	<insert id="insertOrUpdateBatch" parameterType="com.dullfan.system.entity.po.Config">
 		INSERT INTO sys_config(config_name,config_key,config_value,config_type,create_by,create_time,update_by,update_time,remark)Values
 		<foreach collection="list" item="item" separator=",">
 			(#{item.configName},#{item.configKey},#{item.configValue},#{item.configType},#{item.createBy},#{item.createTime},#{item.updateBy},#{item.updateTime},#{item.remark})
@@ -299,7 +299,7 @@
 		config_name = VALUES(config_name),config_key = VALUES(config_key),config_value = VALUES(config_value),config_type = VALUES(config_type),create_by = VALUES(create_by),create_time = VALUES(create_time),update_by = VALUES(update_by),update_time = VALUES(update_time),remark = VALUES(remark)
 	</insert>
 	<!--多条件修改-->
-	<update id="updateByParam" parameterType="com.dullfan.system.domain.po.Config">
+	<update id="updateByParam" parameterType="com.dullfan.system.entity.po.Config">
 		 UPDATE sys_config
  		 <set> 
 			<if test="bean.configName != null">

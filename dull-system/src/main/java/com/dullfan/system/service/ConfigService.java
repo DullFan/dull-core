@@ -1,8 +1,8 @@
 package com.dullfan.system.service;
 
 import com.dullfan.common.domain.vo.PaginationResultVo;
-import com.dullfan.system.domain.po.Config;
-import com.dullfan.system.domain.query.ConfigQuery;
+import com.dullfan.system.entity.po.Config;
+import com.dullfan.system.entity.query.ConfigQuery;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.dullfan.system.domain.query;
+package com.dullfan.system.entity.query;
 
 
 import com.dullfan.common.domain.query.BaseParam;

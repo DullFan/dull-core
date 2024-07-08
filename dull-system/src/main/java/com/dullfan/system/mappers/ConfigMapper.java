@@ -1,7 +1,7 @@
 package com.dullfan.system.mappers;
 
-import com.dullfan.system.domain.po.Config;
-import com.dullfan.system.domain.query.ConfigQuery;
+import com.dullfan.system.entity.po.Config;
+import com.dullfan.system.entity.query.ConfigQuery;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;

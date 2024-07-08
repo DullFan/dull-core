@@ -12,14 +12,13 @@ import com.dullfan.common.enums.PageSizeEnum;
 import com.dullfan.common.utils.DateUtils;
 import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.common.utils.StringTools;
-import com.dullfan.system.domain.po.Config;
-import com.dullfan.system.domain.query.ConfigQuery;
+import com.dullfan.system.entity.po.Config;
+import com.dullfan.system.entity.query.ConfigQuery;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.dullfan.system.mappers.ConfigMapper;
 import com.dullfan.system.service.ConfigService;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 参数配置表 业务接口实现

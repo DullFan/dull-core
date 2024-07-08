@@ -18,7 +18,6 @@
         <module>dull-admin</module>
         <module>dull-common</module>
         <module>dull-framework</module>
-        <module>dull-quartz</module>
         <module>dull-system</module>
     </modules>
     <properties>
