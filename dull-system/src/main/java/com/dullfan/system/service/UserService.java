@@ -1,7 +1,7 @@
 package com.dullfan.system.service;
-import com.dullfan.common.domain.vo.PaginationResultVo;
-import com.dullfan.common.domain.po.User;
-import com.dullfan.common.domain.query.UserQuery;
+import com.dullfan.common.entity.vo.PaginationResultVo;
+import com.dullfan.common.entity.po.User;
+import com.dullfan.common.entity.query.UserQuery;
 
 import java.util.List;
 public interface UserService{

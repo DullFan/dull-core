@@ -1,7 +1,7 @@
 package com.dullfan.common.controller;
 
 
-import com.dullfan.common.domain.vo.Result;
+import com.dullfan.common.entity.vo.Result;
 import com.dullfan.common.exception.ServiceException;
 import com.dullfan.common.utils.SecurityUtils;
 

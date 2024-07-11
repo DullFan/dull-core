@@ -1,7 +1,7 @@
 package com.dullfan.system.entity.query;
 
 
-import com.dullfan.common.domain.query.BaseParam;
+import com.dullfan.common.entity.query.BaseParam;
 
 /**
  * 参数配置表

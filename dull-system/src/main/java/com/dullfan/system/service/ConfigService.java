@@ -1,6 +1,6 @@
 package com.dullfan.system.service;
 
-import com.dullfan.common.domain.vo.PaginationResultVo;
+import com.dullfan.common.entity.vo.PaginationResultVo;
 import com.dullfan.system.entity.po.Config;
 import com.dullfan.system.entity.query.ConfigQuery;
 

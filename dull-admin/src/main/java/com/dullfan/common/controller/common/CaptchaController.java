@@ -4,7 +4,7 @@ import com.dullfan.common.config.DullConfig;
 import com.dullfan.common.constant.CacheConstants;
 import com.dullfan.common.constant.Constants;
 import com.dullfan.common.core.redis.RedisCache;
-import com.dullfan.common.domain.vo.Result;
+import com.dullfan.common.entity.vo.Result;
 import com.dullfan.common.utils.sign.Base64;
 import com.dullfan.common.utils.uuid.IdUtils;
 import com.dullfan.system.service.ConfigService;

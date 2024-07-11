@@ -1,6 +1,6 @@
 package com.dullfan.framework.web.exception;
 
-import com.dullfan.common.domain.vo.Result;
+import com.dullfan.common.entity.vo.Result;
 import com.dullfan.common.exception.ServiceException;
 import com.dullfan.common.utils.StringTools;
 import lombok.extern.slf4j.Slf4j;

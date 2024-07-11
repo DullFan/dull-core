@@ -1,8 +1,8 @@
 package com.dullfan.framework.security.handle;
 
 import com.alibaba.fastjson2.JSON;
-import com.dullfan.common.domain.po.LoginUser;
-import com.dullfan.common.domain.vo.Result;
+import com.dullfan.common.entity.po.LoginUser;
+import com.dullfan.common.entity.vo.Result;
 import com.dullfan.common.utils.ServletUtils;
 import com.dullfan.common.utils.StringTools;
 import com.dullfan.framework.web.service.TokenService;

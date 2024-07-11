@@ -3,7 +3,7 @@ package com.dullfan.framework.web.service;
 import com.dullfan.common.constant.CacheConstants;
 import com.dullfan.common.constant.Constants;
 import com.dullfan.common.core.redis.RedisCache;
-import com.dullfan.common.domain.po.LoginUser;
+import com.dullfan.common.entity.po.LoginUser;
 import com.dullfan.common.utils.ServletUtils;
 import com.dullfan.common.utils.StringTools;
 import com.dullfan.common.utils.ip.AddressUtils;
@@ -11,9 +11,7 @@ import com.dullfan.common.utils.ip.IpUtils;
 import com.dullfan.common.utils.uuid.IdUtils;
 import eu.bitwalker.useragentutils.UserAgent;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
@@ -23,14 +21,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import java.nio.charset.StandardCharsets;
-import java.security.SecureRandom;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import static java.security.KeyRep.Type.SECRET;
 
 /**
  * token验证处理

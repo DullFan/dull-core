@@ -1,7 +1,7 @@
 package com.dullfan.system.mappers;
 
-import com.dullfan.common.domain.po.User;
-import com.dullfan.common.domain.query.UserQuery;
+import com.dullfan.common.entity.po.User;
+import com.dullfan.common.entity.query.UserQuery;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;

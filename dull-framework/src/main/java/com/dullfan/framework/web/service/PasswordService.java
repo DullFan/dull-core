@@ -1,15 +1,13 @@
 package com.dullfan.framework.web.service;
 
 import com.dullfan.common.constant.CacheConstants;
-import com.dullfan.common.constant.Constants;
 import com.dullfan.common.core.redis.RedisCache;
-import com.dullfan.common.domain.po.User;
+import com.dullfan.common.entity.po.User;
 import com.dullfan.common.exception.ServiceException;
 import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.common.utils.StringTools;
 import com.dullfan.framework.security.context.AuthenticationContextHolder;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;

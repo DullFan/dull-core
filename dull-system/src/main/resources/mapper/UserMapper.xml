@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dullfan.system.mappers.UserMapper">
 	<!--实体映射-->
-	<resultMap id="base_result_map" type="com.dullfan.common.domain.po.User">
+	<resultMap id="base_result_map" type="com.dullfan.common.entity.po.User">
 		<!--用户ID-->
 		<id column="user_id" property="userId"/>
 		<!--用户账号-->
@@ -189,7 +189,7 @@
 		<include refid="query_condition"/>
 	</select>
 	<!--插入，匹配有值的字段-->
-	<insert id="insert" parameterType="com.dullfan.common.domain.po.User">
+	<insert id="insert" parameterType="com.dullfan.common.entity.po.User">
 		<selectKey keyProperty="bean.userId" resultType="Long" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -314,7 +314,7 @@
 		</trim>
 	</insert>
 	<!--插入或者更新-->
-	<insert id="insertOrUpdate" parameterType="com.dullfan.common.domain.po.User">
+	<insert id="insertOrUpdate" parameterType="com.dullfan.common.entity.po.User">
 		INSERT INTO sys_user
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="bean.userId != null">
@@ -484,14 +484,14 @@
 		</trim>
 	</insert>
 	<!--批量插入-->
-	<insert id="insertBatch" parameterType="com.dullfan.common.domain.po.User">
+	<insert id="insertBatch" parameterType="com.dullfan.common.entity.po.User">
 		INSERT INTO sys_user(user_name,nick_name,email,phone_number,sex,avatar,password,age,introduction,status,del_flag,login_ip,login_date,create_by,create_time,update_by,update_time,remark)Values
 		<foreach collection="list" item="item" separator=",">
 			(#{item.userName},#{item.nickName},#{item.email},#{item.phoneNumber},#{item.sex},#{item.avatar},#{item.password},#{item.age},#{item.introduction},#{item.status},#{item.delFlag},#{item.loginIp},#{item.loginDate},#{item.createBy},#{item.createTime},#{item.updateBy},#{item.updateTime},#{item.remark})
 		</foreach>
 	</insert>
 	<!--批量插入或更新-->
-	<insert id="insertOrUpdateBatch" parameterType="com.dullfan.common.domain.po.User">
+	<insert id="insertOrUpdateBatch" parameterType="com.dullfan.common.entity.po.User">
 		INSERT INTO sys_user(user_name,nick_name,email,phone_number,sex,avatar,password,age,introduction,status,del_flag,login_ip,login_date,create_by,create_time,update_by,update_time,remark)Values
 		<foreach collection="list" item="item" separator=",">
 			(#{item.userName},#{item.nickName},#{item.email},#{item.phoneNumber},#{item.sex},#{item.avatar},#{item.password},#{item.age},#{item.introduction},#{item.status},#{item.delFlag},#{item.loginIp},#{item.loginDate},#{item.createBy},#{item.createTime},#{item.updateBy},#{item.updateTime},#{item.remark})
@@ -500,7 +500,7 @@
 		user_name = VALUES(user_name),nick_name = VALUES(nick_name),email = VALUES(email),phone_number = VALUES(phone_number),sex = VALUES(sex),avatar = VALUES(avatar),password = VALUES(password),age = VALUES(age),introduction = VALUES(introduction),status = VALUES(status),del_flag = VALUES(del_flag),login_ip = VALUES(login_ip),login_date = VALUES(login_date),create_by = VALUES(create_by),create_time = VALUES(create_time),update_by = VALUES(update_by),update_time = VALUES(update_time),remark = VALUES(remark)
 	</insert>
 	<!--多条件修改-->
-	<update id="updateByParam" parameterType="com.dullfan.common.domain.po.User">
+	<update id="updateByParam" parameterType="com.dullfan.common.entity.po.User">
 		 UPDATE sys_user
  		 <set>
 			<if test="bean.userName != null">

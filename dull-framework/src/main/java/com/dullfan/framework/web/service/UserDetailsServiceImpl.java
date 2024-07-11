@@ -1,13 +1,10 @@
 package com.dullfan.framework.web.service;
 
-import com.dullfan.common.constant.UserConstants;
-import com.dullfan.common.domain.po.LoginUser;
-import com.dullfan.common.domain.po.User;
+import com.dullfan.common.entity.po.LoginUser;
+import com.dullfan.common.entity.po.User;
 import com.dullfan.common.enums.UserStatusEnum;
 import com.dullfan.common.exception.ServiceException;
-import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.common.utils.StringTools;
-import com.dullfan.framework.config.SecurityConfig;
 import com.dullfan.system.service.UserService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

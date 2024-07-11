@@ -1,9 +1,9 @@
 package com.dullfan.common.controller.system;
 
 import com.dullfan.common.controller.ABaseController;
-import com.dullfan.common.domain.po.User;
-import com.dullfan.common.domain.query.UserQuery;
-import com.dullfan.common.domain.vo.Result;
+import com.dullfan.common.entity.po.User;
+import com.dullfan.common.entity.query.UserQuery;
+import com.dullfan.common.entity.vo.Result;
 import com.dullfan.system.service.UserService;
 
 import java.util.List;

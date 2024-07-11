@@ -2,8 +2,8 @@ package com.dullfan.framework.web.service;
 
 import com.dullfan.common.constant.UserConstants;
 import com.dullfan.common.core.redis.RedisCache;
-import com.dullfan.common.domain.RegisterBody;
-import com.dullfan.common.domain.po.User;
+import com.dullfan.common.entity.po.RegisterBody;
+import com.dullfan.common.entity.po.User;
 import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.common.utils.StringTools;
 import com.dullfan.system.service.ConfigService;

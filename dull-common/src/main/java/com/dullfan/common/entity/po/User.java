@@ -1,4 +1,4 @@
-package com.dullfan.common.domain.po;
+package com.dullfan.common.entity.po;
 
 import java.io.Serializable;
 import java.util.Date;

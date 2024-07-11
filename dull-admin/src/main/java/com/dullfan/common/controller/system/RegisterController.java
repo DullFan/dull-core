@@ -1,8 +1,8 @@
 package com.dullfan.common.controller.system;
 
 import com.dullfan.common.controller.ABaseController;
-import com.dullfan.common.domain.RegisterBody;
-import com.dullfan.common.domain.vo.Result;
+import com.dullfan.common.entity.po.RegisterBody;
+import com.dullfan.common.entity.vo.Result;
 import com.dullfan.common.utils.StringTools;
 import com.dullfan.framework.web.service.RegisterService;
 import com.dullfan.system.service.ConfigService;

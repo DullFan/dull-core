@@ -3,7 +3,7 @@ package com.dullfan.framework.security.handle;
 
 import com.alibaba.fastjson2.JSON;
 import com.dullfan.common.constant.HttpStatus;
-import com.dullfan.common.domain.vo.Result;
+import com.dullfan.common.entity.vo.Result;
 import com.dullfan.common.utils.ServletUtils;
 import com.dullfan.common.utils.StringTools;
 import jakarta.servlet.http.HttpServletRequest;

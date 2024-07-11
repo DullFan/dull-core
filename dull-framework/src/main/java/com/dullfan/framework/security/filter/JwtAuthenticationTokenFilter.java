@@ -1,6 +1,6 @@
 package com.dullfan.framework.security.filter;
 
-import com.dullfan.common.domain.po.LoginUser;
+import com.dullfan.common.entity.po.LoginUser;
 import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.common.utils.StringTools;
 import com.dullfan.framework.web.service.TokenService;
@@ -9,7 +9,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.lang.NonNullApi;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;

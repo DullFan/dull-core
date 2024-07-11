@@ -3,11 +3,11 @@ package com.dullfan.system.service.impl;
 import java.util.List;
 
 import com.dullfan.common.constant.UserConstants;
-import com.dullfan.common.domain.query.SimplePage;
-import com.dullfan.common.domain.vo.PaginationResultVo;
+import com.dullfan.common.entity.query.SimplePage;
+import com.dullfan.common.entity.vo.PaginationResultVo;
 import com.dullfan.common.enums.PageSizeEnum;
-import com.dullfan.common.domain.po.User;
-import com.dullfan.common.domain.query.UserQuery;
+import com.dullfan.common.entity.po.User;
+import com.dullfan.common.entity.query.UserQuery;
 import com.dullfan.common.utils.DateUtils;
 import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.common.utils.StringTools;

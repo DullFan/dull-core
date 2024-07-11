@@ -1,4 +1,4 @@
-package com.dullfan.common.domain.vo;
+package com.dullfan.common.entity.vo;
 
 import lombok.Data;
 

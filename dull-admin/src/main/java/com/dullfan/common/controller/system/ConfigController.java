@@ -1,7 +1,7 @@
 package com.dullfan.common.controller.system;
 
 import com.dullfan.common.controller.ABaseController;
-import com.dullfan.common.domain.vo.Result;
+import com.dullfan.common.entity.vo.Result;
 import com.dullfan.system.entity.po.Config;
 import com.dullfan.system.entity.query.ConfigQuery;
 import com.dullfan.system.service.ConfigService;

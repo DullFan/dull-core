@@ -2,7 +2,7 @@ package com.dullfan.common.controller.common;
 
 import com.dullfan.common.config.DullConfig;
 import com.dullfan.common.constant.Constants;
-import com.dullfan.common.domain.vo.Result;
+import com.dullfan.common.entity.vo.Result;
 import com.dullfan.common.utils.StringTools;
 import com.dullfan.common.utils.file.FileUploadUtils;
 import com.dullfan.common.utils.file.FileUtils;

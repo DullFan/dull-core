@@ -1,4 +1,4 @@
-package com.dullfan.common.domain.query;
+package com.dullfan.common.entity.query;
 
 
 import com.dullfan.common.enums.PageSizeEnum;

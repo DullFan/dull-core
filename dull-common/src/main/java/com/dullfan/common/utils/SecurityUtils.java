@@ -1,18 +1,11 @@
 package com.dullfan.common.utils;
 
-import com.dullfan.common.config.DullConfig;
-import com.dullfan.common.constant.Constants;
 import com.dullfan.common.constant.HttpStatus;
-import com.dullfan.common.domain.po.LoginUser;
+import com.dullfan.common.entity.po.LoginUser;
 import com.dullfan.common.exception.ServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.util.PatternMatchUtils;
-import org.springframework.util.StringUtils;
-
-import java.util.Collection;
-import java.util.stream.Collectors;
 
 /**
  * 安全服务工具类

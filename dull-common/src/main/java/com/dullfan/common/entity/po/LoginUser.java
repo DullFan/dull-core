@@ -1,4 +1,4 @@
-package com.dullfan.common.domain.po;
+package com.dullfan.common.entity.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
