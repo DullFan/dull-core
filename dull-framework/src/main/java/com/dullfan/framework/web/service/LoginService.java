@@ -48,7 +48,7 @@ public class LoginService {
      */
     public String login(LoginBody loginBody) {
         // 验证码校验
-        validateCaptcha(loginBody.getUsername(), loginBody.getCode(), loginBody.getUuid());
+        validateCaptcha(loginBody.getCode(), loginBody.getUuid());
         // 登录前置校验
         loginPreCheck(loginBody.getUsername(), loginBody.getPassword());
         Authentication authentication;
@@ -93,11 +93,10 @@ public class LoginService {
     /**
      * 校验验证码
      *
-     * @param username 用户名
      * @param code     验证码
      * @param uuid     唯一标识
      */
-    private void validateCaptcha(String username, String code, String uuid) {
+    private void validateCaptcha(String code, String uuid) {
         boolean captchaEnabled = configService.selectCaptchaEnabled();
         if (captchaEnabled) {
             String verifyKey = CacheConstants.CAPTCHA_CODE_KEY + StringTools.nvl(uuid, "");
@@ -123,5 +122,6 @@ public class LoginService {
         user.setLoginIp(IpUtils.getIpAddr());
         user.setLoginDate(DateUtils.getNowDate());
         userService.updateUser(user);
+
     }
 }

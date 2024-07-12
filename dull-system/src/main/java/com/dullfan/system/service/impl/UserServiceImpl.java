@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
      * 根据UserId获取对象
      */
     @Override
-    public User selectUserByUserId(Long userId) {
+    public User selectUserByUserId(Long userId)   {
         return this.userMapper.selectByUserId(userId);
     }
 
@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService {
     public Integer updateUser(User bean) {
         UserQuery userQuery = new UserQuery();
         userQuery.setUserId(bean.getUserId());
-        return this.userMapper.updateByParam(bean, userQuery);
+        return userMapper.updateByParam(bean, userQuery);
     }
 
     /**
