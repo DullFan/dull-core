@@ -32,24 +32,4 @@ public interface UserMapper extends ABaseMapper<User, UserQuery> {
 	 * 根据UserName删除
 	 */
 	Integer deleteByUserName(@Param("userName") String userName);
-
-	/**
-	 * 根据PhoneNumber查询
-	 */
-	User selectByPhoneNumber(@Param("phoneNumber") String phoneNumber);
-
-	/**
-	 * 根据PhoneNumber删除
-	 */
-	Integer deleteByPhoneNumber(@Param("phoneNumber") String phoneNumber);
-
-	/**
-	 * 根据Email查询
-	 */
-	User selectByEmail(@Param("email") String email);
-
-	/**
-	 * 根据Email删除
-	 */
-	Integer deleteByEmail(@Param("email") String email);
 }

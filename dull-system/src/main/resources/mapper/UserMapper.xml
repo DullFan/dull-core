@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dullfan.system.mappers.UserMapper">
+
 	<!--实体映射-->
 	<resultMap id="base_result_map" type="com.dullfan.common.entity.po.User">
 		<!--用户ID-->
@@ -26,7 +27,7 @@
 		<result column="introduction" property="introduction"/>
 		<!--帐号状态（0正常 1停用）-->
 		<result column="status" property="status"/>
-		<!--删除标志（0代表存在 2代表删除）-->
+		<!--删除标志（0代表存在 1代表删除）-->
 		<result column="del_flag" property="delFlag"/>
 		<!--最后登录IP-->
 		<result column="login_ip" property="loginIp"/>
@@ -43,13 +44,33 @@
 		<!--备注-->
 		<result column="remark" property="remark"/>
 	</resultMap>
+
 	<!--通用查询列-->
 	<sql id="base_column_list">
-		user_id,user_name,nick_name,email,phone_number,sex,avatar,password,age,introduction,status,del_flag,login_ip,login_date,create_by,create_time,update_by,update_time,remark
+		user_id,
+        user_name,
+        nick_name,
+        email,
+        phone_number,
+        sex,
+        avatar,
+        password,
+        age,
+        introduction,
+        status,
+        del_flag,
+        login_ip,
+        login_date,
+        create_by,
+        create_time,
+        update_by,
+        update_time,
+        remark
 	</sql>
-	<!--基础查询条件-->
+
+	<!--基本查询条件-->
 	<sql id="base_query_condition">
-		<if test="query.userId != null">
+		<if test="query.userId != null ">
 			and user_id = #{query.userId}
 		</if>
 		<if test="query.userName != null and query.userName != ''">
@@ -73,7 +94,7 @@
 		<if test="query.password != null and query.password != ''">
 			and password = #{query.password}
 		</if>
-		<if test="query.age != null">
+		<if test="query.age != null ">
 			and age = #{query.age}
 		</if>
 		<if test="query.introduction != null and query.introduction != ''">
@@ -88,88 +109,90 @@
 		<if test="query.loginIp != null and query.loginIp != ''">
 			and login_ip = #{query.loginIp}
 		</if>
-		<if test="query.loginDate != null">
+		<if test="query.loginDate != null ">
 			and login_date = #{query.loginDate}
 		</if>
 		<if test="query.createBy != null and query.createBy != ''">
 			and create_by = #{query.createBy}
 		</if>
-		<if test="query.createTime != null">
+		<if test="query.createTime != null ">
 			and create_time = #{query.createTime}
 		</if>
 		<if test="query.updateBy != null and query.updateBy != ''">
 			and update_by = #{query.updateBy}
 		</if>
-		<if test="query.updateTime != null">
+		<if test="query.updateTime != null ">
 			and update_time = #{query.updateTime}
 		</if>
 		<if test="query.remark != null and query.remark != ''">
 			and remark = #{query.remark}
 		</if>
 	</sql>
+
 	<!--扩展查询条件-->
 	<sql id="base_query_condition_extend">
-		<if test="query.userNameFuzzy != null and query.userNameFuzzy != ''">
-			and user_name like concat('%', #{query.userNameFuzzy},'%') != ''
+		<if test="query.userNamefuzzy != null and query.userNamefuzzy != ''">
+			and user_name like concat('%',#{query.userNamefuzzy},'%')
 		</if>
-		<if test="query.nickNameFuzzy != null and query.nickNameFuzzy != ''">
-			and nick_name like concat('%', #{query.nickNameFuzzy},'%') != ''
+		<if test="query.nickNamefuzzy != null and query.nickNamefuzzy != ''">
+			and nick_name like concat('%',#{query.nickNamefuzzy},'%')
 		</if>
-		<if test="query.emailFuzzy != null and query.emailFuzzy != ''">
-			and email like concat('%', #{query.emailFuzzy},'%') != ''
+		<if test="query.emailfuzzy != null and query.emailfuzzy != ''">
+			and email like concat('%',#{query.emailfuzzy},'%')
 		</if>
-		<if test="query.phoneNumberFuzzy != null and query.phoneNumberFuzzy != ''">
-			and phone_number like concat('%', #{query.phoneNumberFuzzy},'%') != ''
+		<if test="query.phoneNumberfuzzy != null and query.phoneNumberfuzzy != ''">
+			and phone_number like concat('%',#{query.phoneNumberfuzzy},'%')
 		</if>
-		<if test="query.sexFuzzy != null and query.sexFuzzy != ''">
-			and sex like concat('%', #{query.sexFuzzy},'%') != ''
+		<if test="query.sexfuzzy != null and query.sexfuzzy != ''">
+			and sex like concat('%',#{query.sexfuzzy},'%')
 		</if>
-		<if test="query.avatarFuzzy != null and query.avatarFuzzy != ''">
-			and avatar like concat('%', #{query.avatarFuzzy},'%') != ''
+		<if test="query.avatarfuzzy != null and query.avatarfuzzy != ''">
+			and avatar like concat('%',#{query.avatarfuzzy},'%')
 		</if>
-		<if test="query.passwordFuzzy != null and query.passwordFuzzy != ''">
-			and password like concat('%', #{query.passwordFuzzy},'%') != ''
+		<if test="query.passwordfuzzy != null and query.passwordfuzzy != ''">
+			and password like concat('%',#{query.passwordfuzzy},'%')
 		</if>
-		<if test="query.introductionFuzzy != null and query.introductionFuzzy != ''">
-			and introduction like concat('%', #{query.introductionFuzzy},'%') != ''
+		<if test="query.introductionfuzzy != null and query.introductionfuzzy != ''">
+			and introduction like concat('%',#{query.introductionfuzzy},'%')
 		</if>
-		<if test="query.statusFuzzy != null and query.statusFuzzy != ''">
-			and status like concat('%', #{query.statusFuzzy},'%') != ''
+		<if test="query.statusfuzzy != null and query.statusfuzzy != ''">
+			and status like concat('%',#{query.statusfuzzy},'%')
 		</if>
-		<if test="query.delFlagFuzzy != null and query.delFlagFuzzy != ''">
-			and del_flag like concat('%', #{query.delFlagFuzzy},'%') != ''
+		<if test="query.delFlagfuzzy != null and query.delFlagfuzzy != ''">
+			and del_flag like concat('%',#{query.delFlagfuzzy},'%')
 		</if>
-		<if test="query.loginIpFuzzy != null and query.loginIpFuzzy != ''">
-			and login_ip like concat('%', #{query.loginIpFuzzy},'%') != ''
+		<if test="query.loginIpfuzzy != null and query.loginIpfuzzy != ''">
+			and login_ip like concat('%',#{query.loginIpfuzzy},'%')
 		</if>
-		<if test="query.loginDateStart != null and query.loginDateStart != ''">
-			<![CDATA[ and login_date >= str_to_date(#{query.loginDateStart}, '%Y-%m-%d') ]]>
+		<if test="query.loginDateStart != null ">
+			and login_date >= #{query.loginDateStart}
 		</if>
-		<if test="query.loginDateEnd != null and query.loginDateEnd != ''">
-			<![CDATA[ and login_date < date_sub(str_to_date(#{query.loginDateEnd}, '%Y-%m-%d'), interval -1 day) ]]>
+		<if test="query.loginDateEnd != null ">
+			<![CDATA[and create_time < #{query.loginDateEnd}]]>
 		</if>
-		<if test="query.createByFuzzy != null and query.createByFuzzy != ''">
-			and create_by like concat('%', #{query.createByFuzzy},'%') != ''
+		<if test="query.createByfuzzy != null and query.createByfuzzy != ''">
+			and create_by like concat('%',#{query.createByfuzzy},'%')
 		</if>
-		<if test="query.createTimeStart != null and query.createTimeStart != ''">
-			<![CDATA[ and create_time >= str_to_date(#{query.createTimeStart}, '%Y-%m-%d') ]]>
+		<if test="query.createTimeStart != null ">
+			and create_time >= #{query.createTimeStart}
 		</if>
-		<if test="query.createTimeEnd != null and query.createTimeEnd != ''">
-			<![CDATA[ and create_time < date_sub(str_to_date(#{query.createTimeEnd}, '%Y-%m-%d'), interval -1 day) ]]>
+		<if test="query.createTimeEnd != null ">
+			<![CDATA[and create_time < #{query.createTimeEnd}]]>
 		</if>
-		<if test="query.updateByFuzzy != null and query.updateByFuzzy != ''">
-			and update_by like concat('%', #{query.updateByFuzzy},'%') != ''
+		<if test="query.updateByfuzzy != null and query.updateByfuzzy != ''">
+			and update_by like concat('%',#{query.updateByfuzzy},'%')
 		</if>
-		<if test="query.updateTimeStart != null and query.updateTimeStart != ''">
-			<![CDATA[ and update_time >= str_to_date(#{query.updateTimeStart}, '%Y-%m-%d') ]]>
+		<if test="query.updateTimeStart != null ">
+			and update_time >= #{query.updateTimeStart}
 		</if>
-		<if test="query.updateTimeEnd != null and query.updateTimeEnd != ''">
-			<![CDATA[ and update_time < date_sub(str_to_date(#{query.updateTimeEnd}, '%Y-%m-%d'), interval -1 day) ]]>
+		<if test="query.updateTimeEnd != null ">
+			<![CDATA[and create_time < #{query.updateTimeEnd}]]>
 		</if>
-		<if test="query.remarkFuzzy != null and query.remarkFuzzy != ''">
-			and remark like concat('%', #{query.remarkFuzzy},'%') != ''
+		<if test="query.remarkfuzzy != null and query.remarkfuzzy != ''">
+			and remark like concat('%',#{query.remarkfuzzy},'%')
 		</if>
 	</sql>
+
 	<!--通用查询条件列-->
 	<sql id="query_condition">
 		<where>
@@ -177,79 +200,79 @@
 			<include refid="base_query_condition_extend"/>
 		</where>
 	</sql>
+
 	<!--查询列表-->
 	<select id="selectList" resultMap="base_result_map">
 		SELECT <include refid="base_column_list"/> FROM sys_user <include refid="query_condition"/>
 		<if test="query.orderBy!=null"> order by ${query.orderBy} </if>
 		<if test="query.simplePage!=null"> limit ${query.simplePage.start},${query.simplePage.end} </if>
 	</select>
+
 	<!--查询数量-->
 	<select id="selectCount" resultType="java.lang.Integer">
 		select count(1) FROM sys_user
 		<include refid="query_condition"/>
 	</select>
+
 	<!--插入，匹配有值的字段-->
-	<insert id="insert" parameterType="com.dullfan.common.entity.po.User">
-		<selectKey keyProperty="bean.userId" resultType="Long" order="AFTER">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
-		INSERT INTO sys_user
+	<insert id="insert" parameterType="com.dullfan.common.entity.po.User"  useGeneratedKeys="true" keyProperty="userId">
+		insert into sys_user
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="bean.userId != null">
 				user_id,
 			</if>
-			<if test="bean.userName != null">
+			<if test="bean.userName != null and bean.userName != ''">
 				user_name,
 			</if>
-			<if test="bean.nickName != null">
+			<if test="bean.nickName != null and bean.nickName != ''">
 				nick_name,
 			</if>
-			<if test="bean.email != null">
+			<if test="bean.email != null and bean.email != ''">
 				email,
 			</if>
-			<if test="bean.phoneNumber != null">
+			<if test="bean.phoneNumber != null and bean.phoneNumber != ''">
 				phone_number,
 			</if>
-			<if test="bean.sex != null">
+			<if test="bean.sex != null and bean.sex != ''">
 				sex,
 			</if>
-			<if test="bean.avatar != null">
+			<if test="bean.avatar != null and bean.avatar != ''">
 				avatar,
 			</if>
-			<if test="bean.password != null">
+			<if test="bean.password != null and bean.password != ''">
 				password,
 			</if>
 			<if test="bean.age != null">
 				age,
 			</if>
-			<if test="bean.introduction != null">
+			<if test="bean.introduction != null and bean.introduction != ''">
 				introduction,
 			</if>
-			<if test="bean.status != null">
+			<if test="bean.status != null and bean.status != ''">
 				status,
 			</if>
-			<if test="bean.delFlag != null">
+			<if test="bean.delFlag != null and bean.delFlag != ''">
 				del_flag,
 			</if>
-			<if test="bean.loginIp != null">
+			<if test="bean.loginIp != null and bean.loginIp != ''">
 				login_ip,
 			</if>
 			<if test="bean.loginDate != null">
 				login_date,
 			</if>
-			<if test="bean.createBy != null">
+			<if test="bean.createBy != null and bean.createBy != ''">
 				create_by,
 			</if>
 			<if test="bean.createTime != null">
 				create_time,
 			</if>
-			<if test="bean.updateBy != null">
+			<if test="bean.updateBy != null and bean.updateBy != ''">
 				update_by,
 			</if>
 			<if test="bean.updateTime != null">
 				update_time,
 			</if>
-			<if test="bean.remark != null">
+			<if test="bean.remark != null and bean.remark != ''">
 				remark,
 			</if>
 		</trim>
@@ -257,353 +280,169 @@
 			<if test="bean.userId != null">
 				#{bean.userId},
 			</if>
-			<if test="bean.userName != null">
+			<if test="bean.userName != null and bean.userName != ''">
 				#{bean.userName},
 			</if>
-			<if test="bean.nickName != null">
+			<if test="bean.nickName != null and bean.nickName != ''">
 				#{bean.nickName},
 			</if>
-			<if test="bean.email != null">
+			<if test="bean.email != null and bean.email != ''">
 				#{bean.email},
 			</if>
-			<if test="bean.phoneNumber != null">
+			<if test="bean.phoneNumber != null and bean.phoneNumber != ''">
 				#{bean.phoneNumber},
 			</if>
-			<if test="bean.sex != null">
+			<if test="bean.sex != null and bean.sex != ''">
 				#{bean.sex},
 			</if>
-			<if test="bean.avatar != null">
+			<if test="bean.avatar != null and bean.avatar != ''">
 				#{bean.avatar},
 			</if>
-			<if test="bean.password != null">
+			<if test="bean.password != null and bean.password != ''">
 				#{bean.password},
 			</if>
 			<if test="bean.age != null">
 				#{bean.age},
 			</if>
-			<if test="bean.introduction != null">
+			<if test="bean.introduction != null and bean.introduction != ''">
 				#{bean.introduction},
 			</if>
-			<if test="bean.status != null">
+			<if test="bean.status != null and bean.status != ''">
 				#{bean.status},
 			</if>
-			<if test="bean.delFlag != null">
+			<if test="bean.delFlag != null and bean.delFlag != ''">
 				#{bean.delFlag},
 			</if>
-			<if test="bean.loginIp != null">
+			<if test="bean.loginIp != null and bean.loginIp != ''">
 				#{bean.loginIp},
 			</if>
 			<if test="bean.loginDate != null">
 				#{bean.loginDate},
 			</if>
-			<if test="bean.createBy != null">
+			<if test="bean.createBy != null and bean.createBy != ''">
 				#{bean.createBy},
 			</if>
 			<if test="bean.createTime != null">
 				#{bean.createTime},
 			</if>
-			<if test="bean.updateBy != null">
+			<if test="bean.updateBy != null and bean.updateBy != ''">
 				#{bean.updateBy},
 			</if>
 			<if test="bean.updateTime != null">
 				#{bean.updateTime},
 			</if>
-			<if test="bean.remark != null">
+			<if test="bean.remark != null and bean.remark != ''">
 				#{bean.remark},
 			</if>
 		</trim>
 	</insert>
-	<!--插入或者更新-->
-	<insert id="insertOrUpdate" parameterType="com.dullfan.common.entity.po.User">
-		INSERT INTO sys_user
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="bean.userId != null">
-				user_id,
-			</if>
-			<if test="bean.userName != null">
-				user_name,
-			</if>
-			<if test="bean.nickName != null">
-				nick_name,
-			</if>
-			<if test="bean.email != null">
-				email,
-			</if>
-			<if test="bean.phoneNumber != null">
-				phone_number,
-			</if>
-			<if test="bean.sex != null">
-				sex,
-			</if>
-			<if test="bean.avatar != null">
-				avatar,
-			</if>
-			<if test="bean.password != null">
-				password,
-			</if>
-			<if test="bean.age != null">
-				age,
-			</if>
-			<if test="bean.introduction != null">
-				introduction,
-			</if>
-			<if test="bean.status != null">
-				status,
-			</if>
-			<if test="bean.delFlag != null">
-				del_flag,
-			</if>
-			<if test="bean.loginIp != null">
-				login_ip,
-			</if>
-			<if test="bean.loginDate != null">
-				login_date,
-			</if>
-			<if test="bean.createBy != null">
-				create_by,
-			</if>
-			<if test="bean.createTime != null">
-				create_time,
-			</if>
-			<if test="bean.updateBy != null">
-				update_by,
-			</if>
-			<if test="bean.updateTime != null">
-				update_time,
-			</if>
-			<if test="bean.remark != null">
-				remark,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="bean.userId != null">
-				#{bean.userId},
-			</if>
-			<if test="bean.userName != null">
-				#{bean.userName},
-			</if>
-			<if test="bean.nickName != null">
-				#{bean.nickName},
-			</if>
-			<if test="bean.email != null">
-				#{bean.email},
-			</if>
-			<if test="bean.phoneNumber != null">
-				#{bean.phoneNumber},
-			</if>
-			<if test="bean.sex != null">
-				#{bean.sex},
-			</if>
-			<if test="bean.avatar != null">
-				#{bean.avatar},
-			</if>
-			<if test="bean.password != null">
-				#{bean.password},
-			</if>
-			<if test="bean.age != null">
-				#{bean.age},
-			</if>
-			<if test="bean.introduction != null">
-				#{bean.introduction},
-			</if>
-			<if test="bean.status != null">
-				#{bean.status},
-			</if>
-			<if test="bean.delFlag != null">
-				#{bean.delFlag},
-			</if>
-			<if test="bean.loginIp != null">
-				#{bean.loginIp},
-			</if>
-			<if test="bean.loginDate != null">
-				#{bean.loginDate},
-			</if>
-			<if test="bean.createBy != null">
-				#{bean.createBy},
-			</if>
-			<if test="bean.createTime != null">
-				#{bean.createTime},
-			</if>
-			<if test="bean.updateBy != null">
-				#{bean.updateBy},
-			</if>
-			<if test="bean.updateTime != null">
-				#{bean.updateTime},
-			</if>
-			<if test="bean.remark != null">
-				#{bean.remark},
-			</if>
-		</trim>
-		on DUPLICATE key update
-		<trim prefix="" suffix="" suffixOverrides=",">
-			<if test="bean.nickName != null">
-				nick_name = VALUES(nick_name),
-			</if>
-			<if test="bean.sex != null">
-				sex = VALUES(sex),
-			</if>
-			<if test="bean.avatar != null">
-				avatar = VALUES(avatar),
-			</if>
-			<if test="bean.password != null">
-				password = VALUES(password),
-			</if>
-			<if test="bean.age != null">
-				age = VALUES(age),
-			</if>
-			<if test="bean.introduction != null">
-				introduction = VALUES(introduction),
-			</if>
-			<if test="bean.status != null">
-				status = VALUES(status),
-			</if>
-			<if test="bean.delFlag != null">
-				del_flag = VALUES(del_flag),
-			</if>
-			<if test="bean.loginIp != null">
-				login_ip = VALUES(login_ip),
-			</if>
-			<if test="bean.loginDate != null">
-				login_date = VALUES(login_date),
-			</if>
-			<if test="bean.createBy != null">
-				create_by = VALUES(create_by),
-			</if>
-			<if test="bean.createTime != null">
-				create_time = VALUES(create_time),
-			</if>
-			<if test="bean.updateBy != null">
-				update_by = VALUES(update_by),
-			</if>
-			<if test="bean.updateTime != null">
-				update_time = VALUES(update_time),
-			</if>
-			<if test="bean.remark != null">
-				remark = VALUES(remark),
-			</if>
-		</trim>
-	</insert>
+
 	<!--批量插入-->
-	<insert id="insertBatch" parameterType="com.dullfan.common.entity.po.User">
-		INSERT INTO sys_user(user_name,nick_name,email,phone_number,sex,avatar,password,age,introduction,status,del_flag,login_ip,login_date,create_by,create_time,update_by,update_time,remark)Values
+	<insert id="insertBatch">
+		INSERT INTO sys_user (user_name,nick_name,email,phone_number,sex,avatar,password,age,introduction,status,del_flag,login_ip,login_date,create_by,create_time,update_by,update_time,remark)
+		VALUES
 		<foreach collection="list" item="item" separator=",">
 			(#{item.userName},#{item.nickName},#{item.email},#{item.phoneNumber},#{item.sex},#{item.avatar},#{item.password},#{item.age},#{item.introduction},#{item.status},#{item.delFlag},#{item.loginIp},#{item.loginDate},#{item.createBy},#{item.createTime},#{item.updateBy},#{item.updateTime},#{item.remark})
 		</foreach>
 	</insert>
-	<!--批量插入或更新-->
-	<insert id="insertOrUpdateBatch" parameterType="com.dullfan.common.entity.po.User">
-		INSERT INTO sys_user(user_name,nick_name,email,phone_number,sex,avatar,password,age,introduction,status,del_flag,login_ip,login_date,create_by,create_time,update_by,update_time,remark)Values
-		<foreach collection="list" item="item" separator=",">
-			(#{item.userName},#{item.nickName},#{item.email},#{item.phoneNumber},#{item.sex},#{item.avatar},#{item.password},#{item.age},#{item.introduction},#{item.status},#{item.delFlag},#{item.loginIp},#{item.loginDate},#{item.createBy},#{item.createTime},#{item.updateBy},#{item.updateTime},#{item.remark})
-		</foreach>
-		on DUPLICATE key update
-		user_name = VALUES(user_name),nick_name = VALUES(nick_name),email = VALUES(email),phone_number = VALUES(phone_number),sex = VALUES(sex),avatar = VALUES(avatar),password = VALUES(password),age = VALUES(age),introduction = VALUES(introduction),status = VALUES(status),del_flag = VALUES(del_flag),login_ip = VALUES(login_ip),login_date = VALUES(login_date),create_by = VALUES(create_by),create_time = VALUES(create_time),update_by = VALUES(update_by),update_time = VALUES(update_time),remark = VALUES(remark)
-	</insert>
+
+
 	<!--多条件修改-->
 	<update id="updateByParam" parameterType="com.dullfan.common.entity.po.User">
-		 UPDATE sys_user
- 		 <set>
-			<if test="bean.userName != null">
-				 user_name = #{bean.userName},
+		UPDATE sys_user
+		<set>
+			<if test="bean.userName != null and bean.userName != ''">
+				user_name = #{bean.userName},
 			</if>
-			<if test="bean.nickName != null">
-				 nick_name = #{bean.nickName},
+			<if test="bean.nickName != null and bean.nickName != ''">
+				nick_name = #{bean.nickName},
 			</if>
-			<if test="bean.email != null">
-				 email = #{bean.email},
+			<if test="bean.email != null and bean.email != ''">
+				email = #{bean.email},
 			</if>
-			<if test="bean.phoneNumber != null">
-				 phone_number = #{bean.phoneNumber},
+			<if test="bean.phoneNumber != null and bean.phoneNumber != ''">
+				phone_number = #{bean.phoneNumber},
 			</if>
-			<if test="bean.sex != null">
-				 sex = #{bean.sex},
+			<if test="bean.sex != null and bean.sex != ''">
+				sex = #{bean.sex},
 			</if>
-			<if test="bean.avatar != null">
-				 avatar = #{bean.avatar},
+			<if test="bean.avatar != null and bean.avatar != ''">
+				avatar = #{bean.avatar},
 			</if>
-			<if test="bean.password != null">
-				 password = #{bean.password},
+			<if test="bean.password != null and bean.password != ''">
+				password = #{bean.password},
 			</if>
 			<if test="bean.age != null">
-				 age = #{bean.age},
+				age = #{bean.age},
 			</if>
-			<if test="bean.introduction != null">
-				 introduction = #{bean.introduction},
+			<if test="bean.introduction != null and bean.introduction != ''">
+				introduction = #{bean.introduction},
 			</if>
-			<if test="bean.status != null">
-				 status = #{bean.status},
+			<if test="bean.status != null and bean.status != ''">
+				status = #{bean.status},
 			</if>
-			<if test="bean.delFlag != null">
-				 del_flag = #{bean.delFlag},
+			<if test="bean.delFlag != null and bean.delFlag != ''">
+				del_flag = #{bean.delFlag},
 			</if>
-			<if test="bean.loginIp != null">
-				 login_ip = #{bean.loginIp},
+			<if test="bean.loginIp != null and bean.loginIp != ''">
+				login_ip = #{bean.loginIp},
 			</if>
 			<if test="bean.loginDate != null">
-				 login_date = #{bean.loginDate},
+				login_date = #{bean.loginDate},
 			</if>
-			<if test="bean.createBy != null">
-				 create_by = #{bean.createBy},
+			<if test="bean.createBy != null and bean.createBy != ''">
+				create_by = #{bean.createBy},
 			</if>
 			<if test="bean.createTime != null">
-				 create_time = #{bean.createTime},
+				create_time = #{bean.createTime},
 			</if>
-			<if test="bean.updateBy != null">
-				 update_by = #{bean.updateBy},
+			<if test="bean.updateBy != null and bean.updateBy != ''">
+				update_by = #{bean.updateBy},
 			</if>
 			<if test="bean.updateTime != null">
-				 update_time = #{bean.updateTime},
+				update_time = #{bean.updateTime},
 			</if>
-			<if test="bean.remark != null">
-				 remark = #{bean.remark},
+			<if test="bean.remark != null and bean.remark != ''">
+				remark = #{bean.remark},
 			</if>
- 		 </set>
- 		 <include refid="query_condition" />
+		</set>
+		<include refid="query_condition" />
 	</update>
+
 	<!--多条件删除-->
 	<delete id="deleteByParam">
-		 delete from sys_user
- 		 <include refid="query_condition" />
+		DELETE FROM sys_user
+		<include refid="query_condition" />
 	</delete>
-	<!--根据主键更新-->
+
 	<!--根据UserId查询-->
 	<select id="selectByUserId" resultMap="base_result_map">
-		SELECT <include refid="base_column_list"/> FROM sys_user where user_id = #{userId}
+		SELECT <include refid="base_column_list"/> FROM sys_user WHERE user_id = #{userId}
 	</select>
+
 	<!--根据UserId删除-->
 	<delete id="deleteByUserId">
-		DELETE FROM sys_user where user_id = #{userId}
+		DELETE FROM sys_user WHERE user_id = #{userId}
 	</delete>
+
 	<!--根据UserId批量删除-->
 	<delete id="deleteByUserIdBatch">
-	    delete from sys_user where user_id
-	    in
-	    <foreach collection="list" item="id" separator="," open="(" close=")">
-	        #{id}
-	    </foreach>
+		DELETE FROM sys_user WHERE user_id
+		IN
+		<foreach collection="list" item="id" separator="," open="(" close=")">
+			#{id}
+		</foreach>
 	</delete>
 	<!--根据UserName查询-->
 	<select id="selectByUserName" resultMap="base_result_map">
-		SELECT <include refid="base_column_list"/> FROM sys_user where user_name = #{userName}
+		SELECT <include refid="base_column_list"/> FROM sys_user WHERE user_name = #{userName}
 	</select>
+
 	<!--根据UserName删除-->
 	<delete id="deleteByUserName">
-		DELETE FROM sys_user where user_name = #{userName}
+		DELETE FROM sys_user WHERE user_name = #{userName}
 	</delete>
-	<!--根据PhoneNumber查询-->
-	<select id="selectByPhoneNumber" resultMap="base_result_map">
-		SELECT <include refid="base_column_list"/> FROM sys_user where phone_number = #{phoneNumber}
-	</select>
-	<!--根据PhoneNumber删除-->
-	<delete id="deleteByPhoneNumber">
-		DELETE FROM sys_user where phone_number = #{phoneNumber}
-	</delete>
-	<!--根据Email查询-->
-	<select id="selectByEmail" resultMap="base_result_map">
-		SELECT <include refid="base_column_list"/> FROM sys_user where email = #{email}
-	</select>
-	<!--根据Email删除-->
-	<delete id="deleteByEmail">
-		DELETE FROM sys_user where email = #{email}
-	</delete>
+
 </mapper>
+
+

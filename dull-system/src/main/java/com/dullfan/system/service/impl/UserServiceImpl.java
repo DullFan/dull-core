@@ -149,62 +149,6 @@ public class UserServiceImpl implements UserService {
         return this.userMapper.deleteByUserName(userName);
     }
 
-    /**
-     * 根据PhoneNumber获取对象
-     */
-    @Override
-    public User selectUserByPhoneNumber(String phoneNumber) {
-        return this.userMapper.selectByPhoneNumber(phoneNumber);
-    }
-
-    /**
-     * 根据PhoneNumber修改
-     */
-    @Override
-    public Integer updateUserByPhoneNumber(User bean, String phoneNumber) {
-        UserQuery userQuery = new UserQuery();
-        userQuery.setPhoneNumber(phoneNumber);
-        bean.setUpdateBy(SecurityUtils.getUserId().toString());
-        bean.setUpdateTime(DateUtils.getNowDate());
-        return this.userMapper.updateByParam(bean, userQuery);
-    }
-
-    /**
-     * 根据PhoneNumber删除
-     */
-    @Override
-    public Integer deleteUserByPhoneNumber(String phoneNumber) {
-        return this.userMapper.deleteByPhoneNumber(phoneNumber);
-    }
-
-    /**
-     * 根据Email获取对象
-     */
-    @Override
-    public User selectUserByEmail(String email) {
-        return this.userMapper.selectByEmail(email);
-    }
-
-    /**
-     * 根据Email修改
-     */
-    @Override
-    public Integer updateUserByEmail(User bean, String email) {
-        UserQuery userQuery = new UserQuery();
-        userQuery.setEmail(email);
-        bean.setUpdateBy(SecurityUtils.getUserId().toString());
-        bean.setUpdateTime(DateUtils.getNowDate());
-        return this.userMapper.updateByParam(bean, userQuery);
-    }
-
-    /**
-     * 根据Email删除
-     */
-    @Override
-    public Integer deleteUserByEmail(String email) {
-        return this.userMapper.deleteByEmail(email);
-    }
-
     @Override
     public boolean checkUserNameUnique(User user) {
         long userId = StringTools.isNull(user.getUserId()) ? -1L : user.getUserId();

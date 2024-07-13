@@ -9,17 +9,9 @@ public interface ABaseMapper<T, P> {
      */
     Integer insert(@Param("bean") T t);
     /**
-     * 插入或者更新
-     */
-    Integer insertOrUpdate(@Param("bean") T t);
-    /**
      * 批量插入
      */
     Integer insertBatch(@Param("list") List<T> list);
-    /**
-     * 批量插入或者更新
-     */
-    Integer insertOrUpdateBatch(@Param("list") List<T> list);
     /**
      * 根据参数查询集合
      */

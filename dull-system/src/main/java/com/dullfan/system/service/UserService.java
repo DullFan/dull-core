@@ -59,30 +59,6 @@ public interface UserService{
 	 * 根据UserName删除
 	 */
 	Integer deleteUserByUserName(String userName);
-	/**
-	 * 根据PhoneNumber查询对象
-	 */
-	User selectUserByPhoneNumber(String phoneNumber);
-	/**
-	 * 根据PhoneNumber修改
-	 */
-	Integer updateUserByPhoneNumber(User bean,String phoneNumber);
-	/**
-	 * 根据PhoneNumber删除
-	 */
-	Integer deleteUserByPhoneNumber(String phoneNumber);
-	/**
-	 * 根据Email查询对象
-	 */
-	User selectUserByEmail(String email);
-	/**
-	 * 根据Email修改
-	 */
-	Integer updateUserByEmail(User bean,String email);
-	/**
-	 * 根据Email删除
-	 */
-	Integer deleteUserByEmail(String email);
 
 	/**
 	 * 校验用户名称是否唯一
