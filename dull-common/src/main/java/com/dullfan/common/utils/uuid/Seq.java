@@ -1,7 +1,7 @@
 package com.dullfan.common.utils.uuid;
 
 import com.dullfan.common.utils.DateUtils;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -75,6 +75,6 @@ public class Seq {
             atomicInt.set(1);
         }
         // 转字符串，用0左补齐
-        return StringTools.padl(value, length);
+        return StringUtils.padl(value, length);
     }
 }

@@ -1,9 +1,8 @@
 package com.dullfan.common.utils.ip;
 
 import com.dullfan.common.utils.ServletUtils;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.commons.lang3.StringUtils;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -77,7 +76,7 @@ public class IpUtils {
      * @return 结果
      */
     private static boolean internalIp(byte[] addr) {
-        if (StringTools.isNull(addr) || addr.length < 2) {
+        if (StringUtils.isNull(addr) || addr.length < 2) {
             return true;
         }
         final byte b0 = addr[0];
@@ -224,7 +223,7 @@ public class IpUtils {
                 }
             }
         }
-        return StringUtils.substring(ip, 0, 255);
+        return org.apache.commons.lang3.StringUtils.substring(ip, 0, 255);
     }
 
     /**
@@ -234,21 +233,21 @@ public class IpUtils {
      * @return 是否未知
      */
     public static boolean isUnknown(String checkString) {
-        return StringUtils.isBlank(checkString) || "unknown".equalsIgnoreCase(checkString);
+        return org.apache.commons.lang3.StringUtils.isBlank(checkString) || "unknown".equalsIgnoreCase(checkString);
     }
 
     /**
      * 是否为IP
      */
     public static boolean isIP(String ip) {
-        return StringUtils.isNotBlank(ip) && ip.matches(REGX_IP);
+        return org.apache.commons.lang3.StringUtils.isNotBlank(ip) && ip.matches(REGX_IP);
     }
 
     /**
      * 是否为IP，或 *为间隔的通配符地址
      */
     public static boolean isIpWildCard(String ip) {
-        return StringUtils.isNotBlank(ip) && ip.matches(REGX_IP_WILDCARD);
+        return org.apache.commons.lang3.StringUtils.isNotBlank(ip) && ip.matches(REGX_IP_WILDCARD);
     }
 
     /**
@@ -271,7 +270,7 @@ public class IpUtils {
      * 是否为特定格式如:“10.10.10.1-10.10.10.99”的ip段字符串
      */
     public static boolean isIPSegment(String ipSeg) {
-        return StringUtils.isNotBlank(ipSeg) && ipSeg.matches(REGX_IP_SEG);
+        return org.apache.commons.lang3.StringUtils.isNotBlank(ipSeg) && ipSeg.matches(REGX_IP_SEG);
     }
 
     /**
@@ -304,7 +303,7 @@ public class IpUtils {
      * @return boolean 结果
      */
     public static boolean isMatchedIp(String filter, String ip) {
-        if (StringUtils.isEmpty(filter) || StringUtils.isEmpty(ip)) {
+        if (org.apache.commons.lang3.StringUtils.isEmpty(filter) || org.apache.commons.lang3.StringUtils.isEmpty(ip)) {
             return false;
         }
         String[] ips = filter.split(";");

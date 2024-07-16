@@ -2,7 +2,7 @@ package com.dullfan.common.utils.file;
 
 import com.dullfan.common.config.DullConfig;
 import com.dullfan.common.constant.Constants;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import org.apache.poi.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +67,7 @@ public class ImageUtils {
             } else {
                 // 本机地址
                 String localPath = DullConfig.getProfile();
-                String downloadPath = localPath + StringTools.substringAfter(url, Constants.RESOURCE_PREFIX);
+                String downloadPath = localPath + StringUtils.substringAfter(url, Constants.RESOURCE_PREFIX);
                 in = new FileInputStream(downloadPath);
             }
             return IOUtils.toByteArray(in);

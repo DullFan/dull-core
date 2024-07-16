@@ -5,7 +5,7 @@ import com.dullfan.common.core.redis.RedisCache;
 import com.dullfan.common.entity.po.User;
 import com.dullfan.common.exception.ServiceException;
 import com.dullfan.common.utils.SecurityUtils;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import com.dullfan.framework.security.context.AuthenticationContextHolder;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,7 +38,7 @@ public class PasswordService {
         }
 
         if (retryCount >= maxRetryCount) {
-            throw new ServiceException(StringTools.format("密码错误{}次,请{}分钟再试", maxRetryCount, lockTime));
+            throw new ServiceException(StringUtils.format("密码错误{}次,请{}分钟再试", maxRetryCount, lockTime));
         }
 
         if (!matches(user, password)) {

@@ -2,7 +2,6 @@ package com.dullfan.common.utils;
 
 import com.dullfan.common.constant.Constants;
 import com.dullfan.common.core.text.StrFormatter;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.AntPathMatcher;
 
 import java.lang.reflect.Field;
@@ -10,7 +9,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 
-public class StringTools extends StringUtils{
+public class StringUtils extends org.apache.commons.lang3.StringUtils {
     /** 空字符串 */
     private static final String NULLSTR = "";
 
@@ -260,7 +259,7 @@ public class StringTools extends StringUtils{
      * @return 结果
      */
     public static boolean isHttp(String link) {
-        return StringUtils.startsWithAny(link, Constants.HTTP, Constants.HTTPS);
+        return org.apache.commons.lang3.StringUtils.startsWithAny(link, Constants.HTTP, Constants.HTTPS);
     }
 
     /**
@@ -285,17 +284,17 @@ public class StringTools extends StringUtils{
      */
     public static List<String> str2List(String str, String sep, boolean filterBlank, boolean trim) {
         List<String> list = new ArrayList<>();
-        if (StringUtils.isEmpty(str)) {
+        if (org.apache.commons.lang3.StringUtils.isEmpty(str)) {
             return list;
         }
 
         // 过滤空白字符串
-        if (filterBlank && StringUtils.isBlank(str)) {
+        if (filterBlank && org.apache.commons.lang3.StringUtils.isBlank(str)) {
             return list;
         }
         String[] split = str.split(sep);
         for (String string : split) {
-            if (filterBlank && StringUtils.isBlank(string)) {
+            if (filterBlank && org.apache.commons.lang3.StringUtils.isBlank(string)) {
                 continue;
             }
             if (trim) {
@@ -548,7 +547,7 @@ public class StringTools extends StringUtils{
                 String methodName = "get" + upperCaseFirstLetter(field.getName());
                 Method method = param.getClass().getMethod(methodName);
                 Object object = method.invoke(param);
-                if (object instanceof String && !StringTools.isEmpty(object.toString())
+                if (object instanceof String && !StringUtils.isEmpty(object.toString())
                         || object != null && !(object instanceof java.lang.String)) {
                     notEmpty = true;
                     break;

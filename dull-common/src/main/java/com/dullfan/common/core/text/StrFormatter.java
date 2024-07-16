@@ -1,6 +1,6 @@
 package com.dullfan.common.core.text;
 
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 
 public class StrFormatter {
     public static final String EMPTY_JSON = "{}";
@@ -22,7 +22,7 @@ public class StrFormatter {
      * @return 结果
      */
     public static String format(final String strPattern, final Object... argArray) {
-        if (StringTools.isEmpty(strPattern) || StringTools.isEmpty(argArray)) {
+        if (StringUtils.isEmpty(strPattern) || StringUtils.isEmpty(argArray)) {
             return strPattern;
         }
         final int strPatternLength = strPattern.length();

@@ -1,6 +1,6 @@
 package com.dullfan.common.filter;
 
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import com.dullfan.common.utils.html.EscapeUtil;
 import jakarta.servlet.ReadListener;
 import jakarta.servlet.ServletInputStream;
@@ -45,7 +45,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         }
         // 为空，直接返回
         String json = IOUtils.toString(super.getInputStream(), StandardCharsets.UTF_8);
-        if (StringTools.isEmpty(json)) {
+        if (StringUtils.isEmpty(json)) {
             return super.getInputStream();
         }
         // xss过滤
@@ -84,6 +84,6 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
      */
     public boolean isJsonRequest() {
         String header = super.getHeader(HttpHeaders.CONTENT_TYPE);
-        return StringTools.startsWithIgnoreCase(header, MediaType.APPLICATION_JSON_VALUE);
+        return StringUtils.startsWithIgnoreCase(header, MediaType.APPLICATION_JSON_VALUE);
     }
 }

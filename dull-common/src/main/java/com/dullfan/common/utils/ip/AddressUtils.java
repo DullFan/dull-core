@@ -4,7 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.dullfan.common.config.DullConfig;
 import com.dullfan.common.constant.Constants;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import com.dullfan.common.utils.http.HttpUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,7 @@ public class AddressUtils {
         if (DullConfig.isAddressEnabled()) {
             try {
                 String rspStr = HttpUtils.sendGet(IP_URL, "ip=" + ip + "&json=true", Constants.GBK);
-                if (StringTools.isEmpty(rspStr)) {
+                if (StringUtils.isEmpty(rspStr)) {
                     log.error("获取地理位置异常 {}", ip);
                     return UNKNOWN;
                 }

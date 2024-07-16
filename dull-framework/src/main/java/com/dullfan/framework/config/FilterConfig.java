@@ -2,7 +2,7 @@ package com.dullfan.framework.config;
 
 import com.dullfan.common.filter.RepeatableFilter;
 import com.dullfan.common.filter.XssFilter;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import jakarta.servlet.DispatcherType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -31,7 +31,7 @@ public class FilterConfig {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setDispatcherTypes(DispatcherType.REQUEST);
         registration.setFilter(new XssFilter());
-        registration.addUrlPatterns(StringTools.split(urlPatterns, ","));
+        registration.addUrlPatterns(StringUtils.split(urlPatterns, ","));
         registration.setName("xssFilter");
         registration.setOrder(FilterRegistrationBean.HIGHEST_PRECEDENCE);
         Map<String, String> initParameters = new HashMap<>();

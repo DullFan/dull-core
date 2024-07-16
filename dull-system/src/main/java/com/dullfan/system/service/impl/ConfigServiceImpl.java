@@ -11,7 +11,7 @@ import com.dullfan.common.entity.vo.PaginationResultVo;
 import com.dullfan.common.enums.PageSizeEnum;
 import com.dullfan.common.utils.DateUtils;
 import com.dullfan.common.utils.SecurityUtils;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import com.dullfan.system.entity.po.Config;
 import com.dullfan.system.entity.query.ConfigQuery;
 import jakarta.annotation.PostConstruct;
@@ -145,7 +145,7 @@ public class ConfigServiceImpl implements ConfigService {
         ConfigQuery configQuery = new ConfigQuery();
         configQuery.setConfigId(configId);
         Config config = selectConfigByConfigId(configId);
-        if (!StringTools.equals(config.getConfigKey(), bean.getConfigKey())) {
+        if (!StringUtils.equals(config.getConfigKey(), bean.getConfigKey())) {
             redisCache.deleteObject(getCacheKey(config.getConfigKey()));
         }
         bean.setUpdateBy(SecurityUtils.getUserId().toString());
@@ -198,7 +198,7 @@ public class ConfigServiceImpl implements ConfigService {
     @Override
     public String selectConfigByConfigKey(String configKey) {
         String configValue = Convert.toStr(redisCache.getCacheObject(getCacheKey(configKey)));
-        if (StringTools.isNotEmpty(configValue)) {
+        if (StringUtils.isNotEmpty(configValue)) {
             return configValue;
         }
 
@@ -207,7 +207,7 @@ public class ConfigServiceImpl implements ConfigService {
             redisCache.setCacheObject(getCacheKey(configKey), config.getConfigValue());
             return config.getConfigValue();
         }
-        return StringTools.EMPTY;
+        return StringUtils.EMPTY;
     }
 
     /**
@@ -245,7 +245,7 @@ public class ConfigServiceImpl implements ConfigService {
     @Override
     public Boolean selectCaptchaEnabled() {
         String captchaEnabled = selectConfigByConfigKey("sys.account.captchaEnabled");
-        if (StringTools.isEmpty(captchaEnabled)) {
+        if (StringUtils.isEmpty(captchaEnabled)) {
             return true;
         }
         return Convert.toBool(captchaEnabled);

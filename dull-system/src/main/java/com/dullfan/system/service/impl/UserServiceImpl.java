@@ -3,15 +3,18 @@ package com.dullfan.system.service.impl;
 import java.util.List;
 
 import com.dullfan.common.constant.UserConstants;
+import com.dullfan.common.entity.po.LoginUser;
 import com.dullfan.common.entity.query.SimplePage;
 import com.dullfan.common.entity.vo.PaginationResultVo;
 import com.dullfan.common.enums.PageSizeEnum;
 import com.dullfan.common.entity.po.User;
 import com.dullfan.common.entity.query.UserQuery;
+import com.dullfan.common.exception.ServiceException;
 import com.dullfan.common.utils.DateUtils;
 import com.dullfan.common.utils.SecurityUtils;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import jakarta.annotation.Resource;
+import org.springframework.security.core.token.TokenService;
 import org.springframework.stereotype.Service;
 import com.dullfan.system.mappers.UserMapper;
 import com.dullfan.system.service.UserService;
@@ -79,7 +82,7 @@ public class UserServiceImpl implements UserService {
      * 根据UserId获取对象
      */
     @Override
-    public User selectUserByUserId(Long userId)   {
+    public User selectUserByUserId(Long userId) {
         return this.userMapper.selectByUserId(userId);
     }
 
@@ -151,9 +154,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkUserNameUnique(User user) {
-        long userId = StringTools.isNull(user.getUserId()) ? -1L : user.getUserId();
+        long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
         User info = userMapper.selectByUserName(user.getUserName());
-        if (StringTools.isNotNull(info) && info.getUserId() != userId) {
+        if (StringUtils.isNotNull(info) && info.getUserId() != userId) {
             return UserConstants.NOT_UNIQUE;
         }
         return UserConstants.UNIQUE;

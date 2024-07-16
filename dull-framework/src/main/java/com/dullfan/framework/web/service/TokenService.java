@@ -5,7 +5,7 @@ import com.dullfan.common.constant.Constants;
 import com.dullfan.common.core.redis.RedisCache;
 import com.dullfan.common.entity.po.LoginUser;
 import com.dullfan.common.utils.ServletUtils;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import com.dullfan.common.utils.ip.AddressUtils;
 import com.dullfan.common.utils.ip.IpUtils;
 import com.dullfan.common.utils.uuid.IdUtils;
@@ -77,7 +77,7 @@ public class TokenService {
     public LoginUser getLoginUser(HttpServletRequest request) {
         // 获取请求携带的令牌
         String token = getToken(request);
-        if (StringTools.isNotEmpty(token)) {
+        if (StringUtils.isNotEmpty(token)) {
             try {
                 Claims claims = parseToken(token);
                 // 解析对应的权限以及用户信息
@@ -111,7 +111,7 @@ public class TokenService {
      * 设置用户身份信息
      */
     public void setLoginUser(LoginUser loginUser) {
-        if (StringTools.isNotNull(loginUser) && StringTools.isNotEmpty(loginUser.getToken())) {
+        if (StringUtils.isNotNull(loginUser) && StringUtils.isNotEmpty(loginUser.getToken())) {
             refreshToken(loginUser);
         }
     }
@@ -175,7 +175,7 @@ public class TokenService {
      * 删除用户身份信息
      */
     public void delLoginUser(String token) {
-        if (StringTools.isNotEmpty(token)) {
+        if (StringUtils.isNotEmpty(token)) {
             String userKey = getTokenKey(token);
             redisCache.deleteObject(userKey);
         }
@@ -198,7 +198,7 @@ public class TokenService {
 
     private String getToken(HttpServletRequest request) {
         String token = request.getHeader(header);
-        if (StringTools.isNotEmpty(token) && token.startsWith(Constants.TOKEN_PREFIX)) {
+        if (StringUtils.isNotEmpty(token) && token.startsWith(Constants.TOKEN_PREFIX)) {
             token = token.replace(Constants.TOKEN_PREFIX, "");
         }
         return token;

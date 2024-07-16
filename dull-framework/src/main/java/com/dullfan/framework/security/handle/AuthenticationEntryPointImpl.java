@@ -5,7 +5,7 @@ import com.alibaba.fastjson2.JSON;
 import com.dullfan.common.constant.HttpStatus;
 import com.dullfan.common.entity.vo.Result;
 import com.dullfan.common.utils.ServletUtils;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
@@ -26,7 +26,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
         int code = HttpStatus.UNAUTHORIZED;
-        String msg = StringTools.format("请求访问：{}，认证失败，无法访问系统资源", request.getRequestURI());
+        String msg = StringUtils.format("请求访问：{}，认证失败，无法访问系统资源", request.getRequestURI());
         ServletUtils.renderString(response, JSON.toJSONString(Result.error(code, msg)));
     }
 }

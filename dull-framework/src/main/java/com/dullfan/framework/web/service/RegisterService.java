@@ -5,7 +5,7 @@ import com.dullfan.common.core.redis.RedisCache;
 import com.dullfan.common.entity.po.RegisterBody;
 import com.dullfan.common.entity.po.User;
 import com.dullfan.common.utils.SecurityUtils;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import com.dullfan.system.service.ConfigService;
 import com.dullfan.system.service.UserService;
 import jakarta.annotation.Resource;
@@ -21,12 +21,6 @@ public class RegisterService {
     @Resource
     private UserService userService;
 
-    @Resource
-    private ConfigService configService;
-
-    @Resource
-    private RedisCache redisCache;
-
     /**
      * 注册
      */
@@ -36,9 +30,9 @@ public class RegisterService {
         User sysUser = new User();
         sysUser.setUserName(username);
 
-        if (StringTools.isEmpty(username)) {
+        if (StringUtils.isEmpty(username)) {
             msg = "用户名不能为空";
-        } else if (StringTools.isEmpty(password)) {
+        } else if (StringUtils.isEmpty(password)) {
             msg = "用户密码不能为空";
         } else if (username.length() < UserConstants.USERNAME_MIN_LENGTH
                 || username.length() > UserConstants.USERNAME_MAX_LENGTH) {

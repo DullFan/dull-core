@@ -1,6 +1,6 @@
 package com.dullfan.common.filter;
 
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.MediaType;
@@ -21,7 +21,7 @@ public class RepeatableFilter implements Filter {
             throws IOException, ServletException {
         ServletRequest requestWrapper = null;
         if (request instanceof HttpServletRequest
-                && StringTools.startsWithIgnoreCase(request.getContentType(), MediaType.APPLICATION_JSON_VALUE)) {
+                && StringUtils.startsWithIgnoreCase(request.getContentType(), MediaType.APPLICATION_JSON_VALUE)) {
             requestWrapper = new RepeatedlyRequestWrapper((HttpServletRequest) request, response);
         }
         if (null == requestWrapper) {

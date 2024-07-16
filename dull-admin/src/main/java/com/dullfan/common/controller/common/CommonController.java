@@ -3,14 +3,13 @@ package com.dullfan.common.controller.common;
 import com.dullfan.common.config.DullConfig;
 import com.dullfan.common.constant.Constants;
 import com.dullfan.common.entity.vo.Result;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import com.dullfan.common.utils.file.FileUploadUtils;
 import com.dullfan.common.utils.file.FileUtils;
 import com.dullfan.framework.config.ServerConfig;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,7 +42,7 @@ public class CommonController {
     public void fileDownload(String fileName, Boolean delete, HttpServletResponse response) {
         try {
             if (!FileUtils.checkAllowDownload(fileName)) {
-                throw new Exception(StringTools.format("文件名称({})非法，不允许下载。 ", fileName));
+                throw new Exception(StringUtils.format("文件名称({})非法，不允许下载。 ", fileName));
             }
             String realFileName = System.currentTimeMillis() + fileName.substring(fileName.indexOf("_") + 1);
             String filePath = DullConfig.getDownloadPath() + fileName;
@@ -103,10 +102,10 @@ public class CommonController {
                 originalFilenames.add(file.getOriginalFilename());
             }
             Result ajax = Result.success();
-            ajax.put("urls", StringUtils.join(urls, FILE_DELIMETER));
-            ajax.put("fileNames", StringUtils.join(fileNames, FILE_DELIMETER));
-            ajax.put("newFileNames", StringUtils.join(newFileNames, FILE_DELIMETER));
-            ajax.put("originalFilenames", StringUtils.join(originalFilenames, FILE_DELIMETER));
+            ajax.put("urls", org.apache.commons.lang3.StringUtils.join(urls, FILE_DELIMETER));
+            ajax.put("fileNames", org.apache.commons.lang3.StringUtils.join(fileNames, FILE_DELIMETER));
+            ajax.put("newFileNames", org.apache.commons.lang3.StringUtils.join(newFileNames, FILE_DELIMETER));
+            ajax.put("originalFilenames", org.apache.commons.lang3.StringUtils.join(originalFilenames, FILE_DELIMETER));
             return ajax;
         } catch (Exception e) {
             return Result.error(e.getMessage());
@@ -120,14 +119,14 @@ public class CommonController {
     public void resourceDownload(String resource, HttpServletResponse response) {
         try {
             if (!FileUtils.checkAllowDownload(resource)) {
-                throw new Exception(StringTools.format("资源文件({})非法，不允许下载。 ", resource));
+                throw new Exception(StringUtils.format("资源文件({})非法，不允许下载。 ", resource));
             }
             // 本地资源路径
             String localPath = DullConfig.getProfile();
             // 数据库资源地址
-            String downloadPath = localPath + StringUtils.substringAfter(resource, Constants.RESOURCE_PREFIX);
+            String downloadPath = localPath + org.apache.commons.lang3.StringUtils.substringAfter(resource, Constants.RESOURCE_PREFIX);
             // 下载名称
-            String downloadName = StringUtils.substringAfterLast(downloadPath, "/");
+            String downloadName = org.apache.commons.lang3.StringUtils.substringAfterLast(downloadPath, "/");
             response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
             FileUtils.setAttachmentResponseHeader(response, downloadName);
             FileUtils.writeBytes(downloadPath, response.getOutputStream());

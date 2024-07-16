@@ -1,11 +1,9 @@
 package com.dullfan.common.filter;
 
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpMethod;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +22,7 @@ public class XssFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {
         String tempExcludes = filterConfig.getInitParameter("excludes");
-        if (StringTools.isNotEmpty(tempExcludes)) {
+        if (StringUtils.isNotEmpty(tempExcludes)) {
             String[] url = tempExcludes.split(",");
             excludes.addAll(Arrays.asList(url));
         }
@@ -49,7 +47,7 @@ public class XssFilter implements Filter {
         if (method == null || HttpMethod.GET.matches(method) || HttpMethod.DELETE.matches(method)) {
             return true;
         }
-        return StringTools.matches(url, excludes);
+        return StringUtils.matches(url, excludes);
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.dullfan.framework.security.filter;
 
 import com.dullfan.common.entity.po.LoginUser;
 import com.dullfan.common.utils.SecurityUtils;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import com.dullfan.common.utils.log.HttpLogEntity;
 import com.dullfan.common.utils.log.HttpLogEntityBuilder;
 import com.dullfan.framework.web.service.TokenService;
@@ -33,7 +33,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         LoginUser loginUser = tokenService.getLoginUser(request);
-        if (StringTools.isNotNull(loginUser) && StringTools.isNull(SecurityUtils.getAuthentication())) {
+        if (StringUtils.isNotNull(loginUser) && StringUtils.isNull(SecurityUtils.getAuthentication())) {
             tokenService.verifyToken(loginUser);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

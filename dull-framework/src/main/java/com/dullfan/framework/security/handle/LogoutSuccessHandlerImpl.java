@@ -4,7 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import com.dullfan.common.entity.po.LoginUser;
 import com.dullfan.common.entity.vo.Result;
 import com.dullfan.common.utils.ServletUtils;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import com.dullfan.framework.web.service.TokenService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.ServletException;
@@ -31,7 +31,7 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
         LoginUser loginUser = tokenService.getLoginUser(request);
-        if (StringTools.isNotNull(loginUser)) {
+        if (StringUtils.isNotNull(loginUser)) {
             // 删除用户缓存记录
             tokenService.delLoginUser(loginUser.getToken());
         }

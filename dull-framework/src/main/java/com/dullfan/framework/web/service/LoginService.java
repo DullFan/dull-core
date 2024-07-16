@@ -8,7 +8,7 @@ import com.dullfan.common.entity.po.LoginUser;
 import com.dullfan.common.entity.po.User;
 import com.dullfan.common.exception.ServiceException;
 import com.dullfan.common.utils.DateUtils;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import com.dullfan.common.utils.ip.IpUtils;
 import com.dullfan.framework.security.context.AuthenticationContextHolder;
 import com.dullfan.system.service.ConfigService;
@@ -58,7 +58,7 @@ public class LoginService {
             // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
             authentication = authenticationManager.authenticate(authenticationToken);
         } catch (AuthenticationException e) {
-            throw new ServiceException("登录接口出现异常");
+            throw new ServiceException("账号或密码错误");
         } finally {
             AuthenticationContextHolder.clearContext();
         }
@@ -75,18 +75,18 @@ public class LoginService {
      * @param password 密码
      */
     private void loginPreCheck(String username, String password) {
-        if (StringTools.isEmpty(username) || StringTools.isEmpty(password)) {
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             throw new ServiceException("用户名或密码错误");
         }
         // 密码如果不在指定范围内错误
         if (password.length() < UserConstants.PASSWORD_MIN_LENGTH
                 || password.length() > UserConstants.PASSWORD_MAX_LENGTH) {
-            throw new ServiceException(StringTools.format("密码长度在{}到{}之间", UserConstants.PASSWORD_MIN_LENGTH, UserConstants.PASSWORD_MAX_LENGTH));
+            throw new ServiceException(StringUtils.format("密码长度在{}到{}之间", UserConstants.PASSWORD_MIN_LENGTH, UserConstants.PASSWORD_MAX_LENGTH));
         }
         // 用户名不在指定范围内 错误
         if (username.length() < UserConstants.USERNAME_MIN_LENGTH
                 || username.length() > UserConstants.USERNAME_MAX_LENGTH) {
-            throw new ServiceException(StringTools.format("用户名长度在{}到{}之间", UserConstants.USERNAME_MIN_LENGTH, UserConstants.USERNAME_MAX_LENGTH));
+            throw new ServiceException(StringUtils.format("用户名长度在{}到{}之间", UserConstants.USERNAME_MIN_LENGTH, UserConstants.USERNAME_MAX_LENGTH));
         }
     }
 
@@ -99,7 +99,7 @@ public class LoginService {
     private void validateCaptcha(String code, String uuid) {
         boolean captchaEnabled = configService.selectCaptchaEnabled();
         if (captchaEnabled) {
-            String verifyKey = CacheConstants.CAPTCHA_CODE_KEY + StringTools.nvl(uuid, "");
+            String verifyKey = CacheConstants.CAPTCHA_CODE_KEY + StringUtils.nvl(uuid, "");
             String captcha = redisCache.getCacheObject(verifyKey);
             redisCache.deleteObject(verifyKey);
             if (captcha == null) {

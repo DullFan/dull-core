@@ -2,7 +2,7 @@ package com.dullfan.framework.web.exception;
 
 import com.dullfan.common.entity.vo.Result;
 import com.dullfan.common.exception.ServiceException;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
     public Result handleServiceException(ServiceException e) {
         log.error(e.getMessage(), e);
         Integer code = e.getCode();
-        return StringTools.isNotNull(code) ? Result.error(code, e.getMessage()) : Result.error(e.getMessage());
+        return StringUtils.isNotNull(code) ? Result.error(code, e.getMessage()) : Result.error(e.getMessage());
     }
 
 }

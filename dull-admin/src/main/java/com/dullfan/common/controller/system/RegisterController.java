@@ -3,7 +3,7 @@ package com.dullfan.common.controller.system;
 import com.dullfan.common.controller.ABaseController;
 import com.dullfan.common.entity.po.RegisterBody;
 import com.dullfan.common.entity.vo.Result;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import com.dullfan.framework.web.service.RegisterService;
 import com.dullfan.system.service.ConfigService;
 import jakarta.annotation.Resource;
@@ -29,6 +29,6 @@ public class RegisterController extends ABaseController {
             return error("当前系统没有开启注册功能！");
         }
         String msg = registerService.register(user);
-        return StringTools.isEmpty(msg) ? success() : error(msg);
+        return StringUtils.isEmpty(msg) ? success() : error(msg);
     }
 }

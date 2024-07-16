@@ -1,7 +1,7 @@
 package com.dullfan.common.core.text;
 
 
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -44,7 +44,7 @@ public class CharsetKit {
      * @return Charset
      */
     public static Charset charset(String charset) {
-        return StringTools.isEmpty(charset) ? Charset.defaultCharset() : Charset.forName(charset);
+        return StringUtils.isEmpty(charset) ? Charset.defaultCharset() : Charset.forName(charset);
     }
 
     /**
@@ -76,7 +76,7 @@ public class CharsetKit {
             destCharset = StandardCharsets.UTF_8;
         }
 
-        if (StringTools.isEmpty(source) || srcCharset.equals(destCharset)) {
+        if (StringUtils.isEmpty(source) || srcCharset.equals(destCharset)) {
             return source;
         }
         return new String(source.getBytes(srcCharset), destCharset);

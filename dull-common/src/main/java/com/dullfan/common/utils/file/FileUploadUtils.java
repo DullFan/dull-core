@@ -4,11 +4,10 @@ import com.dullfan.common.config.DullConfig;
 import com.dullfan.common.constant.Constants;
 import com.dullfan.common.exception.ServiceException;
 import com.dullfan.common.utils.DateUtils;
-import com.dullfan.common.utils.StringTools;
+import com.dullfan.common.utils.StringUtils;
 import com.dullfan.common.utils.uuid.Seq;
 import lombok.Getter;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -84,7 +83,7 @@ public class FileUploadUtils {
             throws FileSizeLimitExceededException, IOException {
         int fileNameLength = Objects.requireNonNull(file.getOriginalFilename()).length();
         if (fileNameLength > FileUploadUtils.DEFAULT_FILE_NAME_LENGTH) {
-            throw new ServiceException(StringTools.format("默认的文件名最大长度为{}", FileUploadUtils.DEFAULT_FILE_NAME_LENGTH));
+            throw new ServiceException(StringUtils.format("默认的文件名最大长度为{}", FileUploadUtils.DEFAULT_FILE_NAME_LENGTH));
         }
 
         assertAllowed(file, allowedExtension);
@@ -100,7 +99,7 @@ public class FileUploadUtils {
      * 编码文件名
      */
     public static String extractFilename(MultipartFile file) {
-        return StringTools.format("{}/{}_{}.{}", DateUtils.datePath(),
+        return StringUtils.format("{}/{}_{}.{}", DateUtils.datePath(),
                 FilenameUtils.getBaseName(file.getOriginalFilename()), Seq.getId(Seq.uploadSeqType), getExtension(file));
     }
 
@@ -117,7 +116,7 @@ public class FileUploadUtils {
 
     public static String getPathFileName(String uploadDir, String fileName) {
         int dirLastIndex = DullConfig.getProfile().length() + 1;
-        String currentDir = StringUtils.substring(uploadDir, dirLastIndex);
+        String currentDir = org.apache.commons.lang3.StringUtils.substring(uploadDir, dirLastIndex);
         return Constants.RESOURCE_PREFIX + "/" + currentDir + "/" + fileName;
     }
 
@@ -129,22 +128,22 @@ public class FileUploadUtils {
     public static void assertAllowed(MultipartFile file, String[] allowedExtension) {
         long size = file.getSize();
         if (size > DEFAULT_MAX_SIZE) {
-            throw new ServiceException(StringTools.format("文件超过最大值{}MB", DEFAULT_MAX_SIZE / 1024 / 1024));
+            throw new ServiceException(StringUtils.format("文件超过最大值{}MB", DEFAULT_MAX_SIZE / 1024 / 1024));
         }
 
         String fileName = file.getOriginalFilename();
         String extension = getExtension(file);
         if (allowedExtension != null && !isAllowedExtension(extension, allowedExtension)) {
             if (allowedExtension == MimeTypeUtils.IMAGE_EXTENSION) {
-                throw new ServiceException(StringTools.format("文件{}后缀{}不正确,请重新上传", fileName, extension));
+                throw new ServiceException(StringUtils.format("文件{}后缀{}不正确,请重新上传", fileName, extension));
             } else if (allowedExtension == MimeTypeUtils.FLASH_EXTENSION) {
-                throw new ServiceException(StringTools.format("文件{}后缀{}不正确,请重新上传", fileName, extension));
+                throw new ServiceException(StringUtils.format("文件{}后缀{}不正确,请重新上传", fileName, extension));
             } else if (allowedExtension == MimeTypeUtils.MEDIA_EXTENSION) {
-                throw new ServiceException(StringTools.format("文件{}后缀{}不正确,请重新上传", fileName, extension));
+                throw new ServiceException(StringUtils.format("文件{}后缀{}不正确,请重新上传", fileName, extension));
             } else if (allowedExtension == MimeTypeUtils.VIDEO_EXTENSION) {
-                throw new ServiceException(StringTools.format("文件{}后缀{}不正确,请重新上传", fileName, extension));
+                throw new ServiceException(StringUtils.format("文件{}后缀{}不正确,请重新上传", fileName, extension));
             } else {
-                throw new ServiceException(StringTools.format("文件{}后缀{}不正确,请重新上传", fileName, extension));
+                throw new ServiceException(StringUtils.format("文件{}后缀{}不正确,请重新上传", fileName, extension));
             }
         }
     }
@@ -169,7 +168,7 @@ public class FileUploadUtils {
      */
     public static String getExtension(MultipartFile file) {
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-        if (StringTools.isEmpty(extension)) {
+        if (StringUtils.isEmpty(extension)) {
             extension = MimeTypeUtils.getExtension(Objects.requireNonNull(file.getContentType()));
         }
         return extension;

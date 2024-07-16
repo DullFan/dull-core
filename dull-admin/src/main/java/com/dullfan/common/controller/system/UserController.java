@@ -1,9 +1,14 @@
 package com.dullfan.common.controller.system;
 
 import com.dullfan.common.controller.ABaseController;
+import com.dullfan.common.entity.po.LoginUser;
 import com.dullfan.common.entity.po.User;
 import com.dullfan.common.entity.query.UserQuery;
 import com.dullfan.common.entity.vo.Result;
+import com.dullfan.common.exception.ServiceException;
+import com.dullfan.common.utils.SecurityUtils;
+import com.dullfan.framework.web.service.TokenService;
+import com.dullfan.system.entity.po.ResetPassword;
 import com.dullfan.system.service.UserService;
 
 import java.util.List;
@@ -19,6 +24,9 @@ import jakarta.annotation.Resource;
 public class UserController extends ABaseController {
     @Resource
     private UserService userService;
+
+    @Resource
+    TokenService tokenService;
 
     /**
      * 根据条件分页查询
@@ -63,6 +71,32 @@ public class UserController extends ABaseController {
         isAdminOrLoginUser(userId);
         Integer result = userService.updateUserByUserId(bean, userId);
         return determineOperationOutcome(result);
+    }
+
+    /**
+     * 重置密码
+     */
+    @PutMapping("/resetPassword")
+    public Result resetPassword(@RequestBody ResetPassword resetPassword) {
+        LoginUser loginUser = SecurityUtils.getLoginUser();
+        String password = loginUser.getPassword();
+        if (!SecurityUtils.matchesPassword(resetPassword.getOldPassword(), password)) {
+            return error("修改密码失败，旧密码错误");
+        }
+        if (SecurityUtils.matchesPassword(resetPassword.getNewPassword(), password)) {
+            return error("新密码不能与旧密码相同");
+        }
+        String newPassword = SecurityUtils.encryptPassword(resetPassword.getNewPassword());
+        User user = new User();
+        user.setUserId(getUserId());
+        user.setPassword(newPassword);
+        if (userService.updateUser(user) > 0) {
+            // 更新缓存用户密码
+            loginUser.getUser().setPassword(newPassword);
+            tokenService.setLoginUser(loginUser);
+            return success();
+        }
+        return error("接口报错,请联系管理员");
     }
 
     /**

@@ -2,6 +2,8 @@ package com.dullfan.system.service;
 import com.dullfan.common.entity.vo.PaginationResultVo;
 import com.dullfan.common.entity.po.User;
 import com.dullfan.common.entity.query.UserQuery;
+import com.dullfan.system.entity.po.ResetPassword;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 public interface UserService{

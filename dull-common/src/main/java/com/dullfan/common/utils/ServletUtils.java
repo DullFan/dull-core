@@ -2,7 +2,6 @@ package com.dullfan.common.utils;
 
 import com.dullfan.common.constant.Constants;
 import com.dullfan.common.core.text.Convert;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -87,7 +86,7 @@ public class ServletUtils {
     public static Map<String, String> getParamMap(ServletRequest request) {
         Map<String, String> params = new HashMap<>();
         for (Map.Entry<String, String[]> entry : getParams(request).entrySet()) {
-            params.put(entry.getKey(), StringUtils.join(entry.getValue(), ","));
+            params.put(entry.getKey(), org.apache.commons.lang3.StringUtils.join(entry.getValue(), ","));
         }
         return params;
     }
@@ -152,12 +151,12 @@ public class ServletUtils {
         }
 
         String uri = request.getRequestURI();
-        if (StringTools.inStringIgnoreCase(uri, ".json", ".xml")) {
+        if (StringUtils.inStringIgnoreCase(uri, ".json", ".xml")) {
             return true;
         }
 
         String ajax = request.getParameter("__ajax");
-        return StringTools.inStringIgnoreCase(ajax, "json", "xml");
+        return StringUtils.inStringIgnoreCase(ajax, "json", "xml");
     }
 
     /**
@@ -170,7 +169,7 @@ public class ServletUtils {
         try {
             return URLEncoder.encode(str, Constants.UTF8);
         } catch (UnsupportedEncodingException e) {
-            return StringUtils.EMPTY;
+            return org.apache.commons.lang3.StringUtils.EMPTY;
         }
     }
 
@@ -184,7 +183,7 @@ public class ServletUtils {
         try {
             return URLDecoder.decode(str, Constants.UTF8);
         } catch (UnsupportedEncodingException e) {
-            return StringUtils.EMPTY;
+            return org.apache.commons.lang3.StringUtils.EMPTY;
         }
     }
 }
