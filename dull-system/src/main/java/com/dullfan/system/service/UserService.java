@@ -1,32 +1,25 @@
 package com.dullfan.system.service;
-import com.dullfan.common.entity.vo.PaginationResultVo;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dullfan.common.entity.po.User;
-import com.dullfan.common.entity.query.UserQuery;
-import com.dullfan.system.entity.po.ResetPassword;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 public interface UserService{
 	/**
 	 * 根据条件查询列表
 	 */
-	List<User> selectListByParam(UserQuery param);
+	List<User> selectListByParam(User param);
 	/**
 	 * 根据条件查询列表
 	 */
-	Integer selectCountByParam(UserQuery param);
+	Long selectCountByParam(User param);
 	/**
-	 * 分页查询
-	 */
-	PaginationResultVo<User> selectListByPage(UserQuery param);
+     * 分页查询
+     */
+	Page<User> selectListByPage(Long current, Long size,User param);
 	/**
 	 * 新增
 	 */
 	Integer add(User bean);
-	/**
-	 * 批量新增
-	 */
-	Integer addBatch(List<User> listBean);
 
 	/**
 	 * 根据UserId查询对象

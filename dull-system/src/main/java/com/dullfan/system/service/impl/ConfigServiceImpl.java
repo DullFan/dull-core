@@ -3,17 +3,15 @@ package com.dullfan.system.service.impl;
 import java.util.Collection;
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dullfan.common.constant.CacheConstants;
 import com.dullfan.common.core.redis.RedisCache;
 import com.dullfan.common.core.text.Convert;
-import com.dullfan.common.entity.query.SimplePage;
-import com.dullfan.common.entity.vo.PaginationResultVo;
-import com.dullfan.common.enums.PageSizeEnum;
 import com.dullfan.common.utils.DateUtils;
 import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.common.utils.StringUtils;
 import com.dullfan.system.entity.po.Config;
-import com.dullfan.system.entity.query.ConfigQuery;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -25,7 +23,6 @@ import com.dullfan.system.service.ConfigService;
  *
  * @author DullFan
  */
-// TODO 更新者、更新时间还未更新
 @Service("configService")
 public class ConfigServiceImpl implements ConfigService {
     @Resource
@@ -47,7 +44,8 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Override
     public void loadingConfigCache() {
-        List<Config> configsList = configMapper.selectList(new ConfigQuery());
+
+        List<Config> configsList = configMapper.selectList(null);
         for (Config config : configsList) {
             redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
         }
@@ -75,29 +73,28 @@ public class ConfigServiceImpl implements ConfigService {
      * 根据条件查询列表
      */
     @Override
-    public List<Config> selectListByParam(ConfigQuery param) {
-        return this.configMapper.selectList(param);
+    public List<Config> selectListByParam(Config param) {
+        QueryWrapper<Config> configQueryWrapper = new QueryWrapper<>(param);
+        return this.configMapper.selectList(configQueryWrapper);
     }
 
     /**
      * 根据条件查询列表
      */
     @Override
-    public Integer selectCountByParam(ConfigQuery param) {
-        return this.configMapper.selectCount(param);
+    public Long selectCountByParam(Config param) {
+        QueryWrapper<Config> configQueryWrapper = new QueryWrapper<>(param);
+        return this.configMapper.selectCount(configQueryWrapper);
     }
 
     /**
      * 分页查询方法
      */
     @Override
-    public PaginationResultVo<Config> selectListByPage(ConfigQuery param) {
-        int count = this.selectCountByParam(param);
-        int pageSize = param.getPageSize() == null ? PageSizeEnum.SIZE15.getSize() : param.getPageSize();
-        SimplePage page = new SimplePage(param.getPageNum(), count, pageSize);
-        param.setSimplePage(page);
-        List<Config> list = this.selectListByParam(param);
-        return new PaginationResultVo<>(count, page.getPageSize(), page.getPageNum(), page.getPageTotal(), list);
+    public Page<Config> selectListByPage(Long current,Long size,Config param) {
+        Page<Config> page = new Page<>(current, size);
+        QueryWrapper<Config> configQueryWrapper = new QueryWrapper<>(param);
+        return configMapper.selectPage(page, configQueryWrapper);
     }
 
     /**
@@ -105,26 +102,9 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Override
     public Integer add(Config bean) {
-        Integer insert = this.configMapper.insert(bean);
+        int insert = this.configMapper.insert(bean);
         if (insert > 0) {
             redisCache.setCacheObject(getCacheKey(bean.getConfigKey()), bean.getConfigValue());
-        }
-        return insert;
-    }
-
-    /**
-     * 批量新增
-     */
-    @Override
-    public Integer addBatch(List<Config> listBean) {
-        if (listBean == null || listBean.isEmpty()) {
-            return 0;
-        }
-        Integer insert = this.configMapper.insertBatch(listBean);
-        if (insert > 0) {
-            for (Config bean : listBean) {
-                redisCache.setCacheObject(getCacheKey(bean.getConfigKey()), bean.getConfigValue());
-            }
         }
         return insert;
     }
@@ -134,7 +114,7 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Override
     public Config selectConfigByConfigId(Integer configId) {
-        return this.configMapper.selectByConfigId(configId);
+        return this.configMapper.selectById(configId);
     }
 
     /**
@@ -142,7 +122,7 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Override
     public Integer updateConfigByConfigId(Config bean, Integer configId) {
-        ConfigQuery configQuery = new ConfigQuery();
+        Config configQuery = new Config();
         configQuery.setConfigId(configId);
         Config config = selectConfigByConfigId(configId);
         if (!StringUtils.equals(config.getConfigKey(), bean.getConfigKey())) {
@@ -150,7 +130,9 @@ public class ConfigServiceImpl implements ConfigService {
         }
         bean.setUpdateBy(SecurityUtils.getUserId().toString());
         bean.setUpdateTime(DateUtils.getNowDate());
-        Integer row = this.configMapper.updateByParam(bean, configQuery);
+        bean.setConfigId(configId);
+
+        int row = this.configMapper.updateById(bean);
         if (row > 0) {
             redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigKey());
         }
@@ -162,7 +144,7 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Override
     public Integer deleteConfigByConfigId(Integer configId) {
-        Integer row = this.configMapper.deleteByConfigId(configId);
+        int row = this.configMapper.deleteById(configId);
         if (row > 0) {
             Config config = selectConfigByConfigId(configId);
             if (config != null) {
@@ -180,7 +162,7 @@ public class ConfigServiceImpl implements ConfigService {
         if (list == null || list.isEmpty()) {
             return 0;
         }
-        Integer row = this.configMapper.deleteByConfigIdBatch(list);
+        int row = this.configMapper.deleteBatchIds(list);
         if (row > 0) {
             for (Integer configId : list) {
                 Config config = selectConfigByConfigId(configId);
@@ -201,8 +183,9 @@ public class ConfigServiceImpl implements ConfigService {
         if (StringUtils.isNotEmpty(configValue)) {
             return configValue;
         }
-
-        Config config = this.configMapper.selectByConfigKey(configKey);
+        QueryWrapper<Config> configQueryWrapper = new QueryWrapper<>();
+        configQueryWrapper.eq("config_key",configKey);
+        Config config = this.configMapper.selectOne(configQueryWrapper);
         if (config != null) {
             redisCache.setCacheObject(getCacheKey(configKey), config.getConfigValue());
             return config.getConfigValue();
@@ -215,11 +198,11 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Override
     public Integer updateConfigByConfigKey(Config bean, String configKey) {
-        ConfigQuery configQuery = new ConfigQuery();
-        configQuery.setConfigKey(configKey);
         bean.setUpdateBy(SecurityUtils.getUserId().toString());
         bean.setUpdateTime(DateUtils.getNowDate());
-        Integer row = this.configMapper.updateByParam(bean, configQuery);
+        QueryWrapper<Config> configQueryWrapper = new QueryWrapper<>();
+        configQueryWrapper.eq("config_key",configKey);
+        int row = this.configMapper.update(bean, configQueryWrapper);
         if (row > 0) {
             redisCache.setCacheObject(getCacheKey(configKey), bean.getConfigValue());
         }
@@ -231,7 +214,9 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Override
     public Integer deleteConfigByConfigKey(String configKey) {
-        Integer row = this.configMapper.deleteByConfigKey(configKey);
+        QueryWrapper<Config> configQueryWrapper = new QueryWrapper<>();
+        configQueryWrapper.eq("config_key",configKey);
+        int row = this.configMapper.delete(configQueryWrapper);
         if (row > 0) {
             redisCache.deleteObject(getCacheKey(configKey));
         }

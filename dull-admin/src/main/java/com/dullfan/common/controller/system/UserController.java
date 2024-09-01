@@ -3,9 +3,7 @@ package com.dullfan.common.controller.system;
 import com.dullfan.common.controller.ABaseController;
 import com.dullfan.common.entity.po.LoginUser;
 import com.dullfan.common.entity.po.User;
-import com.dullfan.common.entity.query.UserQuery;
 import com.dullfan.common.entity.vo.Result;
-import com.dullfan.common.exception.ServiceException;
 import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.framework.web.service.TokenService;
 import com.dullfan.system.entity.po.ResetPassword;
@@ -32,8 +30,8 @@ public class UserController extends ABaseController {
      * 根据条件分页查询
      */
     @GetMapping("/loadDataList")
-    public Result loadDataList(UserQuery param) {
-        return success(userService.selectListByPage(param));
+    public Result loadDataList(Long current, Long size,User param) {
+        return success(userService.selectListByPage(current, size, param));
     }
 
     /**
@@ -42,16 +40,6 @@ public class UserController extends ABaseController {
     @PostMapping("/add")
     public Result add(@RequestBody User bean) {
         Integer result = userService.add(bean);
-        return determineOperationOutcome(result);
-    }
-
-    /**
-     * 批量新增
-     */
-    @PostMapping("/addBatch")
-    public Result addBatch(@RequestBody List<User> listBean) {
-        isAdmin();
-        Integer result = userService.addBatch(listBean);
         return determineOperationOutcome(result);
     }
 

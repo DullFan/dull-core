@@ -2,13 +2,13 @@ package com.dullfan.common.entity.vo;
 
 import com.dullfan.common.constant.HttpStatus;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Objects;
 /**
  * 操作消息提醒
  */
 public class Result extends HashMap<String, Object> {
-    private static final long serialVersionUID = 1L;
     /**
      * 状态码
      */

@@ -2,19 +2,14 @@ package com.dullfan.system.service.impl;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dullfan.common.constant.UserConstants;
-import com.dullfan.common.entity.po.LoginUser;
-import com.dullfan.common.entity.query.SimplePage;
-import com.dullfan.common.entity.vo.PaginationResultVo;
-import com.dullfan.common.enums.PageSizeEnum;
 import com.dullfan.common.entity.po.User;
-import com.dullfan.common.entity.query.UserQuery;
-import com.dullfan.common.exception.ServiceException;
 import com.dullfan.common.utils.DateUtils;
 import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.common.utils.StringUtils;
 import jakarta.annotation.Resource;
-import org.springframework.security.core.token.TokenService;
 import org.springframework.stereotype.Service;
 import com.dullfan.system.mappers.UserMapper;
 import com.dullfan.system.service.UserService;
@@ -33,30 +28,26 @@ public class UserServiceImpl implements UserService {
      * 根据条件查询列表
      */
     @Override
-    public List<User> selectListByParam(UserQuery param) {
-        return this.userMapper.selectList(param);
+    public List<User> selectListByParam(User param) {
+        return this.userMapper.selectList(new QueryWrapper<>(param));
     }
 
     /**
      * 根据条件查询列表
      */
     @Override
-    public Integer selectCountByParam(UserQuery param) {
-        return this.userMapper.selectCount(param);
+    public Long selectCountByParam(User param) {
+        return this.userMapper.selectCount(new QueryWrapper<>(param));
     }
 
     /**
      * 分页查询方法
      */
     @Override
-    public PaginationResultVo<User> selectListByPage(UserQuery param) {
-        int count = this.selectCountByParam(param);
-        int pageSize = param.getPageSize() == null ? PageSizeEnum.SIZE15.getSize() : param.getPageSize();
-        SimplePage page = new SimplePage(param.getPageNum(), count, pageSize);
-        param.setSimplePage(page);
-        List<User> list = this.selectListByParam(param);
-        PaginationResultVo<User> result = new PaginationResultVo(count, page.getPageSize(), page.getPageNum(), page.getPageTotal(), list);
-        return result;
+    public Page<User> selectListByPage(Long current, Long size,User param) {
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>(param);
+        Page<User> objectPage = new Page<>();
+        return userMapper.selectPage(objectPage,userQueryWrapper);
     }
 
     /**
@@ -68,22 +59,11 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 批量新增
-     */
-    @Override
-    public Integer addBatch(List<User> listBean) {
-        if (listBean == null || listBean.isEmpty()) {
-            return 0;
-        }
-        return this.userMapper.insertBatch(listBean);
-    }
-
-    /**
      * 根据UserId获取对象
      */
     @Override
     public User selectUserByUserId(Long userId) {
-        return this.userMapper.selectByUserId(userId);
+        return this.userMapper.selectById(userId);
     }
 
     /**
@@ -91,18 +71,15 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Integer updateUserByUserId(User bean, Long userId) {
-        UserQuery userQuery = new UserQuery();
-        userQuery.setUserId(userId);
         bean.setUpdateBy(SecurityUtils.getUserId().toString());
         bean.setUpdateTime(DateUtils.getNowDate());
-        return this.userMapper.updateByParam(bean, userQuery);
+        bean.setUserId(userId);
+        return this.userMapper.updateById(bean);
     }
 
     @Override
     public Integer updateUser(User bean) {
-        UserQuery userQuery = new UserQuery();
-        userQuery.setUserId(bean.getUserId());
-        return userMapper.updateByParam(bean, userQuery);
+        return userMapper.updateById(bean);
     }
 
     /**
@@ -110,7 +87,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Integer deleteUserByUserId(Long userId) {
-        return this.userMapper.deleteByUserId(userId);
+        return this.userMapper.deleteById(userId);
     }
 
     /**
@@ -121,7 +98,7 @@ public class UserServiceImpl implements UserService {
         if (list == null || list.isEmpty()) {
             return 0;
         }
-        return this.userMapper.deleteByUserIdBatch(list);
+        return this.userMapper.deleteBatchIds(list);
     }
 
     /**
@@ -129,7 +106,9 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User selectUserByUserName(String userName) {
-        return this.userMapper.selectByUserName(userName);
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+        userQueryWrapper.eq("user_name",userName);
+        return this.userMapper.selectOne(userQueryWrapper);
     }
 
     /**
@@ -137,11 +116,11 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Integer updateUserByUserName(User bean, String userName) {
-        UserQuery userQuery = new UserQuery();
-        userQuery.setUserName(userName);
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+        userQueryWrapper.eq("user_name",userName);
         bean.setUpdateBy(SecurityUtils.getUserId().toString());
         bean.setUpdateTime(DateUtils.getNowDate());
-        return this.userMapper.updateByParam(bean, userQuery);
+        return this.userMapper.update(bean, userQueryWrapper);
     }
 
     /**
@@ -149,13 +128,15 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Integer deleteUserByUserName(String userName) {
-        return this.userMapper.deleteByUserName(userName);
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+        userQueryWrapper.eq("user_name",userName);
+        return this.userMapper.delete(userQueryWrapper);
     }
 
     @Override
     public boolean checkUserNameUnique(User user) {
         long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
-        User info = userMapper.selectByUserName(user.getUserName());
+        User info = this.selectUserByUserName(user.getUserName());
         if (StringUtils.isNotNull(info) && info.getUserId() != userId) {
             return UserConstants.NOT_UNIQUE;
         }

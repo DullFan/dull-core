@@ -1,8 +1,7 @@
 package com.dullfan.system.service;
 
-import com.dullfan.common.entity.vo.PaginationResultVo;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dullfan.system.entity.po.Config;
-import com.dullfan.system.entity.query.ConfigQuery;
 
 import java.util.List;
 
@@ -10,27 +9,22 @@ public interface ConfigService {
     /**
      * 根据条件查询列表
      */
-    List<Config> selectListByParam(ConfigQuery param);
+    List<Config> selectListByParam(Config param);
 
     /**
      * 根据条件查询列表
      */
-    Integer selectCountByParam(ConfigQuery param);
+    Long selectCountByParam(Config param);
 
     /**
      * 分页查询
      */
-    PaginationResultVo<Config> selectListByPage(ConfigQuery param);
+    Page<Config> selectListByPage(Long current,Long size,Config param);
 
     /**
      * 新增
      */
     Integer add(Config bean);
-
-    /**
-     * 批量新增
-     */
-    Integer addBatch(List<Config> listBean);
 
     /**
      * 根据ConfigId查询对象

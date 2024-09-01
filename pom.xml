@@ -36,6 +36,7 @@
         <velocity.version>2.3</velocity.version>
         <jwt.version>0.12.5</jwt.version>
         <mybatis.version>3.0.3</mybatis.version>
+        <mybatis.plus.version>3.5.3.1</mybatis.plus.version>
     </properties>
     <dependencies>
         <dependency>
@@ -171,7 +172,11 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis.plus.version}</version>
+        </dependency>
 
     </dependencies>
 

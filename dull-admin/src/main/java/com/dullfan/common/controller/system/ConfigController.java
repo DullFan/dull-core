@@ -3,7 +3,6 @@ package com.dullfan.common.controller.system;
 import com.dullfan.common.controller.ABaseController;
 import com.dullfan.common.entity.vo.Result;
 import com.dullfan.system.entity.po.Config;
-import com.dullfan.system.entity.query.ConfigQuery;
 import com.dullfan.system.service.ConfigService;
 
 import java.util.List;
@@ -16,13 +15,15 @@ import jakarta.annotation.Resource;
 public class ConfigController extends ABaseController {
     @Resource
     private ConfigService configService;
+
     /**
      * 根据条件分页查询
      */
     @GetMapping("/loadDataList")
-    public Result loadDataList(@RequestParam ConfigQuery param){
-        return success(configService.selectListByPage(param));
+    public Result loadDataList(Long current, Long size, Config param) {
+        return success(configService.selectListByPage(current, size, param));
     }
+
     /**
      * 新增
      */
@@ -32,15 +33,7 @@ public class ConfigController extends ABaseController {
         Integer result = configService.add(bean);
         return determineOperationOutcome(result);
     }
-    /**
-     * 批量新增
-     */
-    @PostMapping("/addBatch")
-    public Result addBatch(@RequestBody List<Config> listBean) {
-        isAdmin();
-        Integer result = configService.addBatch(listBean);
-        return determineOperationOutcome(result);
-    }
+
     /**
      * 根据ConfigId查询对象
      */
@@ -48,15 +41,17 @@ public class ConfigController extends ABaseController {
     public Result selectConfigByConfigId(@RequestParam Integer configId) {
         return success(configService.selectConfigByConfigId(configId));
     }
+
     /**
      * 根据ConfigId修改对象
      */
     @PutMapping("/updateConfigByConfigId")
     public Result updateConfigByConfigId(@RequestBody Config bean, @RequestParam Integer configId) {
         isAdmin();
-        Integer result = configService.updateConfigByConfigId(bean,configId);
+        Integer result = configService.updateConfigByConfigId(bean, configId);
         return determineOperationOutcome(result);
     }
+
     /**
      * 根据ConfigId删除
      */
@@ -66,6 +61,7 @@ public class ConfigController extends ABaseController {
         Integer result = configService.deleteConfigByConfigId(configId);
         return determineOperationOutcome(result);
     }
+
     /**
      * 根据ConfigId批量删除
      */
@@ -75,6 +71,7 @@ public class ConfigController extends ABaseController {
         Integer result = configService.deleteConfigByConfigIdBatch(list);
         return determineOperationOutcome(result);
     }
+
     /**
      * 根据ConfigKey查询对象
      */
@@ -82,15 +79,17 @@ public class ConfigController extends ABaseController {
     public Result selectConfigByConfigKey(@RequestParam String configKey) {
         return success(configService.selectConfigByConfigKey(configKey));
     }
+
     /**
      * 根据ConfigKey修改对象
      */
     @PutMapping("/updateConfigByConfigKey")
     public Result updateConfigByConfigKey(@RequestBody Config bean, @RequestParam String configKey) {
         isAdmin();
-        Integer result = configService.updateConfigByConfigKey(bean,configKey);
+        Integer result = configService.updateConfigByConfigKey(bean, configKey);
         return determineOperationOutcome(result);
     }
+
     /**
      * 根据ConfigKey删除
      */
