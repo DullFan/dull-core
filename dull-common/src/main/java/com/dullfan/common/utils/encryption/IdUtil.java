@@ -1,8 +1,6 @@
 package com.dullfan.common.utils.encryption;
 
-import com.dullfan.common.constant.Constants;
 import com.dullfan.common.exception.ServiceException;
-import com.dullfan.common.utils.sign.Base64;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -10,10 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.dullfan.common.constant.Constants.COMMON_SEPARATOR;
@@ -101,8 +97,6 @@ public class IdUtil {
 
     /**
      * 获取机器编号
-     *
-     * @return
      */
     private static long getMachineNum() {
         long machinePiece;
@@ -179,9 +173,8 @@ public class IdUtil {
     }
 
     /**
-     * 加密ID
-     *
-     * @return
+     * 加密
+     * 52567412552 -> jRc3jvdw9zL_WTM1YGBkkA
      */
     public static String encrypt(Long id) {
         if (Objects.nonNull(id)) {
@@ -189,17 +182,20 @@ public class IdUtil {
             byteBuffer.putLong(0, id);
             byte[] content = byteBuffer.array();
             byte[] encrypt = AES128Util.aesEncrypt(content);
-            return Base64.encode(encrypt);
+            // 使用URL安全的Base64编码
+            return java.util.Base64.getUrlEncoder().withoutPadding().withoutPadding().encodeToString(encrypt);
         }
         return StringUtils.EMPTY;
     }
 
     /**
-     * 解密ID
+     * 解密
+     * jRc3jvdw9zL_WTM1YGBkkA -> 52567412552
      */
     public static Long decrypt(String decryptId) {
         if (StringUtils.isNotBlank(decryptId)) {
-            byte[] encrypt = Base64.decode(decryptId);
+            // 使用URL安全的Base64解码
+            byte[] encrypt = java.util.Base64.getUrlDecoder().decode(decryptId);
             byte[] content = AES128Util.aesDecode(encrypt);
             if (!(content == null || content.length == 0)) {
                 ByteBuffer byteBuffer = ByteBuffer.wrap(content);

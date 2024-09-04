@@ -1,7 +1,7 @@
 package com.dullfan.system.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.dullfan.system.entity.po.Config;
+import com.dullfan.system.entity.po.SysConfig;
 
 import java.util.List;
 
@@ -9,32 +9,32 @@ public interface ConfigService {
     /**
      * 根据条件查询列表
      */
-    List<Config> selectListByParam(Config param);
+    List<SysConfig> selectListByParam(SysConfig param);
 
     /**
      * 根据条件查询列表
      */
-    Long selectCountByParam(Config param);
+    Long selectCountByParam(SysConfig param);
 
     /**
      * 分页查询
      */
-    Page<Config> selectListByPage(Long current,Long size,Config param);
+    Page<SysConfig> selectListByPage(Long current, Long size, SysConfig param);
 
     /**
      * 新增
      */
-    Integer add(Config bean);
+    Integer add(SysConfig bean);
 
     /**
      * 根据ConfigId查询对象
      */
-    Config selectConfigByConfigId(Integer configId);
+    SysConfig selectConfigByConfigId(Integer configId);
 
     /**
      * 根据ConfigId修改
      */
-    Integer updateConfigByConfigId(Config bean, Integer configId);
+    Integer updateConfigByConfigId(SysConfig bean, Integer configId);
 
     /**
      * 根据ConfigId删除
@@ -54,7 +54,7 @@ public interface ConfigService {
     /**
      * 根据ConfigKey修改
      */
-    Integer updateConfigByConfigKey(Config bean, String configKey);
+    Integer updateConfigByConfigKey(SysConfig bean, String configKey);
 
     /**
      * 根据ConfigKey删除

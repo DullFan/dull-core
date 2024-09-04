@@ -11,11 +11,13 @@ import com.dullfan.common.core.text.Convert;
 import com.dullfan.common.utils.DateUtils;
 import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.common.utils.StringUtils;
-import com.dullfan.system.entity.po.Config;
+import com.dullfan.system.entity.po.SysConfig;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import com.dullfan.system.mappers.ConfigMapper;
+import com.dullfan.system.mappers.SysConfigMapper;
 import com.dullfan.system.service.ConfigService;
 
 /**
@@ -25,8 +27,9 @@ import com.dullfan.system.service.ConfigService;
  */
 @Service("configService")
 public class ConfigServiceImpl implements ConfigService {
+    private static final Logger log = LoggerFactory.getLogger(ConfigServiceImpl.class);
     @Resource
-    private ConfigMapper configMapper;
+    private SysConfigMapper configMapper;
 
     @Resource
     RedisCache redisCache;
@@ -44,9 +47,8 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Override
     public void loadingConfigCache() {
-
-        List<Config> configsList = configMapper.selectList(null);
-        for (Config config : configsList) {
+        List<SysConfig> configsList = configMapper.selectList(null);
+        for (SysConfig config : configsList) {
             redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
         }
     }
@@ -73,8 +75,8 @@ public class ConfigServiceImpl implements ConfigService {
      * 根据条件查询列表
      */
     @Override
-    public List<Config> selectListByParam(Config param) {
-        QueryWrapper<Config> configQueryWrapper = new QueryWrapper<>(param);
+    public List<SysConfig> selectListByParam(SysConfig param) {
+        QueryWrapper<SysConfig> configQueryWrapper = new QueryWrapper<>(param);
         return this.configMapper.selectList(configQueryWrapper);
     }
 
@@ -82,8 +84,8 @@ public class ConfigServiceImpl implements ConfigService {
      * 根据条件查询列表
      */
     @Override
-    public Long selectCountByParam(Config param) {
-        QueryWrapper<Config> configQueryWrapper = new QueryWrapper<>(param);
+    public Long selectCountByParam(SysConfig param) {
+        QueryWrapper<SysConfig> configQueryWrapper = new QueryWrapper<>(param);
         return this.configMapper.selectCount(configQueryWrapper);
     }
 
@@ -91,9 +93,9 @@ public class ConfigServiceImpl implements ConfigService {
      * 分页查询方法
      */
     @Override
-    public Page<Config> selectListByPage(Long current,Long size,Config param) {
-        Page<Config> page = new Page<>(current, size);
-        QueryWrapper<Config> configQueryWrapper = new QueryWrapper<>(param);
+    public Page<SysConfig> selectListByPage(Long current, Long size, SysConfig param) {
+        Page<SysConfig> page = new Page<>(current, size);
+        QueryWrapper<SysConfig> configQueryWrapper = new QueryWrapper<>(param);
         return configMapper.selectPage(page, configQueryWrapper);
     }
 
@@ -101,7 +103,7 @@ public class ConfigServiceImpl implements ConfigService {
      * 新增
      */
     @Override
-    public Integer add(Config bean) {
+    public Integer add(SysConfig bean) {
         int insert = this.configMapper.insert(bean);
         if (insert > 0) {
             redisCache.setCacheObject(getCacheKey(bean.getConfigKey()), bean.getConfigValue());
@@ -113,7 +115,7 @@ public class ConfigServiceImpl implements ConfigService {
      * 根据ConfigId获取对象
      */
     @Override
-    public Config selectConfigByConfigId(Integer configId) {
+    public SysConfig selectConfigByConfigId(Integer configId) {
         return this.configMapper.selectById(configId);
     }
 
@@ -121,10 +123,10 @@ public class ConfigServiceImpl implements ConfigService {
      * 根据ConfigId修改
      */
     @Override
-    public Integer updateConfigByConfigId(Config bean, Integer configId) {
-        Config configQuery = new Config();
+    public Integer updateConfigByConfigId(SysConfig bean, Integer configId) {
+        SysConfig configQuery = new SysConfig();
         configQuery.setConfigId(configId);
-        Config config = selectConfigByConfigId(configId);
+        SysConfig config = selectConfigByConfigId(configId);
         if (!StringUtils.equals(config.getConfigKey(), bean.getConfigKey())) {
             redisCache.deleteObject(getCacheKey(config.getConfigKey()));
         }
@@ -146,7 +148,7 @@ public class ConfigServiceImpl implements ConfigService {
     public Integer deleteConfigByConfigId(Integer configId) {
         int row = this.configMapper.deleteById(configId);
         if (row > 0) {
-            Config config = selectConfigByConfigId(configId);
+            SysConfig config = selectConfigByConfigId(configId);
             if (config != null) {
                 redisCache.deleteObject(getCacheKey(config.getConfigKey()));
             }
@@ -165,7 +167,7 @@ public class ConfigServiceImpl implements ConfigService {
         int row = this.configMapper.deleteBatchIds(list);
         if (row > 0) {
             for (Integer configId : list) {
-                Config config = selectConfigByConfigId(configId);
+                SysConfig config = selectConfigByConfigId(configId);
                 if (config != null) {
                     redisCache.deleteObject(getCacheKey(config.getConfigKey()));
                 }
@@ -183,9 +185,9 @@ public class ConfigServiceImpl implements ConfigService {
         if (StringUtils.isNotEmpty(configValue)) {
             return configValue;
         }
-        QueryWrapper<Config> configQueryWrapper = new QueryWrapper<>();
+        QueryWrapper<SysConfig> configQueryWrapper = new QueryWrapper<>();
         configQueryWrapper.eq("config_key",configKey);
-        Config config = this.configMapper.selectOne(configQueryWrapper);
+        SysConfig config = this.configMapper.selectOne(configQueryWrapper);
         if (config != null) {
             redisCache.setCacheObject(getCacheKey(configKey), config.getConfigValue());
             return config.getConfigValue();
@@ -197,10 +199,10 @@ public class ConfigServiceImpl implements ConfigService {
      * 根据ConfigKey修改
      */
     @Override
-    public Integer updateConfigByConfigKey(Config bean, String configKey) {
+    public Integer updateConfigByConfigKey(SysConfig bean, String configKey) {
         bean.setUpdateBy(SecurityUtils.getUserId().toString());
         bean.setUpdateTime(DateUtils.getNowDate());
-        QueryWrapper<Config> configQueryWrapper = new QueryWrapper<>();
+        QueryWrapper<SysConfig> configQueryWrapper = new QueryWrapper<>();
         configQueryWrapper.eq("config_key",configKey);
         int row = this.configMapper.update(bean, configQueryWrapper);
         if (row > 0) {
@@ -214,7 +216,7 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Override
     public Integer deleteConfigByConfigKey(String configKey) {
-        QueryWrapper<Config> configQueryWrapper = new QueryWrapper<>();
+        QueryWrapper<SysConfig> configQueryWrapper = new QueryWrapper<>();
         configQueryWrapper.eq("config_key",configKey);
         int row = this.configMapper.delete(configQueryWrapper);
         if (row > 0) {

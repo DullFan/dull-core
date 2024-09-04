@@ -2,7 +2,7 @@ package com.dullfan.common.entity.vo;
 
 import com.dullfan.common.constant.HttpStatus;
 
-import java.io.Serializable;
+import java.io.Serial;
 import java.util.HashMap;
 import java.util.Objects;
 /**
@@ -21,6 +21,9 @@ public class Result extends HashMap<String, Object> {
      * 数据对象
      */
     public static final String DATA_TAG = "data";
+    @Serial
+    private static final long serialVersionUID = -6158672767287508096L;
+
     /**
      * 初始化一个新创建的 AjaxResult 对象，使其表示一个空消息。
      */

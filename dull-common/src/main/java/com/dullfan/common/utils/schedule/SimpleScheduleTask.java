@@ -3,6 +3,9 @@ package com.dullfan.common.utils.schedule;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+/**
+ * 定时器模板代码
+ */
 @Component
 @Slf4j
 public class SimpleScheduleTask implements ScheduleTask{

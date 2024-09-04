@@ -9,7 +9,6 @@ import java.security.MessageDigest;
 
 /**
  * MessageDigest加密工具类
- * Created by RubinChu on 2021/1/22 下午 4:11
  */
 public class MessageDigestUtil {
 
@@ -20,11 +19,6 @@ public class MessageDigestUtil {
 
     /**
      * 采用指定的单向散列模式加密
-     *
-     * @param originBytes
-     * @param mode
-     * @return
-     * @throws Exception
      */
     public static byte[] encrypt(byte[] originBytes, String mode) throws Exception {
         if (ArrayUtils.isEmpty(originBytes) || StringUtils.isBlank(mode)) {
@@ -37,11 +31,6 @@ public class MessageDigestUtil {
 
     /**
      * 单向散列指定模式的字符串
-     *
-     * @param originContent
-     * @param mode
-     * @return
-     * @throws Exception
      */
     public static byte[] encrypt(String originContent, String mode) throws Exception {
         if (StringUtils.isBlank(originContent)) {
@@ -52,10 +41,6 @@ public class MessageDigestUtil {
 
     /**
      * 采用指定模式散列字符串
-     *
-     * @param originContent
-     * @param mode
-     * @return
      */
     public static String encryptString(String originContent, String mode) {
         String result = StringUtils.EMPTY;
@@ -73,9 +58,6 @@ public class MessageDigestUtil {
 
     /**
      * 获取md5加密串
-     *
-     * @param originContent
-     * @return
      */
     public static String md5(String originContent) {
         return encryptString(originContent, MD5_STR);
@@ -83,9 +65,6 @@ public class MessageDigestUtil {
 
     /**
      * 获取sha1加密串
-     *
-     * @param originContent
-     * @return
      */
     public static String sha1(String originContent) {
         return encryptString(originContent, SHA1_STR);
@@ -93,9 +72,6 @@ public class MessageDigestUtil {
 
     /**
      * 获取sha256加密串
-     *
-     * @param originContent
-     * @return
      */
     public static String sha256(String originContent) {
         return encryptString(originContent, SHA256_STR);

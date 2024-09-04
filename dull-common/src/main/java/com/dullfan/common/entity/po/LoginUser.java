@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
 import java.util.Collection;
 
 /**
@@ -14,6 +15,8 @@ import java.util.Collection;
 @Data
 public class LoginUser implements UserDetails {
 
+    @Serial
+    private static final long serialVersionUID = -5551224944898230110L;
     /**
      * 用户ID
      */

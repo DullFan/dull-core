@@ -13,7 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author DullFan
  */
 @Data
-public class Config implements Serializable {
+public class SysConfig implements Serializable {
     /**
      * 参数主键
      */

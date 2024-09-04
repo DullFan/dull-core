@@ -1,5 +1,6 @@
 package com.dullfan.common.entity.po;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,6 +15,8 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Data
 public class User implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 7082297036723117943L;
     /**
      * 用户ID
      */

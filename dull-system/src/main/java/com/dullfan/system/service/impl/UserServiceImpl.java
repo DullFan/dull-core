@@ -11,7 +11,7 @@ import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.common.utils.StringUtils;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
-import com.dullfan.system.mappers.UserMapper;
+import com.dullfan.system.mappers.SysUserMapper;
 import com.dullfan.system.service.UserService;
 
 /**
@@ -22,7 +22,7 @@ import com.dullfan.system.service.UserService;
 @Service("userService")
 public class UserServiceImpl implements UserService {
     @Resource
-    private UserMapper userMapper;
+    private SysUserMapper userMapper;
 
     /**
      * 根据条件查询列表
