@@ -1,12 +1,10 @@
 package com.dullfan.framework.web.service;
 
 import com.dullfan.common.constant.UserConstants;
-import com.dullfan.common.core.redis.RedisCache;
 import com.dullfan.common.entity.po.RegisterBody;
-import com.dullfan.common.entity.po.User;
+import com.dullfan.common.entity.po.SysUser;
 import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.common.utils.StringUtils;
-import com.dullfan.system.service.ConfigService;
 import com.dullfan.system.service.UserService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
@@ -27,7 +25,7 @@ public class RegisterService {
     public String register(RegisterBody registerBody) {
         String msg = "";
         String username = registerBody.getUsername(), password = registerBody.getPassword();
-        User sysUser = new User();
+        SysUser sysUser = new SysUser();
         sysUser.setUserName(username);
 
         if (StringUtils.isEmpty(username)) {

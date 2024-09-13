@@ -2,11 +2,11 @@ package com.dullfan.common.controller.system;
 
 import com.dullfan.common.controller.ABaseController;
 import com.dullfan.common.entity.po.LoginUser;
-import com.dullfan.common.entity.po.User;
+import com.dullfan.common.entity.po.SysUser;
 import com.dullfan.common.entity.vo.Result;
 import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.framework.web.service.TokenService;
-import com.dullfan.system.entity.po.ResetPassword;
+import com.dullfan.common.entity.po.ResetPassword;
 import com.dullfan.system.service.UserService;
 
 import java.util.List;
@@ -30,17 +30,8 @@ public class UserController extends ABaseController {
      * 根据条件分页查询
      */
     @GetMapping("/loadDataList")
-    public Result loadDataList(Long current, Long size,User param) {
+    public Result loadDataList(Long current, Long size, SysUser param) {
         return success(userService.selectListByPage(current, size, param));
-    }
-
-    /**
-     * 新增
-     */
-    @PostMapping("/add")
-    public Result add(@RequestBody User bean) {
-        Integer result = userService.add(bean);
-        return determineOperationOutcome(result);
     }
 
     /**
@@ -55,7 +46,7 @@ public class UserController extends ABaseController {
      * 根据UserId修改对象
      */
     @PutMapping("/updateUserByUserId")
-    public Result updateUserByUserId(@RequestBody User bean, @RequestParam Long userId) {
+    public Result updateUserByUserId(@RequestBody SysUser bean, @RequestParam Long userId) {
         isAdminOrLoginUser(userId);
         Integer result = userService.updateUserByUserId(bean, userId);
         return determineOperationOutcome(result);
@@ -75,7 +66,7 @@ public class UserController extends ABaseController {
             return error("新密码不能与旧密码相同");
         }
         String newPassword = SecurityUtils.encryptPassword(resetPassword.getNewPassword());
-        User user = new User();
+        SysUser user = new SysUser();
         user.setUserId(getUserId());
         user.setPassword(newPassword);
         if (userService.updateUser(user) > 0) {
@@ -101,9 +92,9 @@ public class UserController extends ABaseController {
      * 根据UserId批量删除
      */
     @DeleteMapping("/deleteUserByUserIdBatch")
-    public Result deleteUserByUserIdBatch(@RequestParam List<Integer> list) {
+    public Result deleteUserByUserIdBatch(@RequestParam List<Integer> userIds) {
         isAdmin();
-        Integer result = userService.deleteUserByUserIdBatch(list);
+        Integer result = userService.deleteUserByUserIdBatch(userIds);
         return determineOperationOutcome(result);
     }
 
@@ -119,8 +110,8 @@ public class UserController extends ABaseController {
      * 根据UserName修改对象
      */
     @PutMapping("/updateUserByUserName")
-    public Result updateUserByUserName(User bean, String userName) {
-        User user = userService.selectUserByUserName(userName);
+    public Result updateUserByUserName(SysUser bean, String userName) {
+        SysUser user = userService.selectUserByUserName(userName);
         isAdminOrLoginUser(user.getUserId());
         Integer result = userService.updateUserByUserName(bean, userName);
         return determineOperationOutcome(result);
@@ -131,7 +122,7 @@ public class UserController extends ABaseController {
      */
     @DeleteMapping("/deleteUserByUserName")
     public Result deleteUserByUserName(String userName) {
-        User user = userService.selectUserByUserName(userName);
+        SysUser user = userService.selectUserByUserName(userName);
         isAdminOrLoginUser(user.getUserId());
         Integer result = userService.deleteUserByUserName(userName);
         return determineOperationOutcome(result);

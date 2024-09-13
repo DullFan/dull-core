@@ -3,7 +3,7 @@ package com.dullfan.common.controller.system;
 import com.dullfan.common.constant.Constants;
 import com.dullfan.common.controller.ABaseController;
 import com.dullfan.common.entity.po.LoginBody;
-import com.dullfan.common.entity.po.User;
+import com.dullfan.common.entity.po.SysUser;
 import com.dullfan.common.entity.vo.Result;
 import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.framework.web.service.LoginService;
@@ -29,7 +29,7 @@ public class LoginController extends ABaseController {
 
     @GetMapping("/getInfo")
     public Result getInfo() {
-        User user = SecurityUtils.getLoginUser().getUser();
+        SysUser user = SecurityUtils.getLoginUser().getUser();
         return Result.success(user);
     }
 

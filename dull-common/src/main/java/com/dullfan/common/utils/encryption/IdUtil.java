@@ -1,15 +1,13 @@
 package com.dullfan.common.utils.encryption;
 
 import com.dullfan.common.exception.ServiceException;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.dullfan.common.constant.Constants.COMMON_SEPARATOR;
@@ -211,14 +209,14 @@ public class IdUtil {
      */
     public static List<Long> decryptIdList(String decryptIdStr) {
         if (StringUtils.isBlank(decryptIdStr)) {
-            return Lists.newArrayList();
+            return new ArrayList<>();
         }
         List<String> decryptIdList = splitDecryptId(decryptIdStr);
+
         if (CollectionUtils.isEmpty(decryptIdList)) {
-            return Lists.newArrayList();
+            return new ArrayList<>();
         }
-        List<Long> result = decryptIdList.stream().map(IdUtil::decrypt).collect(Collectors.toList());
-        return result;
+        return decryptIdList.stream().map(IdUtil::decrypt).collect(Collectors.toList());
     }
 
 

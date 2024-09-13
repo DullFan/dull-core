@@ -8,10 +8,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dullfan.common.constant.CacheConstants;
 import com.dullfan.common.core.redis.RedisCache;
 import com.dullfan.common.core.text.Convert;
+import com.dullfan.common.exception.ServiceException;
 import com.dullfan.common.utils.DateUtils;
 import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.common.utils.StringUtils;
-import com.dullfan.system.entity.po.SysConfig;
+import com.dullfan.common.entity.po.SysConfig;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import org.slf4j.Logger;
@@ -104,6 +105,7 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Override
     public Integer add(SysConfig bean) {
+        log.error(bean.toString());
         int insert = this.configMapper.insert(bean);
         if (insert > 0) {
             redisCache.setCacheObject(getCacheKey(bean.getConfigKey()), bean.getConfigValue());
@@ -123,16 +125,19 @@ public class ConfigServiceImpl implements ConfigService {
      * 根据ConfigId修改
      */
     @Override
-    public Integer updateConfigByConfigId(SysConfig bean, Integer configId) {
+    public Integer updateConfigByConfigId(SysConfig bean) {
         SysConfig configQuery = new SysConfig();
+        Integer configId = bean.getConfigId();
         configQuery.setConfigId(configId);
         SysConfig config = selectConfigByConfigId(configId);
+        if(config == null){
+            throw new ServiceException("请输入有效数据");
+        }
         if (!StringUtils.equals(config.getConfigKey(), bean.getConfigKey())) {
             redisCache.deleteObject(getCacheKey(config.getConfigKey()));
         }
         bean.setUpdateBy(SecurityUtils.getUserId().toString());
         bean.setUpdateTime(DateUtils.getNowDate());
-        bean.setConfigId(configId);
 
         int row = this.configMapper.updateById(bean);
         if (row > 0) {

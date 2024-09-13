@@ -4,6 +4,10 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,12 +18,14 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author DullFan
  */
 @Data
-public class User implements Serializable {
+@TableName("sys_user")
+public class SysUser implements Serializable {
     @Serial
     private static final long serialVersionUID = 7082297036723117943L;
     /**
      * 用户ID
      */
+    @TableId(value = "user_id",type = IdType.AUTO)
     private Long userId;
     /**
      * 用户账号
@@ -64,6 +70,7 @@ public class User implements Serializable {
     /**
      * 删除标志（0代表存在 2代表删除）
      */
+    @TableLogic
     private String delFlag;
     /**
      * 最后登录IP

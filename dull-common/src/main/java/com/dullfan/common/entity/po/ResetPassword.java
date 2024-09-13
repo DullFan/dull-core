@@ -1,4 +1,4 @@
-package com.dullfan.system.entity.po;
+package com.dullfan.common.entity.po;
 
 import lombok.Data;
 

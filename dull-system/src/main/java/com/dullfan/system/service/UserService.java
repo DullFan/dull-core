@@ -1,39 +1,40 @@
 package com.dullfan.system.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.dullfan.common.entity.po.User;
+import com.dullfan.common.entity.po.SysUser;
 
 import java.util.List;
+
 public interface UserService{
 	/**
 	 * 根据条件查询列表
 	 */
-	List<User> selectListByParam(User param);
+	List<SysUser> selectListByParam(SysUser param);
 	/**
 	 * 根据条件查询列表
 	 */
-	Long selectCountByParam(User param);
+	Long selectCountByParam(SysUser param);
 	/**
      * 分页查询
      */
-	Page<User> selectListByPage(Long current, Long size,User param);
+	Page<SysUser> selectListByPage(Long current, Long size, SysUser param);
 	/**
 	 * 新增
 	 */
-	Integer add(User bean);
+	Integer add(SysUser bean);
 
 	/**
 	 * 根据UserId查询对象
 	 */
-	User selectUserByUserId(Long userId);
+	SysUser selectUserByUserId(Long userId);
 	/**
 	 * 根据UserId修改
 	 */
-	Integer updateUserByUserId(User bean,Long userId);
+	Integer updateUserByUserId(SysUser bean, Long userId);
 
 	/**
 	 * 根据User修改
 	 */
-	Integer updateUser(User bean);
+	Integer updateUser(SysUser bean);
 	/**
 	 * 根据UserId删除
 	 */
@@ -45,11 +46,11 @@ public interface UserService{
 	/**
 	 * 根据UserName查询对象
 	 */
-	User selectUserByUserName(String userName);
+	SysUser selectUserByUserName(String userName);
 	/**
 	 * 根据UserName修改
 	 */
-	Integer updateUserByUserName(User bean,String userName);
+	Integer updateUserByUserName(SysUser bean, String userName);
 	/**
 	 * 根据UserName删除
 	 */
@@ -61,5 +62,5 @@ public interface UserService{
 	 * @param user 用户信息
 	 * @return 结果
 	 */
-	public boolean checkUserNameUnique(User user);
+	public boolean checkUserNameUnique(SysUser user);
 }

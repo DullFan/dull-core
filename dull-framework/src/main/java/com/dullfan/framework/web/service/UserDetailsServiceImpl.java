@@ -1,7 +1,7 @@
 package com.dullfan.framework.web.service;
 
 import com.dullfan.common.entity.po.LoginUser;
-import com.dullfan.common.entity.po.User;
+import com.dullfan.common.entity.po.SysUser;
 import com.dullfan.common.enums.UserStatusEnum;
 import com.dullfan.common.exception.ServiceException;
 import com.dullfan.common.utils.StringUtils;
@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user;
+        SysUser user;
         user = userService.selectUserByUserName(username);
 
         if (StringUtils.isNull(user)) {
@@ -40,7 +40,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return createLoginUser(user);
     }
 
-    public UserDetails createLoginUser(User user) {
+    public UserDetails createLoginUser(SysUser user) {
         return new LoginUser(user.getUserId(), user);
     }
 }

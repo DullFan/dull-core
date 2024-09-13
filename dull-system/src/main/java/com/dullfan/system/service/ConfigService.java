@@ -1,7 +1,7 @@
 package com.dullfan.system.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.dullfan.system.entity.po.SysConfig;
+import com.dullfan.common.entity.po.SysConfig;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public interface ConfigService {
     /**
      * 根据ConfigId修改
      */
-    Integer updateConfigByConfigId(SysConfig bean, Integer configId);
+    Integer updateConfigByConfigId(SysConfig bean);
 
     /**
      * 根据ConfigId删除

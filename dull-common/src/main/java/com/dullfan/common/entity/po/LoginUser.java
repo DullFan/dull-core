@@ -64,7 +64,7 @@ public class LoginUser implements UserDetails {
     /**
      * 用户信息
      */
-    private User user;
+    private SysUser user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -113,7 +113,7 @@ public class LoginUser implements UserDetails {
         return true;
     }
 
-    public LoginUser(Long userId, User user) {
+    public LoginUser(Long userId, SysUser user) {
         this.userId = userId;
         this.user = user;
     }

@@ -47,6 +47,18 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.dullfan</groupId>
+            <artifactId>dull-netty</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

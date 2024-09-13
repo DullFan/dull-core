@@ -2,17 +2,22 @@ package com.dullfan.system.service.impl;
 
 import java.util.List;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dullfan.common.constant.UserConstants;
-import com.dullfan.common.entity.po.User;
+import com.dullfan.common.entity.po.SysUser;
 import com.dullfan.common.utils.DateUtils;
 import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.common.utils.StringUtils;
 import jakarta.annotation.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import com.dullfan.system.mappers.SysUserMapper;
 import com.dullfan.system.service.UserService;
+import springfox.documentation.spring.web.json.Json;
 
 /**
  * 用户信息表 业务接口实现
@@ -21,6 +26,7 @@ import com.dullfan.system.service.UserService;
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
+
     @Resource
     private SysUserMapper userMapper;
 
@@ -28,7 +34,7 @@ public class UserServiceImpl implements UserService {
      * 根据条件查询列表
      */
     @Override
-    public List<User> selectListByParam(User param) {
+    public List<SysUser> selectListByParam(SysUser param) {
         return this.userMapper.selectList(new QueryWrapper<>(param));
     }
 
@@ -36,7 +42,7 @@ public class UserServiceImpl implements UserService {
      * 根据条件查询列表
      */
     @Override
-    public Long selectCountByParam(User param) {
+    public Long selectCountByParam(SysUser param) {
         return this.userMapper.selectCount(new QueryWrapper<>(param));
     }
 
@@ -44,9 +50,9 @@ public class UserServiceImpl implements UserService {
      * 分页查询方法
      */
     @Override
-    public Page<User> selectListByPage(Long current, Long size,User param) {
-        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>(param);
-        Page<User> objectPage = new Page<>();
+    public Page<SysUser> selectListByPage(Long current, Long size, SysUser param) {
+        QueryWrapper<SysUser> userQueryWrapper = new QueryWrapper<>(param);
+        Page<SysUser> objectPage = new Page<>();
         return userMapper.selectPage(objectPage,userQueryWrapper);
     }
 
@@ -54,7 +60,7 @@ public class UserServiceImpl implements UserService {
      * 新增
      */
     @Override
-    public Integer add(User bean) {
+    public Integer add(SysUser bean) {
         return this.userMapper.insert(bean);
     }
 
@@ -62,7 +68,7 @@ public class UserServiceImpl implements UserService {
      * 根据UserId获取对象
      */
     @Override
-    public User selectUserByUserId(Long userId) {
+    public SysUser selectUserByUserId(Long userId) {
         return this.userMapper.selectById(userId);
     }
 
@@ -70,7 +76,7 @@ public class UserServiceImpl implements UserService {
      * 根据UserId修改
      */
     @Override
-    public Integer updateUserByUserId(User bean, Long userId) {
+    public Integer updateUserByUserId(SysUser bean, Long userId) {
         bean.setUpdateBy(SecurityUtils.getUserId().toString());
         bean.setUpdateTime(DateUtils.getNowDate());
         bean.setUserId(userId);
@@ -78,7 +84,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer updateUser(User bean) {
+    public Integer updateUser(SysUser bean) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("data",bean);
+        System.out.println(jsonObject.get("data"));
         return userMapper.updateById(bean);
     }
 
@@ -105,8 +114,8 @@ public class UserServiceImpl implements UserService {
      * 根据UserName获取对象
      */
     @Override
-    public User selectUserByUserName(String userName) {
-        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+    public SysUser selectUserByUserName(String userName) {
+        QueryWrapper<SysUser> userQueryWrapper = new QueryWrapper<>();
         userQueryWrapper.eq("user_name",userName);
         return this.userMapper.selectOne(userQueryWrapper);
     }
@@ -115,8 +124,8 @@ public class UserServiceImpl implements UserService {
      * 根据UserName修改
      */
     @Override
-    public Integer updateUserByUserName(User bean, String userName) {
-        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+    public Integer updateUserByUserName(SysUser bean, String userName) {
+        QueryWrapper<SysUser> userQueryWrapper = new QueryWrapper<>();
         userQueryWrapper.eq("user_name",userName);
         bean.setUpdateBy(SecurityUtils.getUserId().toString());
         bean.setUpdateTime(DateUtils.getNowDate());
@@ -128,15 +137,15 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Integer deleteUserByUserName(String userName) {
-        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+        QueryWrapper<SysUser> userQueryWrapper = new QueryWrapper<>();
         userQueryWrapper.eq("user_name",userName);
         return this.userMapper.delete(userQueryWrapper);
     }
 
     @Override
-    public boolean checkUserNameUnique(User user) {
+    public boolean checkUserNameUnique(SysUser user) {
         long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
-        User info = this.selectUserByUserName(user.getUserName());
+        SysUser info = this.selectUserByUserName(user.getUserName());
         if (StringUtils.isNotNull(info) && info.getUserId() != userId) {
             return UserConstants.NOT_UNIQUE;
         }

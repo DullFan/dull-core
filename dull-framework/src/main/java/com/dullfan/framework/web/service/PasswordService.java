@@ -2,7 +2,7 @@ package com.dullfan.framework.web.service;
 
 import com.dullfan.common.constant.CacheConstants;
 import com.dullfan.common.core.redis.RedisCache;
-import com.dullfan.common.entity.po.User;
+import com.dullfan.common.entity.po.SysUser;
 import com.dullfan.common.exception.ServiceException;
 import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.common.utils.StringUtils;
@@ -26,7 +26,7 @@ public class PasswordService {
     @Value(value = "${user.password.lockTime}")
     private int lockTime;
 
-    public void validate(User user) {
+    public void validate(SysUser user) {
         Authentication usernamePasswordAuthenticationToken = AuthenticationContextHolder.getContext();
         String username = usernamePasswordAuthenticationToken.getName();
         String password = usernamePasswordAuthenticationToken.getCredentials().toString();
@@ -50,7 +50,7 @@ public class PasswordService {
         }
     }
 
-    public boolean matches(User user, String rawPassword) {
+    public boolean matches(SysUser user, String rawPassword) {
         return SecurityUtils.matchesPassword(rawPassword, user.getPassword());
     }
 

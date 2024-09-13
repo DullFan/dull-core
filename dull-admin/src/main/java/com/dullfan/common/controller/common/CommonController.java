@@ -1,5 +1,6 @@
 package com.dullfan.common.controller.common;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.dullfan.common.config.DullConfig;
 import com.dullfan.common.constant.Constants;
 import com.dullfan.common.entity.vo.Result;
@@ -158,6 +159,7 @@ public class CommonController {
     @Operation(summary = "删除多个文件")
     @DeleteMapping("/deleteFiles")
     public Result deleteFiles(@RequestParam("fileUrls") List<String> fileUrls) {
+        log.error(JSONUtils.toJSONString(fileUrls));
         String replace = DullConfig.getProfile().replace("/", "\\");
         for (String fileUrl : fileUrls) {
             String url = fileUrl.replace("/profile", "");

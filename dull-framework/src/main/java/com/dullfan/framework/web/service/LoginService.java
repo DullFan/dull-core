@@ -5,7 +5,7 @@ import com.dullfan.common.constant.UserConstants;
 import com.dullfan.common.core.redis.RedisCache;
 import com.dullfan.common.entity.po.LoginBody;
 import com.dullfan.common.entity.po.LoginUser;
-import com.dullfan.common.entity.po.User;
+import com.dullfan.common.entity.po.SysUser;
 import com.dullfan.common.exception.ServiceException;
 import com.dullfan.common.utils.DateUtils;
 import com.dullfan.common.utils.StringUtils;
@@ -117,11 +117,10 @@ public class LoginService {
      * @param userId 用户ID
      */
     public void recordLoginInfo(Long userId) {
-        User user = new User();
+        SysUser user = new SysUser();
         user.setUserId(userId);
         user.setLoginIp(IpUtils.getIpAddr());
         user.setLoginDate(DateUtils.getNowDate());
         userService.updateUser(user);
-
     }
 }

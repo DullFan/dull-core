@@ -2,7 +2,7 @@ package com.dullfan.common.controller.system;
 
 import com.dullfan.common.controller.ABaseController;
 import com.dullfan.common.entity.vo.Result;
-import com.dullfan.system.entity.po.SysConfig;
+import com.dullfan.common.entity.po.SysConfig;
 import com.dullfan.system.service.ConfigService;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class ConfigController extends ABaseController {
     /**
      * 根据条件分页查询
      */
-    @GetMapping("/loadDataList")
+    @GetMapping("/findDataListByPage")
     public Result loadDataList(Long current, Long size, SysConfig param) {
         return success(configService.selectListByPage(current, size, param));
     }
@@ -46,9 +46,9 @@ public class ConfigController extends ABaseController {
      * 根据ConfigId修改对象
      */
     @PutMapping("/updateConfigByConfigId")
-    public Result updateConfigByConfigId(@RequestBody SysConfig bean, @RequestParam Integer configId) {
+    public Result updateConfigByConfigId(@RequestBody SysConfig bean) {
         isAdmin();
-        Integer result = configService.updateConfigByConfigId(bean, configId);
+        Integer result = configService.updateConfigByConfigId(bean);
         return determineOperationOutcome(result);
     }
 
@@ -66,9 +66,9 @@ public class ConfigController extends ABaseController {
      * 根据ConfigId批量删除
      */
     @DeleteMapping("/deleteConfigByConfigIdBatch")
-    public Result deleteConfigByConfigIdBatch(@RequestParam List<Integer> list) {
+    public Result deleteConfigByConfigIdBatch(@RequestParam List<Integer> configIds) {
         isAdmin();
-        Integer result = configService.deleteConfigByConfigIdBatch(list);
+        Integer result = configService.deleteConfigByConfigIdBatch(configIds);
         return determineOperationOutcome(result);
     }
 

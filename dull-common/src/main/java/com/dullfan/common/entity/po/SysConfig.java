@@ -1,8 +1,11 @@
-package com.dullfan.system.entity.po;
+package com.dullfan.common.entity.po;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,9 +17,12 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Data
 public class SysConfig implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 4335843133452729405L;
     /**
      * 参数主键
      */
+    @TableId(value = "config_id",type = IdType.AUTO)
     private Integer configId;
     /**
      * 参数名称

@@ -3,7 +3,7 @@ package com.dullfan.common.utils.file;
 import com.dullfan.common.config.DullConfig;
 import com.dullfan.common.constant.Constants;
 import com.dullfan.common.utils.StringUtils;
-import org.apache.poi.util.IOUtils;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
