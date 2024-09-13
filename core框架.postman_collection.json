@@ -1,0 +1,993 @@
+{
+	"info": {
+		"_postman_id": "5df2fea4-cb95-4b1d-8551-43f727923d87",
+		"name": "core框架",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27658272"
+	},
+	"item": [
+		{
+			"name": "unfiltered",
+			"item": [
+				{
+					"name": "登录注册",
+					"item": [
+						{
+							"name": "注册用户",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\":\"DullFan4\",\r\n    \"password\":\"123123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/register",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "登录",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\":\"DullFan4\",\r\n    \"password\":\"123123\",\r\n    \"code\":\"0\",\r\n    \"uuid\":\"895fa2afe7814e329c1505e6c4d4972a\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/login",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "获取验证码",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/captchaImage",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"captchaImage"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "filtered",
+			"item": [
+				{
+					"name": "个人信息",
+					"item": [
+						{
+							"name": "获取个人信息",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/getInfo",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"getInfo"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "文件",
+					"item": [
+						{
+							"name": "上传单个文件",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/D:/AppData/项目图片/rv_img7.jpg"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{localhost}}/common/upload",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"common",
+										"upload"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除单个文件",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{localhost}}/common/deleteFile?fileUrl=/profile/upload/2024/09/07/rv_img7_20240907202340A001.jpg",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"common",
+										"deleteFile"
+									],
+									"query": [
+										{
+											"key": "fileUrl",
+											"value": "/profile/upload/2024/09/07/rv_img7_20240907202340A001.jpg"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除多个文件",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{localhost}}/common/deleteFiles?fileUrls=/profile/upload/2024/09/07/default_avatar_20240907203229A002.jpg,/profile/upload/2024/09/07/rv_img1_20240907203229A003.jpg,/profile/upload/2024/09/07/rv_img2_20240907203229A004.jpg",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"common",
+										"deleteFiles"
+									],
+									"query": [
+										{
+											"key": "fileUrls",
+											"value": "/profile/upload/2024/09/07/default_avatar_20240907203229A002.jpg,/profile/upload/2024/09/07/rv_img1_20240907203229A003.jpg,/profile/upload/2024/09/07/rv_img2_20240907203229A004.jpg"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "上传多个文件",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "files",
+											"type": "file",
+											"src": [
+												"/D:/AppData/项目图片/default_avatar.jpg",
+												"/D:/AppData/项目图片/rv_img1.jpg",
+												"/D:/AppData/项目图片/rv_img2.jpg"
+											]
+										}
+									]
+								},
+								"url": {
+									"raw": "{{localhost}}/common/uploads",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"common",
+										"uploads"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "系统配置",
+					"item": [
+						{
+							"name": "分页查询系统配置",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/config/findDataListByPage?current=1&size=10",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"config",
+										"findDataListByPage"
+									],
+									"query": [
+										{
+											"key": "current",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据ConfigId查询对象",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/config/selectConfigByConfigId?configId=1",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"config",
+										"selectConfigByConfigId"
+									],
+									"query": [
+										{
+											"key": "configId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "新增系统配置",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"configName\":\"测试文件\",\r\n    \"configKey\":\"test_key\",\r\n    \"configValue\":\"false\",\r\n    \"configType\":\"N\",\r\n    \"remark\":\"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/config/add",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"config",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据ConfigId修改对象",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"configId\":\"100\",\r\n    \"configName\":\"修改文件\",\r\n    \"configKey\":\"update_key\",\r\n    \"configValue\":\"true\",\r\n    \"configType\":\"N\",\r\n    \"remark\":\"备注\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/config/updateConfigByConfigId",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"config",
+										"updateConfigByConfigId"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据ConfigId删除对象",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/config/deleteConfigByConfigIdBatch?configIds=101,102",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"config",
+										"deleteConfigByConfigIdBatch"
+									],
+									"query": [
+										{
+											"key": "configIds",
+											"value": "101,102"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据ConfigId删除对象 Copy",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/config/deleteConfigByConfigId?configId=100",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"config",
+										"deleteConfigByConfigId"
+									],
+									"query": [
+										{
+											"key": "configId",
+											"value": "100"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "用户管理",
+					"item": [
+						{
+							"name": "获取用户列表",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/user/loadDataList?current=1&size=10",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"user",
+										"loadDataList"
+									],
+									"query": [
+										{
+											"key": "current",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "修改密码",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"oldPassword\":\"123123\",\r\n    \"newPassword\":\"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/user/resetPassword",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"user",
+										"resetPassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据UserId查询对象",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/user/selectUserByUserId?userId=101",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"user",
+										"selectUserByUserId"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "101"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据UserId修改对象",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userName\":\"修改名称\",\r\n    \"nickName\":\"修改用户名称\",\r\n    \"email\":\"asdahsdklas@qq.com\",\r\n    \"phoneNumber\":\"13276997792\",\r\n    \"sex\":\"1\",\r\n    \"avatar\":\"\",\r\n    \"age\":\"12\",\r\n    \"introduction\":\"哈哈哈哈哈哈哈啊哈哈哈啊哈哈啊哈啊哈哈哈哈哈哈啊\",\r\n    \"status\":\"0\",\r\n    \"remark\":\"怎么，不出门，西宁城北你们\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/user/updateUserByUserId?userId=101",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"user",
+										"updateUserByUserId"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "101"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据UserId修改对象 Copy",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userName\":\"修改名称\",\r\n    \"nickName\":\"修改用户名称\",\r\n    \"email\":\"asdahsdklas@qq.com\",\r\n    \"phoneNumber\":\"13276997792\",\r\n    \"sex\":\"1\",\r\n    \"avatar\":\"\",\r\n    \"age\":\"12\",\r\n    \"introduction\":\"哈哈哈哈哈哈哈啊哈哈哈啊哈哈啊哈啊哈哈哈哈哈哈啊\",\r\n    \"status\":\"0\",\r\n    \"remark\":\"怎么，不出门，西宁城北你们\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/user/updateUserByUserId?userId=101",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"user",
+										"updateUserByUserId"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "101"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据UserId删除",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/user/deleteUserByUserId?userId=1",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"user",
+										"deleteUserByUserId"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据UserId批量删除",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userName\":\"修改名称\",\r\n    \"nickName\":\"修改用户名称\",\r\n    \"email\":\"asdahsdklas@qq.com\",\r\n    \"phoneNumber\":\"13276997792\",\r\n    \"sex\":\"1\",\r\n    \"avatar\":\"\",\r\n    \"age\":\"12\",\r\n    \"introduction\":\"哈哈哈哈哈哈哈啊哈哈哈啊哈哈啊哈啊哈哈哈哈哈哈啊\",\r\n    \"status\":\"0\",\r\n    \"remark\":\"怎么，不出门，西宁城北你们\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/user/deleteUserByUserIdBatch?userIds=101,102",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"user",
+										"deleteUserByUserIdBatch"
+									],
+									"query": [
+										{
+											"key": "userIds",
+											"value": "101,102"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "通知",
+					"item": [
+						{
+							"name": "获取用户接收公告",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"sysNotice\": {\r\n\t\t\"noticeTitle\": \"DullFan\",\r\n\t\t\"noticeContent\": \"文本内容\",\r\n\t\t\"noticeType\": \"2\"\r\n\t},\r\n\t\"users\": [102,104]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/notice/selectByUserId?userId=102",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"notice",
+										"selectByUserId"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "102"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "获取用户发送通知",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"sysNotice\": {\r\n\t\t\"noticeTitle\": \"DullFan\",\r\n\t\t\"noticeContent\": \"文本内容\",\r\n\t\t\"noticeType\": \"2\"\r\n\t},\r\n\t\"users\": [102,104]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/notice/selectByCreateUserId?userId=102",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"notice",
+										"selectByCreateUserId"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "102"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "获取通知接收用户状态",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"sysNotice\": {\r\n\t\t\"noticeTitle\": \"DullFan\",\r\n\t\t\"noticeContent\": \"文本内容\",\r\n\t\t\"noticeType\": \"2\"\r\n\t},\r\n\t\"users\": [102,104]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/notice/selectByNoticeId?noticeId=32",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"notice",
+										"selectByNoticeId"
+									],
+									"query": [
+										{
+											"key": "noticeId",
+											"value": "32"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "用户阅读通知",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"sysNotice\": {\r\n\t\t\"noticeTitle\": \"DullFan\",\r\n\t\t\"noticeContent\": \"文本内容\",\r\n\t\t\"noticeType\": \"2\"\r\n\t},\r\n\t\"users\": [102,104]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/notice/readNotice?noticeId=32",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"notice",
+										"readNotice"
+									],
+									"query": [
+										{
+											"key": "noticeId",
+											"value": "32"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "发送通知",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"sysNotice\": {\r\n\t\t\"noticeTitle\": \"新版本已经发布请及时更新\",\r\n\t\t\"noticeContent\": \"文本内容\",\r\n\t\t\"noticeType\": \"2\"\r\n\t},\r\n\t\"users\": [102,104]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/notice/sendNotice",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"notice",
+										"sendNotice"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "修改通知",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"noticeId\":37,\r\n\t\"noticeTitle\": \"发现104、1\",\r\n\t\"noticeContent\": \"221111122\",\r\n\t\"status\": \"0\",\r\n\t\"users\": [104,1]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/notice/updateNotice",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"notice",
+										"updateNotice"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除通知",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{localhost}}/notice/delNotice?noticeId=16",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"notice",
+										"delNotice"
+									],
+									"query": [
+										{
+											"key": "noticeId",
+											"value": "16"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "批量删除通知",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{localhost}}/notice/delNoticeBatchIds?noticeIds=21,22,23,24",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"notice",
+										"delNoticeBatchIds"
+									],
+									"query": [
+										{
+											"key": "noticeIds",
+											"value": "21,22,23,24"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbl91c2VyX2tleSI6Ijc3MGU2ODY2LTk0NTItNGQyNi05YWY5LWNkOGIyMDg1MGEyMiJ9.Dy1btv-OXwhisrwuQxTk8O7sxn3W7te3l-ktB6HM93g",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}

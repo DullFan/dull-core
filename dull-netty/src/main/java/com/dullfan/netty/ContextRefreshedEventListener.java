@@ -1,8 +1,7 @@
 package com.dullfan.netty;
 
-import lombok.RequiredArgsConstructor;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Configuration;
@@ -13,11 +12,17 @@ import org.springframework.core.annotation.Order;
 @Configuration
 @Order(Ordered.HIGHEST_PRECEDENCE + 1)
 @Slf4j
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ContextRefreshedEventListener implements ApplicationListener<ContextRefreshedEvent> {
 
+    @Resource
     private final ChatServer chatServer;
+    @Resource
     private final ConfigurableApplicationContext context;
+
+    public ContextRefreshedEventListener(ChatServer chatServer, ConfigurableApplicationContext context) {
+        this.chatServer = chatServer;
+        this.context = context;
+    }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
