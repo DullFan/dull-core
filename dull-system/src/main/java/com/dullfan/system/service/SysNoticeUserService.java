@@ -1,7 +1,6 @@
 package com.dullfan.system.service;
 
 
-import com.dullfan.common.entity.po.SysNotice;
 import com.dullfan.common.entity.po.SysNoticeUser;
 
 import java.util.List;

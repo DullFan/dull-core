@@ -62,5 +62,5 @@ public interface UserService{
 	 * @param user 用户信息
 	 * @return 结果
 	 */
-	public boolean checkUserNameUnique(SysUser user);
+    boolean checkUserNameUnique(SysUser user);
 }

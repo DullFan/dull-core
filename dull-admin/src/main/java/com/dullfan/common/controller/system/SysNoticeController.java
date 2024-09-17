@@ -8,7 +8,6 @@ import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.netty.websocket.ChatHandler;
 import com.dullfan.system.service.SysNoticeService;
 import jakarta.annotation.Resource;
-import lombok.Getter;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

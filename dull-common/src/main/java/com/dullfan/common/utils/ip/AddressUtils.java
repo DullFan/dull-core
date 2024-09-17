@@ -38,7 +38,7 @@ public class AddressUtils {
                 String city = obj.getString("city");
                 return String.format("%s %s", region, city);
             } catch (Exception e) {
-                log.error("获取地理位置异常 {}", ip);
+                log.error("发生了错误{} 获取地理位置异常 {}", e.getMessage(), ip);
             }
         }
         return UNKNOWN;

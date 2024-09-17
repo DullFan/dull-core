@@ -1,7 +1,6 @@
 package com.dullfan.netty.event;
 
 import com.dullfan.common.entity.dto.SysNoticeDto;
-import com.dullfan.common.entity.po.SysNotice;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

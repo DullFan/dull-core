@@ -2,7 +2,6 @@ package com.dullfan.system.service.impl;
 
 import java.util.List;
 
-import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -12,12 +11,9 @@ import com.dullfan.common.utils.DateUtils;
 import com.dullfan.common.utils.SecurityUtils;
 import com.dullfan.common.utils.StringUtils;
 import jakarta.annotation.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import com.dullfan.system.mappers.SysUserMapper;
 import com.dullfan.system.service.UserService;
-import springfox.documentation.spring.web.json.Json;
 
 /**
  * 用户信息表 业务接口实现

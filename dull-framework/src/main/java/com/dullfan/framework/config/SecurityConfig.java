@@ -4,7 +4,6 @@ import com.dullfan.framework.security.filter.JwtAuthenticationTokenFilter;
 import com.dullfan.framework.security.handle.AuthenticationEntryPointImpl;
 import com.dullfan.framework.security.handle.LogoutSuccessHandlerImpl;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

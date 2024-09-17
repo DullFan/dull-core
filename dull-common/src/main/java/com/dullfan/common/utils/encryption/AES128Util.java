@@ -2,6 +2,8 @@ package com.dullfan.common.utils.encryption;
 
 import com.dullfan.common.utils.sign.Base64;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -22,12 +24,12 @@ public class AES128Util {
 
     private static final String AES_STR = "AES";
     private static final String INSTANCE_STR = "AES/CBC/PKCS5Padding";
+    private static final Logger log = LoggerFactory.getLogger(AES128Util.class);
 
     /**
      * 加密 128位
      *
      * @param content 需要加密的原内容
-     * @return
      */
     public static byte[] aesEncrypt(byte[] content) {
         try {
@@ -35,10 +37,9 @@ public class AES128Util {
             Cipher cipher = Cipher.getInstance(INSTANCE_STR);
             IvParameterSpec iv = new IvParameterSpec(IV.getBytes());
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, iv);
-            byte[] encrypted = cipher.doFinal(content);
-            return encrypted;
+            return cipher.doFinal(content);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return null;
     }
@@ -48,7 +49,6 @@ public class AES128Util {
      *
      * @param content 解密前的byte数组
      * @return result  解密后的byte数组
-     * @throws Exception
      */
     public static byte[] aesDecode(byte[] content) {
         try {
@@ -56,10 +56,9 @@ public class AES128Util {
             IvParameterSpec iv = new IvParameterSpec(IV.getBytes(StandardCharsets.UTF_8));
             Cipher cipher = Cipher.getInstance(INSTANCE_STR);
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, iv);
-            byte[] result = cipher.doFinal(content);
-            return result;
+            return cipher.doFinal(content);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return null;
     }
@@ -68,7 +67,6 @@ public class AES128Util {
      * 加密字符串 128位
      *
      * @param content 需要加密的原内容
-     * @return
      */
     public static String aesEncryptString(String content) {
         if (StringUtils.isBlank(content)) {
@@ -82,7 +80,7 @@ public class AES128Util {
             byte[] encrypted = cipher.doFinal(content.getBytes(StandardCharsets.UTF_8));
             return Base64.encode(encrypted);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return StringUtils.EMPTY;
     }
@@ -92,7 +90,6 @@ public class AES128Util {
      *
      * @param content 解密前的byte数组
      * @return result  解密后的byte数组
-     * @throws Exception
      */
     public static String aesDecodeString(String content) {
         if (StringUtils.isBlank(content)) {
@@ -104,9 +101,9 @@ public class AES128Util {
             Cipher cipher = Cipher.getInstance(INSTANCE_STR);
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, iv);
             byte[] result = cipher.doFinal(Base64.decode(content));
-            return new String(result, 0, result.length, StandardCharsets.UTF_8);
+            return new String(result, StandardCharsets.UTF_8);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return StringUtils.EMPTY;
     }

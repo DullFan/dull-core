@@ -33,7 +33,7 @@ public class WebSocketRateLimitHandler extends ChannelInboundHandlerAdapter {
     private int lockTime;
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
 
         InetSocketAddress inetSocketAddress = (InetSocketAddress) ctx.channel().remoteAddress();
         String ip = inetSocketAddress.getAddress().getHostAddress();

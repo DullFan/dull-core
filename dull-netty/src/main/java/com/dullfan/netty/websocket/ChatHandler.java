@@ -61,7 +61,7 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        cause.printStackTrace();
+        log.error(cause.getMessage());
         Channel channel = ctx.channel();
         // 关闭连接
         channel.close();

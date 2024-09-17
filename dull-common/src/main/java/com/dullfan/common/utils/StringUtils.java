@@ -2,16 +2,17 @@ package com.dullfan.common.utils;
 
 import com.dullfan.common.constant.Constants;
 import com.dullfan.common.core.text.StrFormatter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.AntPathMatcher;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
 
-
+@Slf4j
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
     /** 空字符串 */
-    private static final String NULLSTR = "";
+    private static final String NULL_STR = "";
 
     /** 下划线 */
     private static final char SEPARATOR = '_';
@@ -93,7 +94,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return true：为空 false：非空
      */
     public static boolean isEmpty(String str) {
-        return isNull(str) || NULLSTR.equals(str.trim());
+        return isNull(str) || NULL_STR.equals(str.trim());
     }
 
     /**
@@ -152,7 +153,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      */
     public static String substring(final String str, int start) {
         if (str == null) {
-            return NULLSTR;
+            return NULL_STR;
         }
 
         if (start < 0) {
@@ -163,7 +164,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             start = 0;
         }
         if (start > str.length()) {
-            return NULLSTR;
+            return NULL_STR;
         }
 
         return str.substring(start);
@@ -179,7 +180,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      */
     public static String substring(final String str, int start, int end) {
         if (str == null) {
-            return NULLSTR;
+            return NULL_STR;
         }
 
         if (end < 0) {
@@ -194,7 +195,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         }
 
         if (start > end) {
-            return NULLSTR;
+            return NULL_STR;
         }
 
         if (start < 0) {
@@ -354,9 +355,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         }
         StringBuilder sb = new StringBuilder();
         // 前置字符是否大写
-        boolean preCharIsUpperCase = true;
+        boolean preCharIsUpperCase;
         // 当前字符是否大写
-        boolean curreCharIsUpperCase = true;
+        boolean curreCharIsUpperCase;
         // 下一字符是否大写
         boolean nexteCharIsUpperCase = true;
         for (int i = 0; i < str.length(); i++) {
@@ -559,7 +560,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             throw new RuntimeException("校验参数是否为空失败");
         }
     }

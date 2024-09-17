@@ -53,7 +53,7 @@ public class AuthHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        cause.printStackTrace();
+        log.error(cause.getMessage());
         userChannelManager.remove(ctx.channel());
         ctx.channel().close();
     }

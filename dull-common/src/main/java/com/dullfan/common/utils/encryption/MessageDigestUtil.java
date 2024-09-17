@@ -3,6 +3,8 @@ package com.dullfan.common.utils.encryption;
 import com.dullfan.common.utils.sign.Base64;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -16,6 +18,7 @@ public class MessageDigestUtil {
     private static final String SHA1_STR = "SHA1";
     private static final String SHA256_STR = "SHA-256";
     public static final String ZERO_STR = "0";
+    private static final Logger log = LoggerFactory.getLogger(MessageDigestUtil.class);
 
     /**
      * 采用指定的单向散列模式加密
@@ -51,7 +54,7 @@ public class MessageDigestUtil {
             }
             result = Base64.encode(encryptBytes);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return result;
     }

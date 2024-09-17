@@ -337,10 +337,6 @@ public final class HTMLFilter {
                     paramName = paramNames.get(ii).toLowerCase();
                     paramValue = paramValues.get(ii);
 
-                    // debug( "paramName='" + paramName + "'" );
-                    // debug( "paramValue='" + paramValue + "'" );
-                    // debug( "allowed? " + vAllowed.get( name ).contains( paramName ) );
-
                     if (allowedAttribute(name, paramName)) {
                         if (inArray(paramName, vProtocolAtts)) {
                             paramValue = processParamProtocol(paramValue);

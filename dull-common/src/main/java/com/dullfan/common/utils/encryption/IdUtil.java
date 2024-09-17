@@ -1,6 +1,7 @@
 package com.dullfan.common.utils.encryption;
 
 import com.dullfan.common.exception.ServiceException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
@@ -15,17 +16,18 @@ import static com.dullfan.common.constant.Constants.COMMON_SEPARATOR;
 /**
  * 雪花算法id生成器
  */
+@Slf4j
 public class IdUtil {
 
     /**
      * 工作id 也就是机器id
      */
-    private static long workerId;
+    private static final long workerId;
 
     /**
      * 数据中心id
      */
-    private static long dataCenterId;
+    private static final long dataCenterId;
 
     /**
      * 序列号
@@ -33,54 +35,49 @@ public class IdUtil {
     private static long sequence;
 
     /**
-     * 初始时间戳
-     */
-    private static long startTimestamp = 1288834974657L;
-
-    /**
      * 工作id长度为5位
      */
-    private static long workerIdBits = 5L;
+    private static final long workerIdBits = 5L;
 
     /**
      * 数据中心id长度为5位
      */
-    private static long dataCenterIdBits = 5L;
+    private static final long dataCenterIdBits = 5L;
 
     /**
      * 工作id最大值
      */
-    private static long maxWorkerId = -1L ^ (-1L << workerIdBits);
+    private static final long maxWorkerId = ~(-1L << workerIdBits);
 
     /**
      * 数据中心id最大值
      */
-    private static long maxDataCenterId = -1L ^ (-1L << dataCenterIdBits);
+    private static final long maxDataCenterId = ~(-1L << dataCenterIdBits);
 
     /**
      * 序列号长度
      */
-    private static long sequenceBits = 12L;
+    private static final long sequenceBits = 12L;
 
     /**
      * 序列号最大值
      */
-    private static long sequenceMask = -1L ^ (-1L << sequenceBits);
+    private static final long sequenceMask = ~(-1L << sequenceBits);
 
     /**
      * 工作id需要左移的位数，12位
      */
-    private static long workerIdShift = sequenceBits;
+    private static final long workerIdShift = sequenceBits;
 
     /**
      * 数据id需要左移位数 12+5=17位
      */
-    private static long dataCenterIdShift = sequenceBits + workerIdBits;
+    private static final long dataCenterIdShift = sequenceBits + workerIdBits;
 
     /**
      * 时间戳需要左移位数 12+5+5=22位
      */
-    private static long timestampLeftShift = sequenceBits + workerIdBits + dataCenterIdBits;
+    private static final long timestampLeftShift = sequenceBits + workerIdBits + dataCenterIdBits;
 
     /**
      * 上次时间戳，初始值为负数
@@ -103,9 +100,11 @@ public class IdUtil {
         try {
             e = NetworkInterface.getNetworkInterfaces();
         } catch (SocketException e1) {
-            e1.printStackTrace();
+            log.error(Arrays.toString(e1.getStackTrace()));
         }
-        while (e.hasMoreElements()) {
+        while (true) {
+            assert e != null;
+            if (!e.hasMoreElements()) break;
             NetworkInterface ni = e.nextElement();
             sb.append(ni.toString());
         }
@@ -156,14 +155,7 @@ public class IdUtil {
         //将上次时间戳值刷新
         lastTimestamp = timestamp;
 
-        /**
-         * 返回结果：
-         * (timestamp - twepoch) << timestampLeftShift) 表示将时间戳减去初始时间戳，再左移相应位数
-         * (datacenterId << datacenterIdShift) 表示将数据id左移相应位数
-         * (workerId << workerIdShift) 表示将工作id左移相应位数
-         * | 是按位或运算符，例如：x | y，只有当x，y都为0的时候结果才为0，其它情况结果都为1。
-         * 因为个部分只有相应位上的值有意义，其它位上都是0，所以将各部分的值进行 | 运算就能得到最终拼接好的id
-         */
+        long startTimestamp = 1288834974657L;
         return ((timestamp - startTimestamp) << timestampLeftShift) |
                 (dataCenterId << dataCenterIdShift) |
                 (workerId << workerIdShift) |

@@ -23,7 +23,7 @@ public class HeartBeatHandler extends ChannelInboundHandlerAdapter {
     private UserChannelManager userChannelManager;
 
     @Override
-    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
         if(evt instanceof IdleStateEvent event){
             if(event.state() == IdleState.ALL_IDLE){
                 Channel channel = ctx.channel();

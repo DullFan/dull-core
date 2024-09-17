@@ -1,7 +1,6 @@
 package com.dullfan.common.core.redis;
 
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundSetOperations;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -98,15 +97,14 @@ public class RedisCache {
      *
      * @param key
      */
-    public boolean deleteObject(final String key) {
-        return redisTemplate.delete(key);
+    public void deleteObject(final String key) {
+        redisTemplate.delete(key);
     }
 
     /**
      * 删除集合对象
      *
      * @param collection 多个对象
-     * @return
      */
     public boolean deleteObject(final Collection collection) {
         return redisTemplate.delete(collection) > 0;
@@ -143,9 +141,8 @@ public class RedisCache {
      */
     public <T> BoundSetOperations<String, T> setCacheSet(final String key, final Set<T> dataSet) {
         BoundSetOperations<String, T> setOperation = redisTemplate.boundSetOps(key);
-        Iterator<T> it = dataSet.iterator();
-        while (it.hasNext()) {
-            setOperation.add(it.next());
+        for (T t : dataSet) {
+            setOperation.add(t);
         }
         return setOperation;
     }

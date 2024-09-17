@@ -31,8 +31,4 @@ public class RepeatableFilter implements Filter {
         }
     }
 
-    @Override
-    public void destroy() {
-
-    }
 }

@@ -16,6 +16,7 @@ public class ContextRefreshedEventListener implements ApplicationListener<Contex
 
     @Resource
     private final ChatServer chatServer;
+
     @Resource
     private final ConfigurableApplicationContext context;
 
@@ -30,7 +31,6 @@ public class ContextRefreshedEventListener implements ApplicationListener<Contex
             webSocketServerBoot();
         } catch (Exception e) {
             log.error("WebSocket启动异常，异常信息：{}", e.getMessage());
-            e.printStackTrace();
             context.close();
             System.exit(-1);
         }

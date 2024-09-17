@@ -1,8 +1,6 @@
 package com.dullfan.netty.listener;
 
-import com.dullfan.common.entity.dto.SysNoticeDto;
 import com.dullfan.netty.event.SendAnnouncementEvent;
-import com.dullfan.common.entity.po.SysNotice;
 import com.dullfan.system.service.SysNoticeService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

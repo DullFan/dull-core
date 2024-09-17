@@ -176,7 +176,7 @@ public class FileUtils {
      * @param s 需要百分号编码的字符串
      * @return 百分号编码后的字符串
      */
-    public static String percentEncode(String s) throws UnsupportedEncodingException {
+    public static String percentEncode(String s) {
         String encode = URLEncoder.encode(s, StandardCharsets.UTF_8);
         return encode.replaceAll("\\+", "%20");
     }

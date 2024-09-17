@@ -106,7 +106,7 @@ public class TokenService {
                 String userKey = getTokenKey(uuid);
                 return redisCache.getCacheObject(userKey);
             } catch (Exception e) {
-                log.error("获取用户信息异常'{}'", e.getMessage());
+                log.error("获取用户信息异常 {}'", e.getMessage());
             }
         }
         return null;

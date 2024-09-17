@@ -105,9 +105,7 @@ public class UserChannelManager {
                 String json = JsonUtils.toJson(webSocketMsg);
                 TextWebSocketFrame textWebSocketFrame = new TextWebSocketFrame(json);
                 ChannelFuture channelFuture = channel.writeAndFlush(textWebSocketFrame);
-                channelFuture.addListener((ChannelFutureListener) future -> {
-                    log.debug("对uid：{}, 发送websocket消息：{}", uid, json);
-                });
+                channelFuture.addListener((ChannelFutureListener) future -> printLog(uid,json));
             }
         }
     }
@@ -143,12 +141,14 @@ public class UserChannelManager {
                 if (channel.isActive() && !channel.equals(currentChannel)) {
                     TextWebSocketFrame textWebSocketFrame = new TextWebSocketFrame(json);
                     ChannelFuture channelFuture = channel.writeAndFlush(textWebSocketFrame);
-                    channelFuture.addListener((ChannelFutureListener) future -> {
-                        log.debug("对uid：{}, 发送websocket消息：{}", uid, json);
-                    });
+                    channelFuture.addListener((ChannelFutureListener) future -> printLog(uid,json));
                 }
             }
         });
+    }
+
+    public void printLog(Long uid,String json){
+        log.debug("对uid：{}, 发送websocket消息：{}", uid, json);
     }
 
     /**
@@ -169,9 +169,7 @@ public class UserChannelManager {
                 if (channel.isActive()) {
                     TextWebSocketFrame textWebSocketFrame = new TextWebSocketFrame(json);
                     ChannelFuture channelFuture = channel.writeAndFlush(textWebSocketFrame);
-                    channelFuture.addListener((ChannelFutureListener) future -> {
-                        log.debug("对uid：{}, 发送websocket消息：{}", uid, json);
-                    });
+                    channelFuture.addListener((ChannelFutureListener) future -> printLog(uid,json));
                 }
             }
         });

@@ -1,6 +1,5 @@
 package com.dullfan.common.enums;
 
-import lombok.Data;
 import lombok.Getter;
 
 /**

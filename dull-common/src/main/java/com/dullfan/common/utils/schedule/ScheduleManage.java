@@ -30,7 +30,7 @@ public class ScheduleManage {
     /**
      * 内部正在执行的定时任务缓存
      */
-    private Map<String, ScheduleTaskHolder> cache = new ConcurrentHashMap<>();
+    private final Map<String, ScheduleTaskHolder> cache = new ConcurrentHashMap<>();
 
     /**
      * 启动一个定时任务
