@@ -74,7 +74,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/register", "/emailRegister", "/captchaImage", "/emailCodeLogin","/test/*").permitAll()
+                        .requestMatchers("/login", "/register", "/emailRegister", "/captchaImage", "/emailCodeLogin","/test/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/profile/**").permitAll()
                         .requestMatchers("/druid/**").permitAll()
                         .anyRequest().authenticated())
