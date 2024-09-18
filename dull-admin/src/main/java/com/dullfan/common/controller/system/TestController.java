@@ -15,6 +15,6 @@ public class TestController extends ABaseController {
 
     @GetMapping("/getInfo")
     public Result login() {
-        return success("更新测试文件");
+        return success("再次更新测试文件");
     }
 }
